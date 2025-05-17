@@ -104,8 +104,8 @@
     <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.2rem;">▶ Play</button>
     
     <div class="volume-control d-flex align-items-center" style="color: #fff;">
-      <label for="volume-slider" style="margin-right: 8px; font-size: 0.9rem;">🔊</label>
-      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 100px;">
+     <label for="volume-slider" id="volume-icon" style="margin-right: 8px; font-size: 0.9rem; cursor: pointer;">🔊</label>
+     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 100px;">
     </div>
   </div>
 
@@ -139,6 +139,21 @@
   volumeSlider.addEventListener('input', () => {
     player.volume = volumeSlider.value;
   });
+
+  let previousVolume = volumeSlider.value;
+
+document.getElementById('volume-icon').addEventListener('click', () => {
+  if (player.volume > 0) {
+    previousVolume = player.volume; // salva il volume attuale
+    player.volume = 0;
+    volumeSlider.value = 0;
+    document.getElementById('volume-icon').innerText = '🔇';
+  } else {
+    player.volume = previousVolume;
+    volumeSlider.value = previousVolume;
+    document.getElementById('volume-icon').innerText = '🔊';
+  }
+});
 </script>
 
 
@@ -168,7 +183,7 @@
 <div class="row trainers pl-0 pr-0">
   <div id="news" class="col-12 bg-50">
     <div class="quote-box2 wow bounceInDown" data-wow-delay=".25s">
-      <h2>NO-STOP NEWS 24H per la mia radio</h2>
+      <h2>NO-STOP NEWS 24H</h2>
       <!-- Ticker delle news -->
       <div id="news-ticker" style="background: rgba(0, 0, 0, 0); color: #ffffff00; padding: 10px 20px; border-radius: 10px; margin-top: 15px; overflow: hidden; font-size: 1.1em;"></div>
     </div>
