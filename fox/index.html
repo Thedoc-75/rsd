@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Radio Studio Doc - Webradio musicale 24/7 con il meglio della musica, news, cultura e intrattenimento.">
+  <meta name="author" content="Radio Studio Doc">
+  <title>Radio Studio Doc</title>
+
+  <!-- CSS -->
+  <link href="css/animate.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    .card {
+  background-color: rgb(0, 0, 0); /* leggero contrasto */
+  border-radius: 15px;
+  box-shadow: 0 4px 4px rgb(0, 0, 0);
+  padding: 2px;
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-8px);
+}
+
+    .card .card-title,
+    .card .card-text {
+      color: #ffffff;
+    }
+
+    .card-img-top {
+      border: 10px solid #000000;
+    }
+
+    .gallery .card {
+      margin-top: 15px;
+    }
+
+    .radio-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3.5rem;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5);
+      display: inline-block;
+      padding-bottom: 30px;
+    }
+
+    .radio-title small {
+      display: block;
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+<div class="contenuto"></div>
+<!-- HEADER -->
+
+  <nav class="navbar navbar-expand-md navbar-dark">
+    <div class="container">
+      <a class="navbar-brand mr-auto" href="#"><img src="images/radiostudiodoc.png" alt="Radio Studio Doc Logo"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">ABOUT-US</a></li>
+          <li class="nav-item"><a class="nav-link" href="#news">NEWS</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="parallax-separator"></div>
+
+
+  <div class="container">
+  <div class="fh5co-banner-text-box">
+    <div class="quote-box pl-5 pr-5 wow bounceInRight">
+      <h1 class="radio-title" aria-label="Radio Studio Doc">
+        <span>RADIO STUDIO DOC</span><br>
+        <span class="subtitle">"VOCI, SUONI ED EMOZIONI IN SINTONIA CON SALUTE E BENESSERE"</span>
+      </h1>
+    </div>
+  </div>
+</div>
+
+  <div class="parallax-separator"></div>
+
+<!-- PLAYER RADIO STUDIO DOC CON PLAY/STOP E VOLUME -->
+<div id="custom-player" class="text-center p-4" style="background: #111; color: #fff; border-radius: 20px; max-width: 450px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3);">
+  <h3 style="font-family: 'Oswald', sans-serif; color: #ffffff;">🔴 Radio Studio Doc</h3>
+  <p style="font-size: 1.1rem; font-weight: 300; color: #ccc;">Your Sound Your Station</p>
+
+  <div class="d-flex justify-content-center align-items-center mt-3 gap-2" style="gap: 15px;">
+    <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.2rem;">▶ Play</button>
+    
+    <div class="volume-control d-flex align-items-center" style="color: #fff;">
+      <label for="volume-slider" style="margin-right: 8px; font-size: 0.9rem;">🔊</label>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 100px;">
+    </div>
+  </div>
+
+  <audio id="audio-player" src="https://radio.radiostudiodoc.org" preload="none"></audio>
+</div>
+
+
+<div class="parallax-separator"></div>
+
+<script>
+  const player = document.getElementById('audio-player');
+  const button = document.getElementById('toggle-button');
+  const volumeSlider = document.getElementById('volume-slider');
+  let isPlaying = false;
+
+  // Play/Stop toggle
+  button.addEventListener('click', () => {
+    if (!isPlaying) {
+      player.play();
+      button.innerHTML = '⏸ Stop';
+      isPlaying = true;
+    } else {
+      player.pause();
+      player.currentTime = 0;
+      button.innerHTML = '▶ Play';
+      isPlaying = false;
+    }
+  });
+
+  // Volume control
+  volumeSlider.addEventListener('input', () => {
+    player.volume = volumeSlider.value;
+  });
+</script>
+
+
+
+
+
+<!-- ABOUT US -->
+
+<section id="about" class="container-fluid mt-5 pt-5 fh5co-about-us">
+    <div class="container">
+    <h2 class="mb-5 text-center font-weight-bold titleabout text-white wow fadeInDown">ABOUT US</h2>
+    <div class="row">
+      <div class="col-md-6 pr-5 pl-5 breaking-news-box wow fadeInLeft">
+        <p>Radio Studio Doc nasce dall’ esperienza e dalla passione di un gruppo di persone per la musica, l’intrattenimento e la cultura. Il nostro obiettivo è offrire un palinsesto ricco, vario e di qualità.</p>
+      </div>
+      <div class="col-md-6 pl-5 pr-5 video-box wow fadeInRight">
+        <p>La nostra radio propone programmi musicali, talk show, interviste, eventi live e molto altro. Siamo sempre alla ricerca di nuovi talenti e di contenuti freschi e coinvolgenti.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<div class="row trainers pl-0 pr-0">
+  <div id="news" class="col-12 bg-50">
+    <div class="quote-box2 wow bounceInDown" data-wow-delay=".25s">
+      <h2>NO-STOP NEWS 24H per la mia radio</h2>
+      <!-- Ticker delle news -->
+      <div id="news-ticker" style="background: rgba(0, 0, 0, 0); color: #ffffff00; padding: 10px 20px; border-radius: 10px; margin-top: 15px; overflow: hidden; font-size: 1.1em;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="parallax-separator"></div>
+
+
+ 
+
+ <div class="row"> 
+  <div class="col-md-6 pr-5 pl-5 breaking-news-box">
+    <div class="card text-center wow bounceInLeft" data-wow-delay=".25s">
+      <img class="card-img-top rounded-circle img-fluid" src="images/terra.jpg" alt="Breaking News">
+      <div class="card-body mb-5">
+        <h4 class="card-title">Breaking News</h4>
+        <p class="card-text">Radio Studio Doc presenta il nuovo programma "Night Beats", ogni sera alle 22.00 con DJ Doc!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 pl-5 pr-5 video-box">
+    <div class="card text-center wow bounceInRight" data-wow-delay=".25s">
+      <img class="card-img-top rounded-circle img-fluid" src="images/ai3.jpg" alt="Video">
+      <div class="card-body mb-5">
+        <h4 class="card-title">Video</h4>
+        <p class="card-text">Guarda il nostro esclusivo backstage con gli speaker di Radio Studio Doc!</p>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+  
+
+
+<!-- GALLERY -->
+<section id="gallery" class="container-fluid mt-5 pt-5 pb-5 bg-gallery">
+  <div class="container">
+    <h2 class="text-center mb-5 font-weight-bold text-white wow fadeInUp">GALLERY</h2>
+    <div class="row gallery">
+      <div class="col-md-4 wow fadeInUp">
+        <div class="card">
+          <img src="images/poadcast.jpg" class="card-img-top" alt="Podcast">
+          <div class="card-body">
+            <h5 class="card-title">Podcast</h5>
+            <p class="card-text">Ascolta i nostri podcast più recenti, sempre aggiornati e interessanti.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="card">
+          <img src="images/ai.jpg" class="card-img-top" alt="Live Shows">
+          <div class="card-body">
+            <h5 class="card-title">Live Shows</h5>
+            <p class="card-text">Eventi dal vivo con ospiti e artisti emergenti, per un’esperienza unica.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 wow fadeInUp" data-wow-delay="0.6s">
+        <div class="card">
+          <img src="images/travel.jpg" class="card-img-top" alt="On Tour">
+          <div class="card-body">
+            <h5 class="card-title">On Tour</h5>
+            <p class="card-text">Segui la nostra radio durante i tour e gli eventi speciali in tutta Italia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="parallax-separator"></div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="container-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 footer1 d-flex wow bounceInLeft" data-wow-delay=".25s">
+        <div class="d-flex flex-wrap align-content-center">
+          <a href="#"><img src="images/radiostudiodoc.png" alt="logo"></a>
+          <p>Follow Us</p>
+          <p>&copy; 2018 Foxpro. All rights reserved.<br> Design by <a href="https://freehtml5.co" target="_blank">FreeHTML5</a>.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 footer2 wow bounceInUp" data-wow-delay=".25s" id="contact">
+        <div class="form-box">
+          <h4>CONTACT US</h4>
+         <form action="mailto:giocic75@gmail.com" method="post" enctype="text/plain">
+  <table class="table table-responsive d-table">
+    <tr>
+      <td><input type="text" class="form-control pl-0" placeholder="NAME" name="name" required></td>
+      <td><input type="email" class="form-control pl-0" placeholder="EMAIL" name="email" required></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="text" class="form-control pl-0" placeholder="ADDRESS" name="address"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><textarea class="form-control pl-0" placeholder="MESSAGES" name="message" rows="4" required></textarea></td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-center pl-0"><button type="submit" class="btn btn-dark">SEND</button></td>
+    </tr>
+  </table>
+</form>
+       </div>
+      </div>
+
+      <div class="col-md-3 footer3 wow bounceInRight" data-wow-delay=".25s">
+        <h5>ADDRESS</h5>
+        <p>Monza, Lombardia</p>
+        <h5>PHONE</h5>
+        <p>00393298731796</p>
+        <h5>EMAIL</h5>
+        <p>giocic75@gmail.com</p>
+        <div class="social-links">
+          <ul class="nav nav-item">
+            <li><a href="https://www.facebook.com/giovanni.cicciarella.3" class="btn btn-secondary mr-1 mb-2" aria-label="facebook"><img src="images/facebook.png" alt="facebook"></a></li>
+            <li><a href="https://www.instagram.com/cicciarella_giovanni/#" class="btn btn-secondary mr-1 mb-2" aria-label="instagram"><img src="images/instagram.png" alt="facebook"></a></li>
+            <li><a href="http://www.tiktok.com/@giocic75" class="btn btn-secondary mr-1 mb-2" aria-label="tiktok"><img src="images/tiktok.png" alt="tiktok"></a></li>
+            <li><a href="https://wa.me/393298731796" class="btn btn-secondary mr-1 mb-2" aria-label="whatsapp"><img src="images/whatsapp.png" alt="whatsapp"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</footer>
+
+<!-- JavaScript -->
+<script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/parallax.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Mostra il banner solo se l'utente non ha ancora accettato
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!localStorage.getItem('cookiesAccepted')) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+
+    document.getElementById('accept-cookies').addEventListener('click', function () {
+      localStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookie-banner').style.display = 'none';
+    });
+  });
+</script>
+
+<!-- Cookie & Privacy Banner -->
+<div id="cookie-banner" style="position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; border-radius: 10px; z-index: 9999; display: none;">
+  <div style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; align-items: center;">
+    <p style="margin: 0 0 10px 0; text-align: center;">
+      Questo sito utilizza cookie per migliorare l’esperienza utente e analizzare il traffico. Proseguendo, accetti la nostra 
+      <a href="/privacy.html" style="color: #ff8013; text-decoration: underline;">Privacy Policy</a>.
+    </p>
+    <button id="accept-cookies" class="btn btn-outline-light">Accetta</button>
+  </div>
+</div>
+
+</body>
+</html>
