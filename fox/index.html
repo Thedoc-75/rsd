@@ -157,27 +157,6 @@ document.getElementById('volume-icon').addEventListener('click', () => {
 });
 </script>
 
-  <!-- NOW PLAYING -->
-<div id="nowplaying" style="margin-top: 20px; font-size: 1rem; font-weight: bold; color: #ff5555;">
-  🎶 In onda ora: caricamento...
-</div>
-
-<script>
-  function updateNowPlaying() {
-    fetch('/NowPlaying.txt')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('nowplaying').innerText = '🎶 In onda ora: ' + data.trim();
-      })
-      .catch(() => {
-        document.getElementById('nowplaying').innerText = '🎶 In onda ora: non disponibile';
-      });
-  }
-
-  updateNowPlaying();
-  setInterval(updateNowPlaying, 10000); // ogni 10 secondi
-</script>
-
 <!-- ABOUT US -->
 
 <section id="about" class="container-fluid mt-5 pt-5 fh5co-about-us">
