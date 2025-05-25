@@ -96,33 +96,37 @@
 
   <div class="parallax-separator"></div>
 
-<!-- PLAYER RADIO STUDIO DOC CON PLAY/STOP E VOLUME -->
-<div id="custom-player" class="text-center p-4" style="background: #111; color: #fff; border-radius: 20px; max-width: 450px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3);">
-  <h3 style="font-family: 'Oswald', sans-serif; color: #ffffff;">🔴 Radio Studio Doc</h3>
-  <p style="font-size: 1.1rem; font-weight: 300; color: #ccc;">Your Sound Your Station</p>
+<!-- PLAYER RADIO STUDIO DOC CON METADATI -->
+<div id="custom-player" class="text-center p-4"
+     style="background: #111; color: #fff; border-radius: 20px; max-width: 480px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3); font-family: 'Oswald', sans-serif;">
+  
+  <h3 style="color: #ffffff; margin-bottom: 5px;">🔴 Radio Studio Doc</h3>
+  <p style="font-size: 1.1rem; font-weight: 300; color: #ccc; margin-bottom: 15px;">Your Sound Your Station</p>
 
-  <div class="d-flex justify-content-center align-items-center mt-3 gap-2" style="gap: 15px;">
-    <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.2rem;">▶ Play</button>
+  <!-- METADATI -->
+  <div id="metadata" style="margin: 15px 0; font-size: 1rem; color: #ffdddd;">🎵 Caricamento brano...</div>
+
+  <div class="d-flex justify-content-center align-items-center mt-3" style="gap: 15px;">
+    <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.2rem; padding: 8px 20px;">▶ Play</button>
     
     <div class="volume-control d-flex align-items-center" style="color: #fff;">
-     <label for="volume-slider" id="volume-icon" style="margin-right: 8px; font-size: 0.9rem; cursor: pointer;">🔊</label>
-     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 100px;">
+      <label for="volume-slider" id="volume-icon" style="margin-right: 8px; font-size: 1.2rem; cursor: pointer;">🔊</label>
+      <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" style="width: 100px;">
     </div>
   </div>
 
   <audio id="audio-player" src="https://radio.radiostudiodoc.org/thedoc" preload="none"></audio>
 </div>
 
-
-
-
 <script>
   const player = document.getElementById('audio-player');
   const button = document.getElementById('toggle-button');
   const volumeSlider = document.getElementById('volume-slider');
+  const metadataDiv = document.getElementById('metadata');
   let isPlaying = false;
+  let previousVolume = volumeSlider.value;
 
-  // Play/Stop toggle
+  // Toggle play/pause
   button.addEventListener('click', () => {
     if (!isPlaying) {
       player.play();
@@ -130,7 +134,6 @@
       isPlaying = true;
     } else {
       player.pause();
-      player.currentTime = 0;
       button.innerHTML = '▶ Play';
       isPlaying = false;
     }
@@ -139,23 +142,45 @@
   // Volume control
   volumeSlider.addEventListener('input', () => {
     player.volume = volumeSlider.value;
+    document.getElementById('volume-icon').innerText = player.volume == 0 ? '🔇' : '🔊';
   });
 
-  let previousVolume = volumeSlider.value;
+  document.getElementById('volume-icon').addEventListener('click', () => {
+    if (player.volume > 0) {
+      previousVolume = player.volume;
+      player.volume = 0;
+      volumeSlider.value = 0;
+      document.getElementById('volume-icon').innerText = '🔇';
+    } else {
+      player.volume = previousVolume;
+      volumeSlider.value = previousVolume;
+      document.getElementById('volume-icon').innerText = '🔊';
+    }
+  });
 
-document.getElementById('volume-icon').addEventListener('click', () => {
-  if (player.volume > 0) {
-    previousVolume = player.volume; // salva il volume attuale
-    player.volume = 0;
-    volumeSlider.value = 0;
-    document.getElementById('volume-icon').innerText = '🔇';
-  } else {
-    player.volume = previousVolume;
-    volumeSlider.value = previousVolume;
-    document.getElementById('volume-icon').innerText = '🔊';
+  // METADATA DA NowPlaying.txt
+  function fetchMetadata() {
+    const url = 'https://radio.radiostudiodoc.org/NowPlaying.txt?_=' + new Date().getTime(); // cache buster
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error('Errore nel recupero');
+        return response.text();
+      })
+      .then(text => {
+        metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
+        metadataDiv.style.color = '#ffdddd';
+      })
+      .catch(() => {
+        metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
+        metadataDiv.style.color = '#ff7777';
+      });
   }
-});
-</script> 
+
+  // Chiamata iniziale + aggiornamento ogni 10s
+  fetchMetadata();
+  setInterval(fetchMetadata, 10000);
+</script>
+
 
 <!-- ABOUT US -->
 
