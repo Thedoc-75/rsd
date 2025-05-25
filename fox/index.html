@@ -158,23 +158,20 @@
     }
   });
 
-  // METADATA DA NowPlaying.txt
   function fetchMetadata() {
-    const url = 'https://radio.radiostudiodoc.org/NowPlaying.txt?_=' + new Date().getTime(); // cache buster
-    fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error('Errore nel recupero');
-        return response.text();
-      })
-      .then(text => {
-        metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
-        metadataDiv.style.color = '#ffdddd';
-      })
-      .catch(() => {
-        metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
-        metadataDiv.style.color = '#ff7777';
-      });
-  }
+  fetch('https://radio.radiostudiodoc.org/NowPlaying.txt')
+    .then(response => response.text())
+    .then(data => {
+      if (data.trim() !== '') {
+        document.getElementById('metadata').textContent = data;
+      } else {
+        document.getElementById('metadata').textContent = 'Nessun metadato disponibile';
+      }
+    })
+    .catch(() => {
+      document.getElementById('metadata').innerHTML = '⚠️ Errore nel caricamento dei metadati';
+    });
+}
 
   // Chiamata iniziale + aggiornamento ogni 10s
   fetchMetadata();
