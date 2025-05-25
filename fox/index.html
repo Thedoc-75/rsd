@@ -171,23 +171,24 @@
     }
   });
 
-  // Recupera metadati da NowPlaying.txt
-  function fetchMetadata() {
-    const url = 'https://radio.radiostudiodoc.org/NowPlaying.txt?_=' + new Date().getTime(); // cache buster
-    fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error('Errore nel recupero');
-        return response.text();
-      })
-      .then(text => {
-        metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
-        metadataDiv.style.color = '#ffdddd';
-      })
-      .catch(() => {
-        metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
-        metadataDiv.style.color = '#ff7777';
-      });
-  }
+ 
+ function fetchMetadata() {
+  const url = 'https://www.radiostudiodoc.org/metadati.php?_=' + new Date().getTime(); // cache buster
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error('Errore nel recupero');
+      return response.text();
+    })
+    .then(text => {
+      metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
+      metadataDiv.style.color = '#ffdddd';
+    })
+    .catch(() => {
+      metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
+      metadataDiv.style.color = '#ff7777';
+    });
+}
+
 
   // Aggiorna ogni 10 secondi
   setInterval(fetchMetadata, 10000);
