@@ -392,6 +392,28 @@
     <button id="accept-cookies" class="btn btn-outline-light">Accetta</button>
   </div>
 </div>
+<script>
+  // Mostra il messaggio se l'utente è su iOS e NON ha aperto il sito da schermata Home
+  function isIos() {
+    return /iphone|ipad|ipod/i.test(navigator.userAgent);
+  }
 
+  function isInStandaloneMode() {
+    return ('standalone' in window.navigator) && window.navigator.standalone;
+  }
+
+  if (isIos() && !isInStandaloneMode()) {
+    const alertBox = document.createElement('div');
+    alertBox.innerHTML = `
+      <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #111; color: #fff; padding: 16px 24px; border-radius: 12px; font-size: 0.95rem; box-shadow: 0 0 12px rgba(255,0,0,0.4); z-index: 9999; max-width: 320px; text-align: center;">
+        📱 <strong>Ascolta in background su iPhone:</strong><br>
+        Tocca il pulsante <strong>Condividi</strong> (🔗) e seleziona<br>
+        <strong>"Aggiungi alla schermata Home"</strong>
+        <div style="margin-top: 8px;"><button onclick="this.parentElement.parentElement.remove()" style="margin-top: 10px; background: #ff4444; border: none; padding: 6px 12px; border-radius: 8px; color: white; cursor: pointer;">Chiudi</button></div>
+      </div>
+    `;
+    document.body.appendChild(alertBox);
+  }
+</script>
 </body>
 </html>
