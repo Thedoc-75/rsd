@@ -174,7 +174,7 @@
 
  
  function fetchMetadata() {
-  const url = 'http://localhost:5000?_=' + new Date().getTime(); // cache buster
+  const url = 'https://www.metadati.radiostudiodoc.org/?_=' + new Date().getTime(); // cache buster
   fetch(url)
     .then(response => {
       if (!response.ok) throw new Error('Errore nel recupero');
