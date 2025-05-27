@@ -1,24 +1,19 @@
-;(function () {
+;(function($) {
+  'use strict';
 
-    'use strict';
+  var wowAnimation = function() {
+    var wow = new WOW({
+      animateClass: 'animated',
+      offset: 150,
+      callback: function(box) {
+        console.log("WOW: animating <" + box.tagName.toLowerCase() + ">");
+      }
+    });
+    wow.init();
+  };
 
-    var wowAnimation = function() {
-        var wow = new WOW(
-            {
-                animateClass: 'animated',
-                offset:       150,
-                callback:     function(box) {
-                    console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
-                }
-            }
-        );
-        wow.init();
-    }
+  $(document).ready(function() {
+    wowAnimation();
+  });
 
-
-    (function($) {
-        wowAnimation();
-    })(jQuery);
-
-
-}());
+})(jQuery);
