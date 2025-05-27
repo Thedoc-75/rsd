@@ -1,33 +1,36 @@
-/*
- * Fox by FreeHTML5.co
- * Twitter: https://twitter.com/fh5co
- * Facebook: https://fb.com/fh5co
- * URL: https://freehtml5.co
- */
+/* ==========================================================================
+   GLOBAL STYLES
+   ========================================================================== */
 
- body {
+body {
   font-family: 'Lato', sans-serif;
-  overflow: hidden;
   overflow-y: scroll;
-background-color: #951717;
- background-size: cover;
+  background-color: #951717;
+  background-size: cover;
 }
 
+a, a:hover {
+  color: #ff8013;
+}
 
-body .bg-img {
-  background-repeat: no-repeat;
-  background-position: center;
-  padding-bottom: 100px;
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
+
+nav {
+  background-color: #951717;
 }
-body nav {
-  background-color:#951717;
-}
-body nav .navbar-nav a {
+
+.navbar-nav a {
   position: relative;
   display: inline-block;
+  font-size: 40px;
+  text-transform: uppercase;
+  color: #fff !important;
+  transition: all 0.3s ease;
 }
 
-body nav .navbar-nav a::after {
+.navbar-nav a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -40,43 +43,38 @@ body nav .navbar-nav a::after {
   transition: transform 0.3s ease;
 }
 
-body nav .navbar-nav a:hover::after {
+.navbar-nav a:hover {
+  color: #fff !important;
+}
+
+.navbar-nav a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-body nav .navbar-nav a {
-  font-size: 40px;
-  text-transform: uppercase;
-  color: #fff !important;
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-}
-body nav .navbar-nav a:hover {
-  color: #ffffff !important;
-}
-body nav .navbar-nav .btn-danger {
+.navbar-nav .btn-danger {
   background: #ff8013;
   border-color: #ff8013;
   border-radius: 0;
 }
-body nav .navbar-nav .btn-danger:hover {
+
+.navbar-nav .btn-danger:hover {
   background: #df6700;
   border-color: #df6700;
 }
 
-a, a:hover {
-  color: #ff8013;
-}
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
 
 .mt-50 { margin-top: 50px; }
 .mb-30 { margin-bottom: 300px; }
-.mx-auto { margin-left: auto; margin-right: auto; }
+.mx-auto { margin: 0 auto; }
 
+/* ==========================================================================
+   IMAGES
+   ========================================================================== */
 
-/* Cambia la dimensione delle immagini */
 .card-img-top {
   width: 100%;
   max-width: 200px;
@@ -84,36 +82,33 @@ a, a:hover {
   margin-bottom: 300px;
 }
 
-/* Se vuoi modificarle in base alla larghezza del dispositivo */
 @media (max-width: 767px) {
   .card-img-top {
-    max-width: 100%; /* Le immagini si adattano alla larghezza su dispositivi più piccoli */
-    height: auto;
+    max-width: 100%;
   }
 }
 
-
+/* ==========================================================================
+   HOMEPAGE BANNER (QUOTE BOX)
+   ========================================================================== */
 
 .fh5co-banner-text-box {
   position: relative;
   max-height: 50px;
   display: inline-block;
   margin-top: 10px;
-  padding-top: 30px; /* Sposta il titolo verso l'alto */
-  padding-bottom: 600px;
+  padding: 30px 0 600px;
 }
 
 .fh5co-banner-text-box .quote-box {
-  background-color: #000000; /* Cambia il colore di sfondo */
-  background-image: url('/images/Backgroundrsd.jpg'); /* Sfondo con immagine */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* o cover se vuoi che copra tutta l'area */
-  padding: 60px 60px; /* Cambia il padding per regolare la dimensione interna */
-  max-width: 600px; /* Cambia la larghezza massima */
-  min-height: 400px; /* Altezza minima */
-  border-radius: 100px; /* Se vuoi angoli arrotondati */
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); /* Bagliore rosso più evidente */
+  background: #000 url('/images/Backgroundrsd.jpg') no-repeat center;
+  background-size: contain;
+  padding: 60px;
+  max-width: 600px;
+  min-height: 400px;
+  border-radius: 100px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+  position: relative;
 }
 
 .fh5co-banner-text-box .quote-box h2 {
@@ -123,25 +118,24 @@ a, a:hover {
   font-size: 50px;
   line-height: 1.8;
   margin: 0;
-  white-space: nowrap;  /* Rimuove margini in eccesso */
+  white-space: nowrap;
 }
 
 .fh5co-banner-text-box .quote-box h2 span {
-  font-size: 30px;  /* Evidenziazione testo */
+  font-size: 30px;
   font-weight: bold;
 }
 
-/* Parentesi graffe come immagini, centrate verticalmente */
 .fh5co-banner-text-box .quote-box::before,
 .fh5co-banner-text-box .quote-box::after {
   content: "";
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   height: 38px;
   width: 38px;
   background-repeat: no-repeat;
-  background-position: center center;
-  top: 50%;
-  transform: translateY(-50%);
+  background-position: center;
 }
 
 .fh5co-banner-text-box .quote-box::before {
@@ -154,37 +148,9 @@ a, a:hover {
   background-image: url("../images/right-quote.png");
 }
 
-/* Titolo radio */
-.radio-title {
-  color: #ffffff;
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Sottotitolo */
-.subtitle {
-  font-size: 1.2rem;
-  color: #ffffff;
-  font-weight: normal;
-  letter-spacing: 1px;
-  margin-top: 0.3em;
-}
-
-/* Separator trasparente sottile, per dare respiro */
-.separator-transparent {
-  width: 60px;
-  height: 2px;
-  margin: 30px auto;
-  background-color: rgba(255, 0, 0, 0.3); /* Rosso trasparente */
-  border-radius: 1px;
-}
-
-/* Link box */
 .fh5co-banner-text-box a {
   color: #fff;
-  border: 1px solid #000000;
+  border: 1px solid #000;
   border-radius: 0;
   min-width: 150px;
   display: inline-block;
@@ -194,72 +160,68 @@ a, a:hover {
 
 .fh5co-banner-text-box a:hover {
   background: transparent;
-  border-color: rgb(0, 0, 0);
-  color: #ffffff;
-}
-
-/* Sezione network */
-.fh5co-network {
-  background-color: #000000;
-  padding: 60px 0 40px 0;
+  border-color: #000;
   color: #fff;
 }
 
-.network-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ff3c3c; /* Rosso logo */
-  margin-bottom: 20px;
-  text-transform: uppercase;
+/* ==========================================================================
+   TITLES & TEXT
+   ========================================================================== */
+
+.radio-title {
+  color: #fff;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: normal;
   letter-spacing: 1px;
+  margin-top: 0.3em;
 }
 
-/* Testo descrizione network */
-.network-description {
-  font-size: 1rem;
-  line-height: 1.6; /* ridotto per migliore leggibilità */
-  color: #ffffff; /* era nero, ma su sfondo nero non si vede */
-  max-width: 600px;
-  margin: 0 auto;
-  padding-top: 10px;
+.separator-transparent {
+  width: 60px;
+  height: 2px;
+  margin: 30px auto;
+  background-color: rgba(255, 0, 0, 0.3);
+  border-radius: 1px;
 }
 
+/* ==========================================================================
+   ABOUT US + NETWORK
+   ========================================================================== */
 
-/* Sezione "About Us" migliorata */
-.fh5co-about-us {
-  position: relative;
-  color: #fff;
-  padding: 20px 0;
+.fh5co-about-us, .fh5co-network {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+  color: #fff;
   text-align: center;
+  padding: 60px 0;
 }
 
 .fh5co-about-us {
   background-image: url('../images/sfondodef.JPG');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  color: #fff;
-  padding: 60px 0;
-  text-align: center;
 }
+
 .fh5co-about-us::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #95171700; /* overlay scuro */
+  background-color: transparent;
   z-index: 1;
 }
 
-
-/* Contenitore principale del contenuto About */
 .about-content {
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.6); /* più opacità per migliorare leggibilità */
+  background: rgba(0, 0, 0, 0.6);
   padding: 40px 30px;
   border-left: 6px solid #ff8013;
   border-radius: 10px;
@@ -268,61 +230,6 @@ a, a:hover {
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-
-
-/* Responsive migliorato */
-@media screen and (max-width: 768px) {
-  .fh5co-about-us {
-    padding: 60px 0;
-  }
-
-  .about-content {
-    padding: 20px 15px;
-  }
-
-  .about-title {
-    font-size: 1.8rem; /* leggibile ma compatto */
-    margin-bottom: 15px;
-  }
-
-  .about-text {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .fh5co-about-us {
-    padding: 50px 0;
-  }
-
-  .about-content {
-    padding: 15px 10px;
-    border-left: 4px solid #ff3c3c;
-    border-radius: 8px;
-  }
-
-  .about-title {
-    font-size: 1.5rem;
-  }
-
-  .about-text {
-    font-size: 0.95rem;
-  }
-}
-
-
-.parallax-separator {
-  height: 100px;
- background-image: url('../images/sfondodef.JPG');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-}
-
-.fh5co-network figure, .fh5co-about-us figure {
-  margin-top: -70px !important;
-}
 .fh5co-about-us h2 {
   font-size: 2.5rem;
   color: #ff3c3c;
@@ -330,62 +237,104 @@ a, a:hover {
   margin-bottom: 20px;
 }
 
-.fh5co-about-us h4 {
-  font-size: 1.4rem;
-  color: #ffffff;
-}
-.fh5co-network h4, .fh5co-about-us h4, .fh5co-network h5, .fh5co-about-us h5, .fh5co-network p, .fh5co-about-us p {
-  color: #ffffff;
+.fh5co-about-us h4,
+.fh5co-about-us p,
+.fh5co-network h4,
+.fh5co-network h5,
+.fh5co-network p {
+  color: #fff;
   font-family: 'Lato', sans-serif;
   font-weight: 900;
 }
-.fh5co-network hr, .fh5co-about-us hr {
-  border-color: #ffffff;
-  border-width: 5px;
-  max-width: 100px;
-  margin-left: 0;
-  border-radius: 5px;
-}
-.fh5co-network figure, .fh5co-about-us figure {
-  text-align: center;
-}
-
 
 .fh5co-about-us p {
-  color: #ffffff;
-  font-family: 'Lato', sans-serif;
   font-size: 1.1rem;
   line-height: 1.6;
 }
 
-.fh5co-about-us hr {
-  border-color: #ffffff;
-  margin-left: 50px;
-  margin-top: 5px;
+.fh5co-about-us hr,
+.fh5co-network hr {
+  border-color: #fff;
+  border-width: 5px;
+  max-width: 100px;
+  border-radius: 5px;
+  margin: 5px auto 30px auto;
 }
+
 .fh5co-about-us a {
   color: #fff !important;
-  border-color: #000000;
+  border-color: #000;
   border-radius: 0;
   min-width: 150px;
-
 }
+
 .fh5co-about-us a:hover {
   background: transparent;
-  border-color: rgb(0, 0, 0);
-  color: #000000;
+  border-color: #000;
+  color: #000;
+}
+
+.network-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff3c3c;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.network-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.fh5co-network figure,
+.fh5co-about-us figure {
+  margin-top: -70px !important;
+  text-align: center;
+}
+
+/* ==========================================================================
+   OTHER SECTIONS
+   ========================================================================== */
+
+.parallax-separator {
+  height: 100px;
+  background-image: url('../images/sfondodef.JPG');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
 .fh5co-content-box {
-  background: #ffffff;
+  background: #fff;
   padding-bottom: 100px;
 }
-.fh5co-content-box .pr-0 img {
-  margin-top: -128px;
+
+.fh5co-content-box img {
+  width: 100%;
 }
+
+.fh5co-content-box .card-img-overlay {
+  color: #fff;
+  text-align: center;
+  top: 35%;
+}
+
+.breaking-news {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 15px;
+}
+
 .quote-box2 {
-  background-color: #000000; /* rosso acceso per attirare attenzione */
-  color: white;
+  background-color: #000;
+  color: #fff;
   padding: 30px;
   text-align: center;
   border-radius: 10px;
@@ -401,314 +350,38 @@ a, a:hover {
   font-weight: bold;
 }
 
-.fh5co-content-box img {
-  width: 100%;
-}
-.fh5co-content-box .card-img-overlay {
-  color: #ffffff;
-  text-align: center;
-  top: 35%;
-}
-.breaking-news {
-  font-size: 1.0rem;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  margin-right: 15px;
-}
+/* ==========================================================================
+   MEDIA QUERIES
+   ========================================================================== */
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.fh5co-content-box .trainers {
-  position: relative;
-  padding: 50px 30px;
-  margin: 50px 0;
-  background: url("../images/doctor.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #000;
-}
-.fh5co-content-box .trainers .bg-50 {
-  background: rgba(0, 0, 0, 0.3);
-}
-.fh5co-content-box .trainers .card {
-  border: none;
-  background: transparent;
-}
-.fh5co-content-box .trainers .card img {
-  max-width: 250px;
-  margin: 0 auto;
-  max-height: 250px;
-}
-.fh5co-content-box .trainers .card .card-body {
-  background: #000000;
-  border-radius: 15px;
-  padding: 50px 30px;
-  margin: 50px 0;
-  padding-bottom: 50px;
-}
-.fh5co-content-box .trainers .card .card-body::before {
-  content: "";
-  position: absolute;
-  border: 20px solid #e0e0e0;
-  border-color: transparent transparent #ffffff transparent;
-  margin-top: -70px;
-  text-align: center;
-  margin-left: -15px;
-}
-.fh5co-content-box .trainers .quote-box2 {
-  color: #fff;
-  max-width: 200px;
-  position: relative;
-  text-align: center;
-  margin: auto;
-  margin-bottom: 50px;
-}
-.fh5co-content-box .trainers .quote-box2::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  left: 0;
-  top: -10px;
-  background: url("../images/right-quote-white.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-.fh5co-content-box .trainers .quote-box2::after {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  background: url("../images/left-quote-white.png");
-  background-repeat: no-repeat;
-  right: 0;
-  bottom: -10px;
-  background-size: 100% 100%;
-}
-.fh5co-content-box .trainers::before, .fh5co-content-box .trainers::after {
-  content: "";
-  position: absolute;
-  border: 5px solid #ff8013;
-  width: 100%;
-  top: -10px;
-}
-.fh5co-content-box .trainers::before {
-  bottom: -10px;
-  top: auto;
-}
-.fh5co-content-box .gallery .card {
-  border: none;
-  background: transparent;
-}
-.fh5co-content-box .gallery .card img {
-  border-radius: 0;
-  max-height: 580px;
-}
-.fh5co-content-box .gallery .card .card-body {
-  background: #ff8013;
-}
-.fh5co-content-box .gallery .card .card-body h4 {
-  color: #ffffff;
-}
-
-/* Personalizzazione sezioni principali */
-.breaking-news-box,
-.video-box,
-.podcast-box,
-.live-shows-box,
-.on-tour-box {
- background-color: #951717; /* rosso pieno */
-
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgb(255, 255, 255);
-  margin-bottom: 30px;
-}
-
-/* Titoli delle card */
-.card-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff00; /* colore tema Radio Studio Doc */
-}
-
-/* Testo delle card */
-.card-text {
-  font-size: 1rem;
-  color: #000000;
-  line-height: 1.5;
-}
-
-/* Immagini circolari */
-.card-img-top.rounded-circle {
-  max-width: 200px;
-  margin: 0 auto;
-  border: 4px solid #d12229;
-  padding: 5px;
-}
-
-/* WOW.js Animazioni - Opzionale */
-.wow {
-  visibility: hidden;
-}
-
-.wow.animate__animated {
-  visibility: visible;
-}
-
-.fh5co-content-box .gallery .card .card-body p {
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-}.white-text {
-  color: rgb(255, 255, 255);
-}
-.card:hover {
-  transform: translateY(-5px);
-  transition: transform 0.3s ease;
-}
-
-.transparent-card {
-  background-color: rgba(0, 0, 0, 0.6); /* nero con 60% opacità */
-  color: #fff;
-  padding: 0px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-}
-
-.bg-gallery {
-  background-image: url('../images/images.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-
-
-footer {
-  background: #101011;
-  color: #ffffff;
-}
-footer .footer1 p {
-  margin-top: 30px;
-}
-footer .footer2 h4 {
-  color: #ff8013;
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  text-align: center;
-  margin: 20px auto;
-}
-footer .footer2 .form-box {
-  background: #fff;
-  padding: 20px 30px;
-  margin-top: -30px;
-}
-footer .footer2 input[type='text'], footer .footer2 input[type='email'] {
-  background: transparent;
-  border-radius: 0;
-  border: none;
-  border-bottom: 2px solid #000;
-}
-footer .footer2 input[type='text']:focus, footer .footer2 input[type='email']:focus {
-  box-shadow: none;
-  border-color: #ff8013;
-}
-footer .footer2 .btn {
-  min-width: 150px;
-  border-radius: 0;
-}
-footer .footer2 ::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  color: #262626;
-}
-footer .footer2 ::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #262626;
-}
-footer .footer2 :-ms-input-placeholder {
-  /* IE 10+ */
-  color: #262626;
-}
-footer .footer2 :-moz-placeholder {
-  /* Firefox 18- */
-  color: #262626;
-}
-footer .footer3 {
-  padding-top: 50px;
-}
-footer .footer3 a {
-  background: #fff;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  padding: 0;
-  padding-top: 5px;
-}
-footer .footer3 a:hover {
-  background: #ff8013;
-}
-footer .footer3 .nav-item li {
-  margin: 0 5px;
-}
-footer .table td, footer .table th {
-  border: none;
-}
-
-footer::before {
-  content: "";
-  position: absolute;
-  border: 3px solid #ff8013;
-  width: 100%;
-  left: 0;
-}
-
-@media (max-width: 1199px) {
-  .fh5co-content-box .pr-0 img {
-    margin-top: -107px;
-  }
-}
-@media (max-width: 991px) {
-  .fh5co-content-box .pr-0 img {
-    margin-top: -78px;
-  }
-  .fh5co-content-box .card-img-overlay {
-    top: 20%;
-  }
-}
-@media (max-width: 767px) {
-  body nav .navbar-nav {
-    margin-left: 0 !important;
-    max-width: 50px;
+@media screen and (max-width: 768px) {
+  .about-content {
+    padding: 20px 15px;
   }
 
-  .fh5co-network figure, .fh5co-about-us figure {
-    margin-top: 0 !important;
+  .about-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
   }
 
-  .fh5co-content-box .pr-0 img {
-    margin: 20px auto;
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.5;
   }
-  .fh5co-content-box .col-md-5 {
-    padding: 0 !important;
-  }
-  .fh5co-content-box .col-md-7 {
-    padding: 0 !important;
+}
+
+@media screen and (max-width: 480px) {
+  .about-content {
+    padding: 15px 10px;
+    border-left: 4px solid #ff3c3c;
+    border-radius: 8px;
   }
 
-  .gallery .card {
-    margin-bottom: 25px;
+  .about-title {
+    font-size: 1.5rem;
   }
 
-  .footer1 {
-    min-height: 150px;
-  }
-
-  .footer2 .form-box {
-    margin-top: 0 !important;
+  .about-text {
+    font-size: 0.95rem;
   }
 }
