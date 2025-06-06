@@ -652,6 +652,12 @@ footer .footer3 a {
 footer .footer3 a:hover {
   background: #ff8013;
 }
+<style>
+  .text-contact {
+    color: #ff8013;
+  }
+</style>
+
 footer .footer3 .nav-item li {
   margin: 0 5px;
 }
