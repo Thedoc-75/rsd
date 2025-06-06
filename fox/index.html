@@ -95,7 +95,8 @@
   </div>
 </div>
 
-  <div class="parallax-separator"></div>
+
+<div class="parallax-separator"></div>
 <!-- PLAYER RADIO STUDIO DOC CON METADATI -->
 <div id="custom-player" class="text-center p-4" style="background: #111; color: #fff; border-radius: 20px; max-width: 450px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3); font-family: 'Oswald', sans-serif;">
   <h3 style="color: #ffffff;">🔴 Radio Studio Doc</h3>
@@ -118,7 +119,7 @@
     </div>
   </div>
 
-  <audio id="audio-player" src="https://radio.radiostudiodoc.org/thedoc" preload="none"></audio>
+  <audio id="audio-player" src="https://radio.radiostudiodoc.org/thedoc" preload="metadata"></audio>
 </div>
 
 <!-- SCROLLING ANIMATION -->
@@ -139,10 +140,13 @@
   let isPlaying = false;
   let previousVolume = volumeSlider.value;
 
-  // Toggle Play/Pause
+  // Toggle Play/Pause con gestione promise play()
   button.addEventListener('click', () => {
     if (!isPlaying) {
-      player.play();
+      player.play().catch(err => {
+        console.error('Playback fallito:', err);
+        metadataDiv.textContent = '⚠️ Playback non riuscito su iOS.';
+      });
       button.innerHTML = '⏸ Stop';
       isPlaying = true;
     } else {
@@ -155,7 +159,10 @@
 
   // Volume Slider
   volumeSlider.addEventListener('input', () => {
-    player.volume = volumeSlider.value;
+    let vol = parseFloat(volumeSlider.value);
+    // Se volume troppo basso, metti a zero
+    if (vol < 0.05) vol = 0;
+    player.volume = vol;
   });
 
   // Mute/Unmute
@@ -172,30 +179,42 @@
     }
   });
 
- 
- function fetchMetadata() {
-  const url = 'https://www.metadati.radiostudiodoc.org/?_=' + new Date().getTime(); // cache buster
-  fetch(url)
-    .then(response => {
-      if (!response.ok) throw new Error('Errore nel recupero');
-      return response.text();
-    })
-    .then(text => {
-      metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
-      metadataDiv.style.color = '#ffdddd';
-    })
-    .catch(() => {
-      metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
-      metadataDiv.style.color = '#ff7777';
-    });
-}
+  // Eventi buffering e ripresa
+  player.addEventListener('waiting', () => {
+    metadataDiv.textContent = '🔄 Buffering in corso...';
+  });
 
+  player.addEventListener('playing', () => {
+    fetchMetadata();
+  });
 
-  // Aggiorna ogni 10 secondi
+  player.addEventListener('error', (e) => {
+    metadataDiv.textContent = '⚠️ Errore audio durante la riproduzione';
+    console.error('Errore audio:', e);
+  });
+
+  // Funzione per recuperare metadati
+  function fetchMetadata() {
+    const url = 'https://www.metadati.radiostudiodoc.org/?_=' + new Date().getTime(); // cache buster
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error('Errore nel recupero');
+        return response.text();
+      })
+      .then(text => {
+        metadataDiv.textContent = text.trim() || '🎧 Nessun brano in riproduzione';
+        metadataDiv.style.color = '#ffdddd';
+      })
+      .catch(() => {
+        metadataDiv.textContent = '⚠️ Errore nel caricamento dei metadati';
+        metadataDiv.style.color = '#ff7777';
+      });
+  }
+
+  // Aggiorna metadati ogni 10 secondi
   setInterval(fetchMetadata, 10000);
   fetchMetadata();
 </script>
-
 
 
 <!-- ABOUT US -->
