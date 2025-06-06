@@ -596,6 +596,15 @@ a, a:hover {
     background-color: #fdfdfd;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
   }
+.footer3 h5,
+.footer3 p {
+  color: #ffffff;
+}
+
+.footer3 p a {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
 
   .footer3 {
     color: #333;
