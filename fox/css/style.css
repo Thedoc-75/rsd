@@ -587,6 +587,52 @@ a, a:hover {
   background-attachment: fixed;
 }
 
+<style>
+  .text-contact {
+    color: #FF8013;
+  }
+
+  .contact-box {
+    background-color: #fdfdfd;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .footer3 {
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .footer3 h5 {
+    color: #FF8013;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  .footer3 p {
+    margin-bottom: 10px;
+  }
+
+  .social-links ul {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .social-links li img {
+    width: 32px;
+    height: 32px;
+  }
+
+  @media (max-width: 767px) {
+    .contact-box, .footer3 {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+</style>
 
 
 footer {
