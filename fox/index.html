@@ -58,9 +58,68 @@
       margin-top: 10px;
       letter-spacing: 1px;
     }
-  </style>
-</head>
-<body>
+   
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    width: 100%;
+  }
+
+  .container,
+  .container-fluid,
+  .row,
+  .col-md-6,
+  .col-md-4,
+  .col-12 {
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .card, .quote-box, .video-box, .breaking-news-box {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  .card-img-top.rounded-circle {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 576px) {
+    .pl-5, .pr-5 {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    .radio-title {
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .container {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+ </style>
+  </head>
+
+  <body>
 <div class="contenuto"></div>
 <!-- HEADER -->
 
