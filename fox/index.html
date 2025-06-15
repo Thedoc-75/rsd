@@ -246,10 +246,20 @@
     fetchMetadata();
   });
 
-  player.addEventListener('error', (e) => {
-    metadataDiv.textContent = '⚠️ Errore audio durante la riproduzione';
-    console.error('Errore audio:', e);
-  });
+player.addEventListener('error', (e) => {
+  let error = e.target.error;
+  let msg = 'Errore audio sconosciuto.';
+  if (error) {
+    switch (error.code) {
+      case error.MEDIA_ERR_ABORTED: msg = 'Media playback aborted.'; break;
+      case error.MEDIA_ERR_NETWORK: msg = 'Errore di rete durante il caricamento.'; break;
+      case error.MEDIA_ERR_DECODE: msg = 'Errore di decodifica audio.'; break;
+      case error.MEDIA_ERR_SRC_NOT_SUPPORTED: msg = 'Formato audio non supportato o URL non raggiungibile.'; break;
+    }
+  }
+  metadataDiv.textContent = '⚠️ ' + msg;
+  console.error('Errore audio:', error, e);
+});
 
   // Funzione per recuperare metadati
   function fetchMetadata() {
