@@ -246,22 +246,36 @@
     fetchMetadata();
   });
 
-player.addEventListener('error', (e) => {
-  let error = e.target.error;
-  let msg = 'Errore audio sconosciuto.';
-  if (error) {
+  player.addEventListener('error', (e) => {
+  const error = e.target.error;
+  let msg = '';
+  if (!error) {
+    msg = 'Errore sconosciuto.';
+  } else {
     switch (error.code) {
-      case error.MEDIA_ERR_ABORTED: msg = 'Media playback aborted.'; break;
-      case error.MEDIA_ERR_NETWORK: msg = 'Errore di rete durante il caricamento.'; break;
-      case error.MEDIA_ERR_DECODE: msg = 'Errore di decodifica audio.'; break;
-      case error.MEDIA_ERR_SRC_NOT_SUPPORTED: msg = 'Formato audio non supportato o URL non raggiungibile.'; break;
+      case error.MEDIA_ERR_ABORTED:
+        msg = 'Riproduzione interrotta dall’utente o browser.';
+        break;
+      case error.MEDIA_ERR_NETWORK:
+        msg = 'Errore di rete durante il caricamento.';
+        break;
+      case error.MEDIA_ERR_DECODE:
+        msg = 'Errore di decodifica audio.';
+        break;
+      case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+        msg = 'Formato audio non supportato o URL non raggiungibile.';
+        break;
+      default:
+        msg = 'Errore audio generico.';
+        break;
     }
   }
   metadataDiv.textContent = '⚠️ ' + msg;
   console.error('Errore audio:', error, e);
 });
 
-  // Funzione per recuperare metadati
+
+ // Funzione per recuperare metadati
   function fetchMetadata() {
     const url = 'https://www.metadati.radiostudiodoc.org/?_=' + new Date().getTime(); // cache buster
     fetch(url)
