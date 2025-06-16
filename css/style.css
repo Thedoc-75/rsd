@@ -105,7 +105,7 @@ a, a:hover {
 
 .fh5co-banner-text-box .quote-box {
   background-color: #000000; /* Cambia il colore di sfondo */
-  background-image: url('/images/Backgroundrsd.jpg'); /* Sfondo con immagine */
+  background-image: url('../images/Backgroundrsd.jpg'); /* Sfondo con immagine */
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain; /* o cover se vuoi che copra tutta l'area */
