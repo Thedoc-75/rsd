@@ -5,8 +5,8 @@ const urlsToCache = [
   './css/style.css',
   './images/radiostudiodoc.png',
   './images/RSDFAVICON.png',
-  './images/icons/icon-192x192.png',
-  './images/icons/icon-512x512.png'
+  './images/web-app-manifest-192x192.png',
+  './images/web-app-manifest-512x512.png'
 ];
 
 self.addEventListener('install', function (event) {
