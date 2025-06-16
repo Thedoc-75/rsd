@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Radio Studio Doc - Webradio musicale 24/7 con il meglio della musica, news, cultura e intrattenimento.">
   <meta name="author" content="Radio Studio Doc">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff0000">
+  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+
   <title>Radio Studio Doc</title>
 
   <!-- CSS -->
@@ -535,6 +539,16 @@ _iub.csConfiguration = {
 <script src="https://cs.iubenda.com/autoblocking/4034983.js"></script>
 <script src="https://cdn.iubenda.com/cs/gpp/stub.js"></script>
 <script src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(reg => console.log('✅ Service Worker registrato:', reg.scope))
+        .catch(err => console.error('❌ Errore nella registrazione:', err));
+    });
+  }
+</script>
+      
 </body>
 
 </html>
