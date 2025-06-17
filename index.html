@@ -304,6 +304,24 @@
   // Aggiorna metadati ogni 15 secondi
   setInterval(fetchMetadata, 15000);
   fetchMetadata();
+  // Prova a far partire l'audio all'apertura della pagina (solo se non è già in play)
+window.addEventListener('load', () => {
+  if (player.paused) {
+    player.play().catch(err => {
+      console.log('Autoplay bloccato, serve interazione utente:', err);
+      metadataDiv.textContent = '▶ Tocca Play per ascoltare la radio';
+    });
+  }
+});
+
+// Prova a far partire l'audio quando la pagina torna visibile
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && player.paused) {
+    player.play().catch(err => {
+      console.log('Autoplay bloccato dopo visibilitychange:', err);
+    });
+  }
+});
 </script>
 
 
