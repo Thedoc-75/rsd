@@ -1,12 +1,12 @@
 const CACHE_NAME = 'rsd-cache-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './css/style.css',
-  './images/radiostudiodoc.png',
-  './images/RSDFAVICON.png',
-  './images/web-app-manifest-192x192.png',
-  './images/web-app-manifest-512x512.png'
+  '/',
+  '/index.html',
+  '/css/style.css',
+  '/images/radiostudiodoc.png',
+  '/images/RSDFAVICON.png',
+  '/images/web-app-manifest-192x192.png',
+  '/images/web-app-manifest-512x512.png'
 ];
 
 self.addEventListener('install', function (event) {
