@@ -124,34 +124,50 @@
     margin-left: auto;
     margin-right: auto;
   }
+/* 🔻 STILE TICKER NOTIZIE AGGIORNATO */
+.rss-ticker {
+  background: #111;
+  color: #fff;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  overflow: hidden;
+}
 
-  /* 🔻 STILE TICKER NOTIZIE */
-  .rss-ticker {
-    background: #111;
-    color: #fff;
-    padding: 10px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    gap: 10px;
-    overflow: hidden;
-  }
+.ticker-label {
+  font-weight: bold;
+  white-space: nowrap;
+  background-color: #ff0000; /* sfondo rosso per breaking news */
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-  .ticker-label {
-    font-weight: bold;
-    white-space: nowrap;
-  }
+.ticker-label::before {
+  content: "⚡"; /* simbolo icona */
+  font-size: 1.2em;
+  color: yellow;
+}
 
-  .ticker-text {
-    white-space: nowrap;
-    overflow: hidden;
-    animation: scroll 20s linear infinite;
-  }
+.ticker-text {
+  white-space: nowrap;
+  overflow: hidden;
+  animation: scroll 10s linear infinite; /* velocità più rapida */
+  flex: 1;
+}
 
-  @keyframes scroll {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  /* 🔺 FINE TICKER */
+@keyframes scroll {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+/* 🔺 FINE TICKER */
+
+ 
 </style>
 
  
@@ -397,9 +413,9 @@ document.addEventListener('visibilitychange', () => {
         <p>Radio Studio Doc è una web radio indipendente che unisce musica di qualità a notizie aggiornate, con particolare attenzione a temi scientifici, di salute e attualità.</p>
       </div>
       <div class="col-md-6 pl-5 pr-5 video-box wow fadeInRight">
-        <p>🎵 intrattenimento musicale
-	     📰 informazione generale, 
-	       🧬 contenuti medico-scientifici.</p>
+        <p> 🎵 Intrattenimento musicale
+	     📰 Informazione generale, 
+	       🧬 Contenuti medico-scientifici.</p>
       </div>
     </div>
   </div>
