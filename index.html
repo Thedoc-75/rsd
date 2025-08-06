@@ -148,10 +148,10 @@
       </div>
     </div>
   </nav>
-<!-- TICKER NOTIZIE SALUTE DA AGI -->
+<!-- TICKER NOTIZIE SALUTE DA ANSA -->
 <div class="rss-ticker">
-  <span class="ticker-label">🩺 Breaking News (Fonte: AGI)</span>
-  <div id="agi-salute" class="ticker-text">Caricamento notizie...</div>
+  <span class="ticker-label">Breaking News (ANSA)</span>
+  <div id="agi-news" class="ticker-text">Caricamento notizie...</div>
 </div>
 
 <style>
@@ -196,7 +196,7 @@
     <div class="quote-box pl-5 pr-5 wow bounceInRight">
       <h1 class="radio-title" aria-label="Radio Studio Doc">
         <span>RADIO STUDIO DOC</span><br>
-        <span class="subtitle">"VOCI SUONI ED EMOZIONI"</span>
+        <span class="subtitle">"YOUR SOUND - YOUR STATION"</span>
       </h1>
     </div>
   </div>
@@ -401,7 +401,9 @@ document.addEventListener('visibilitychange', () => {
         <p>Radio Studio Doc è una web radio indipendente che unisce musica di qualità a notizie aggiornate, con particolare attenzione a temi scientifici, di salute e attualità.</p>
       </div>
       <div class="col-md-6 pl-5 pr-5 video-box wow fadeInRight">
-        <p>intrattenimento musicale, informazione generale, contenuti medico-scientifici.</p>
+        <p>🎵 intrattenimento musicale
+	     📰 informazione generale, 
+	       🧬 contenuti medico-scientifici.</p>
       </div>
     </div>
   </div>
@@ -624,7 +626,7 @@ c();
 	    
 <script>
   async function loadAGIRSS() {
-    const feedURL = "https://www.agi.it/rss/aggiornati.xml";
+    const feedURL = "https://www.ansa.it/sito/ansait_rss.xml";
     const apiURL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`;
     try {
       const response = await fetch(apiURL);
