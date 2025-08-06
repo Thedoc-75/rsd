@@ -148,8 +148,47 @@
       </div>
     </div>
   </nav>
+<!-- TICKER NOTIZIE SALUTE DA AGI -->
+<div class="rss-ticker">
+  <span class="ticker-label">🩺 Breaking News (Fonte: AGI)</span>
+  <div id="agi-salute" class="ticker-text">Caricamento notizie...</div>
+</div>
 
-  <div class="parallax-separator"></div>
+<style>
+.rss-ticker {
+  background-color: #e0f7fa;
+  color: #004d40;
+  padding: 10px 15px;
+  font-family: sans-serif;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  border-top: 2px solid #00796b;
+  border-bottom: 2px solid #00796b;
+}
+.ticker-label {
+  font-weight: bold;
+  margin-right: 15px;
+}
+.ticker-text {
+  display: inline-block;
+  animation: ticker-scroll 35s linear infinite;
+}
+@keyframes ticker-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.rss-ticker a {
+  color: #00796b;
+  text-decoration: none;
+  margin: 0 20px;
+}
+.rss-ticker a:hover {
+  text-decoration: underline;
+}
+</style>
+  
+	  <div class="parallax-separator"></div>
 
 
   <div class="container">
@@ -582,6 +621,25 @@ c = function() {
 }, 1000);
 c();
   </script>
+	    
+<script>
+  async function loadAGIRSS() {
+    const feedURL = "https://www.agi.it/rss/aggiornati.xml";
+    const apiURL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`;
+    try {
+      const response = await fetch(apiURL);
+      const data = await response.json();
+      const items = data.items.slice(0, 5); // Mostra i primi 5 articoli
+      const links = items.map(item =>
+        `<a href="${item.link}" target="_blank" rel="noopener noreferrer">📰 ${item.title}</a>`
+      ).join(" • ");
+      document.getElementById("agi-salute").innerHTML = links;
+    } catch (error) {
+      document.getElementById("agi-salute").innerText = "⚠️ Errore nel caricamento delle notizie salute da AGI.";
+    }
+  }
+  loadAGIRSS();
+</script>
 
 <!-- Iubenda -->
 <script>
