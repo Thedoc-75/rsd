@@ -23,50 +23,50 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+<style>
+  .card {
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgb(0, 0, 0);
+    padding: 2px;
+    transition: transform 0.3s ease;
+  }
 
-  <style>
-    .card {
-  background-color: rgb(0, 0, 0); /* leggero contrasto */
-  border-radius: 15px;
-  box-shadow: 0 4px 4px rgb(0, 0, 0);
-  padding: 2px;
-  transition: transform 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-8px);
-}
+  .card:hover {
+    transform: translateY(-8px);
+  }
 
-    .card .card-title,
-    .card .card-text {
-      color: #ffffff;
-    }
+  .card .card-title,
+  .card .card-text {
+    color: #ffffff;
+  }
 
-    .card-img-top {
-      border: 10px solid #000000;
-    }
+  .card-img-top {
+    border: 10px solid #000000;
+  }
 
-    .gallery .card {
-      margin-top: 15px;
-    }
+  .gallery .card {
+    margin-top: 15px;
+  }
 
-    .radio-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: 3.5rem;
-      text-align: center;
-      color: #ffffff;
-      text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5);
-      display: inline-block;
-      padding-bottom: 30px;
-    }
+  .radio-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5);
+    display: inline-block;
+    padding-bottom: 30px;
+  }
 
-    .radio-title small {
-      display: block;
-      font-size: 1.2rem;
-      color: #ffffff;
-      margin-top: 10px;
-      letter-spacing: 1px;
-    }
-   
+  .radio-title small {
+    display: block;
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
   body {
     overflow-x: hidden;
     margin: 0;
@@ -124,7 +124,37 @@
     margin-left: auto;
     margin-right: auto;
   }
- </style>
+
+  /* 🔻 STILE TICKER NOTIZIE */
+  .rss-ticker {
+    background: #111;
+    color: #fff;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .ticker-label {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .ticker-text {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: scroll 20s linear infinite;
+  }
+
+  @keyframes scroll {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  /* 🔺 FINE TICKER */
+</style>
+
+ 
   <meta name="referrer" content="strict-origin-when-cross-origin">
  </head>
 
@@ -148,46 +178,12 @@
       </div>
     </div>
   </nav>
-<!-- TICKER NOTIZIE SALUTE DA ANSA -->
+<!-- TICKER NOTIZIE  DA ANSA -->
 <div class="rss-ticker">
   <span class="ticker-label">Breaking News (ANSA)</span>
   <div id="agi-news" class="ticker-text">Caricamento notizie...</div>
 </div>
 
-<style>
-.rss-ticker {
-  background-color: #e0f7fa;
-  color: #004d40;
-  padding: 10px 15px;
-  font-family: sans-serif;
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  border-top: 2px solid #00796b;
-  border-bottom: 2px solid #00796b;
-}
-.ticker-label {
-  font-weight: bold;
-  margin-right: 15px;
-}
-.ticker-text {
-  display: inline-block;
-  animation: ticker-scroll 35s linear infinite;
-}
-@keyframes ticker-scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-.rss-ticker a {
-  color: #00796b;
-  text-decoration: none;
-  margin: 0 20px;
-}
-.rss-ticker a:hover {
-  text-decoration: underline;
-}
-</style>
-  
 	  <div class="parallax-separator"></div>
 
 
@@ -624,24 +620,6 @@ c = function() {
 c();
   </script>
 	    
-<script>
-  async function loadAGIRSS() {
-    const feedURL = "https://www.ansa.it/sito/ansait_rss.xml";
-    const apiURL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`;
-    try {
-      const response = await fetch(apiURL);
-      const data = await response.json();
-      const items = data.items.slice(0, 5); // Mostra i primi 5 articoli
-      const links = items.map(item =>
-        `<a href="${item.link}" target="_blank" rel="noopener noreferrer">📰 ${item.title}</a>`
-      ).join(" • ");
-      document.getElementById("agi-salute").innerHTML = links;
-    } catch (error) {
-      document.getElementById("agi-salute").innerText = "⚠️ Errore nel caricamento delle notizie salute da AGI.";
-    }
-  }
-  loadAGIRSS();
-</script>
 
 <!-- Iubenda -->
 <script>
@@ -695,6 +673,36 @@ _iub.csConfiguration = {
     }
   });
 }
+</script>
+<script>
+// Usa un proxy pubblico per superare il CORS
+const proxyUrl = "https://api.allorigins.win/get?url=";
+const feedUrl = encodeURIComponent("https://www.ansa.it/sito/ansait_rss.xml"); // oppure AGI: https://www.agi.it/rss/home.xml
+
+fetch(proxyUrl + feedUrl)
+  .then(response => {
+    if (!response.ok) throw new Error("Errore nel recupero RSS");
+    return response.json();
+  })
+  .then(data => {
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, "text/xml");
+    const items = xml.querySelectorAll("item");
+
+    let headlines = "";
+    items.forEach((item, index) => {
+      if (index < 5) {
+        const title = item.querySelector("title").textContent;
+        headlines += ` &#9679; ${title} `;
+      }
+    });
+
+    document.getElementById("agi-news").innerHTML = headlines || "Nessuna notizia trovata.";
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("agi-news").textContent = "Errore nel caricamento notizie.";
+  });
 </script>
 
   </body>
