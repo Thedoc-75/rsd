@@ -14,6 +14,7 @@
   <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
 
   <title>Radio Studio Doc</title>
+  <title>Ticker Notizie Medicina</title>
 
   <!-- CSS -->
   
@@ -124,48 +125,38 @@
     margin-left: auto;
     margin-right: auto;
   }
-/* 🔻 STILE TICKER NOTIZIE AGGIORNATO */
+/* 🔻 STILE TICKER MIGLIORATO */
 .rss-ticker {
-  background: #111;
-  color: #fff;
-  padding: 10px;
-  font-family: Arial, sans-serif;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  overflow: hidden;
-}
+      display: flex;
+      align-items: center;
+      background-color: #111;
+      color: white;
+      padding: 10px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
 
-.ticker-label {
-  font-weight: bold;
-  white-space: nowrap;
-  background-color: #ff0000; /* sfondo rosso per breaking news */
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+    .ticker-label {
+      font-weight: bold;
+      margin-right: 15px;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
 
-.ticker-label::before {
-  content: "⚡"; /* simbolo icona */
-  font-size: 1.2em;
-  color: yellow;
-}
+    .ticker-text {
+      white-space: nowrap;
+      overflow: hidden;
+      animation: scroll 30s linear infinite;
+    }
 
-.ticker-text {
-  white-space: nowrap;
-  overflow: hidden;
-  animation: scroll 10s linear infinite; /* velocità più rapida */
-  flex: 1;
-}
+    @keyframes scroll {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
 
-@keyframes scroll {
-  0%   { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
 /* 🔺 FINE TICKER */
+
 
  
 </style>
@@ -194,11 +185,14 @@
       </div>
     </div>
   </nav>
-<!-- TICKER NOTIZIE  DA ANSA -->
+<!-- TICKER NOTIZIE -->
 <div class="rss-ticker">
-  <span class="ticker-label">Breaking News (ANSA)</span>
+  <span class="ticker-label">MEDICITALIA</span>
   <div id="agi-news" class="ticker-text">Caricamento notizie...</div>
 </div>
+
+
+
 
 	  <div class="parallax-separator"></div>
 
@@ -429,9 +423,7 @@ document.addEventListener('visibilitychange', () => {
   <div id="news" class="col-12 bg-50">
     <div class="quote-box2 wow bounceInDown" data-wow-delay=".25s">
       <h2>NO-STOP NEWS 24H</h2>
-       <!-- start feedwind code --> 
-      <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Loading" data-fw-param="173412/"></script> 
-      <!-- end feedwind code --> 
+      <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Loading" data-fw-param="174540/"></script> <!-- end feedwind code -->
     </div>
   </div>
 </div>
@@ -691,36 +683,22 @@ _iub.csConfiguration = {
 }
 </script>
 <script>
-// Usa un proxy pubblico per superare il CORS
-const proxyUrl = "https://api.allorigins.win/get?url=";
-const feedUrl = encodeURIComponent("https://www.ansa.it/sito/ansait_rss.xml"); // oppure AGI: https://www.agi.it/rss/home.xml
+  const rss_url = encodeURIComponent("https://www.medicitalia.it/rss/rss-salute/");
+  const api_url = `https://api.rss2json.com/v1/api.json?rss_url=${rss_url}`;
 
-fetch(proxyUrl + feedUrl)
-  .then(response => {
-    if (!response.ok) throw new Error("Errore nel recupero RSS");
-    return response.json();
-  })
-  .then(data => {
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "text/xml");
-    const items = xml.querySelectorAll("item");
-
-    let headlines = "";
-    items.forEach((item, index) => {
-      if (index < 5) {
-        const title = item.querySelector("title").textContent;
-        headlines += ` &#9679; ${title} `;
-      }
+  fetch(api_url)
+    .then(response => response.json())
+    .then(data => {
+      const items = data.items.slice(0, 10); // primi 10 titoli
+      const titles = items.map(item => `🩺 ${item.title}`).join(" • ");
+      document.getElementById("agi-news").textContent = titles;
+    })
+    .catch(error => {
+      console.error("Errore nel caricamento RSS:", error);
+      document.getElementById("agi-news").textContent = "Impossibile caricare le notizie.";
     });
-
-    document.getElementById("agi-news").innerHTML = headlines || "Nessuna notizia trovata.";
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("agi-news").textContent = "Errore nel caricamento notizie.";
-  });
 </script>
 
-  </body>
+</body>
 
 </html>
