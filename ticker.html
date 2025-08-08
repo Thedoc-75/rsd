@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title> News Ticker </title>
+<title>News Ticker</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -11,60 +12,57 @@
     background-color: white;
     color: #333;
   }
-  .ticker-container {
+  .ticker-box {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
     overflow: hidden;
     white-space: nowrap;
-    border: 1px solid #ddd;
-    background: #fff;
-    padding: 6px 0;
     box-sizing: border-box;
   }
-  .ticker-track {
-    display: inline-flex;
-    animation: scroll 50s linear infinite;
-  }
-  .ticker-container:hover .ticker-track {
-    animation-play-state: paused;
-  }
-  .news-item {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 15px;
-  }
-  .news-item img {
-    height: 40px;
-    width: 40px;
-    object-fit: cover;
-    margin-right: 8px;
-    border-radius: 4px;
-  }
-  .news-item a {
-    color: #00AEEF;
-    font-weight: 500;
-    text-decoration: none;
+  .ticker-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 40s linear infinite;
     font-size: 14px;
   }
-  .news-item a:hover {
+  .ticker-box:hover .ticker-text {
+    animation-play-state: paused;
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+  }
+  .ticker-item img {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+    margin-right: 6px;
+    border-radius: 3px;
+  }
+  .ticker-item a {
+    color: #00AEEF;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .ticker-item a:hover {
     text-decoration: underline;
   }
-  @keyframes scroll {
+  @keyframes ticker {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(-100%); }
   }
   @media (max-width: 600px) {
-    .news-item img {
-      height: 30px;
-      width: 30px;
-    }
-    .news-item a {
+    .ticker-text {
       font-size: 12px;
+      animation-duration: 50s;
     }
   }
 </style>
 </head>
 <body>
-<div class="ticker-container">
-  <div class="ticker-track" id="ticker">Caricamento notizie WHO...</div>
+<div class="ticker-box">
+  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
 </div>
 
 <script>
@@ -84,15 +82,13 @@
             imgSrc = item.enclosure.link;
           }
           return `
-            <div class="news-item">
+            <span class="ticker-item">
               <img src="${imgSrc}" alt="News">
               <a href="${item.link}" target="_blank">${item.title}</a>
-            </div>
+            </span>
           `;
         }).join('');
-
-        // Raddoppio contenuto per effetto scorrimento continuo
-        document.getElementById('ticker').innerHTML = headlines + headlines;
+        document.getElementById('ticker').innerHTML = headlines;
       } else {
         document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
       }
@@ -104,4 +100,3 @@
 </script>
 </body>
 </html>
-
