@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>News Ticker con Immagini</title>
+<title>WHO News Ticker - Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -21,72 +21,49 @@
   .ticker-text {
     display: inline-block;
     padding-left: 100%;
-    animation: ticker 40s linear infinite;
+    animation: ticker 30s linear infinite;
     font-size: 14px;
   }
   .ticker-box:hover .ticker-text {
-    animation-play-state: paused;
+    animation-play-state: paused; /* Pausa al passaggio del mouse */
   }
-  .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 30px;
-  }
-  .ticker-item img {
-    height: 24px;
-    width: 24px;
-    object-fit: cover;
-    margin-right: 6px;
-    border-radius: 3px;
-  }
-  .ticker-item a {
-    color: #00AEEF;
+  .ticker-text a {
+    color: #00AEEF; /* Blu ufficiale Radio Studio Doc */
     text-decoration: none;
     font-weight: 500;
   }
-  .ticker-item a:hover {
+  .ticker-text a:hover {
     text-decoration: underline;
   }
   @keyframes ticker {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
   }
+  /* Adattamento su mobile */
   @media (max-width: 600px) {
     .ticker-text {
       font-size: 12px;
-      animation-duration: 50s;
+      animation-duration: 40s; /* Più lento per lettura su mobile */
     }
   }
 </style>
 </head>
 <body>
 <div class="ticker-box">
-  <div class="ticker-text" id="ticker">Caricamento notizie ...</div>
+  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
 </div>
 
 <script>
   const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
-  const defaultImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/WHO_logo.svg/1200px-WHO_logo.svg.png';
 
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       if (data.items) {
-        const headlines = data.items.map(item => {
-          let imgSrc = defaultImg;
-          if (item.thumbnail && item.thumbnail !== "") {
-            imgSrc = item.thumbnail;
-          } else if (item.enclosure && item.enclosure.link) {
-            imgSrc = item.enclosure.link;
-          }
-          return `
-            <span class="ticker-item">
-              <img src="${imgSrc}" alt="News">
-              <a href="${item.link}" target="_blank">${item.title}</a>
-            </span>
-          `;
-        }).join('');
+        const headlines = data.items
+          .map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`)
+          .join('  •  ');
         document.getElementById('ticker').innerHTML = headlines;
       } else {
         document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
