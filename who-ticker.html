@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WHO Breaking News Ticker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; }
+    .ticker-container {
+      display: flex;
+      align-items: center;
+      background: #b30000;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      height: 40px;
+    }
+    .ticker-label {
+      background: yellow;
+      color: black;
+      padding: 0 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .ticker {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker-scroll 25s linear infinite;
+    }
+    .ticker a {
+      color: white;
+      text-decoration: none;
+      margin: 0 30px;
+    }
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker-container">
+    <div class="ticker-label">Breaking News</div>
+    <div id="rss-feed" class="ticker">Caricamento notizie...</div>
+  </div>
+
+  <script>
+    async function loadRSSTicker() {
+      const rssUrl = 'https://www.who.int/feeds/entity/csr/don/en/rss.xml';
+      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
+
+      try {
+        const response = await fetch(proxy);
+        const data = await response.json();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data.contents, 'text/xml');
+
+        const items = xml.querySelectorAll('item');
+        let html = '';
+
+        items.forEach((el, index) => {
+          if (index < 10) {
+            const title = el.querySelector('title').textContent;
+            const link = el.querySelector('link').textContent;
+            html += `<a href="${link}" target="_blank">${title}</a>`;
+          }
+        });
+
+        document.getElementById('rss-feed').innerHTML = html;
+      } catch (error) {
+        document.getElementById('rss-feed').innerHTML = 'Errore nel caricamento del feed.';
+        console.error(error);
+      }
+    }
+
+    loadRSSTicker();
+  </script>
+
+</body>
+</html>
