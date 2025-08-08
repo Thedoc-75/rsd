@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>ANSA</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    color: #333;
+  }
+  .ticker-container {
+    overflow: hidden;
+    white-space: nowrap;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 6px 0;
+    box-sizing: border-box;
+  }
+  .ticker-track {
+    display: inline-flex;
+    animation: scroll 50s linear infinite;
+  }
+  .ticker-container:hover .ticker-track {
+    animation-play-state: paused;
+  }
+  .news-item {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 15px;
+  }
+  .news-item img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+  .news-item a {
+    color: #00AEEF;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .news-item a:hover {
+    text-decoration: underline;
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @media (max-width: 600px) {
+    .news-item img {
+      height: 30px;
+      width: 30px;
+    }
+    .news-item a {
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="ticker-container">
+  <div class="ticker-track" id="ticker">Caricamento notizie ...</div>
+</div>
+
+<script>
+  const proxyUrl = 'rss-proxy.php?url=';
+  const rssUrl = encodeURIComponent('https://www.ansa.it/sito/ansait_rss.xml');
+  const defaultImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/WHO_logo.svg/1200px-WHO_logo.svg.png';
+
+  fetch(proxyUrl + rssUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items) {
+        const headlines = data.items.map(item => {
+          let imgSrc = item.thumbnail || defaultImg;
+          return `
+            <div class="news-item">
+              <img src="${imgSrc}" alt="News">
+              <a href="${item.link}" target="_blank">${item.title}</a>
+            </div>
+          `;
+        }).join('');
+
+        document.getElementById('ticker').innerHTML = headlines + headlines;
+      } else {
+        document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
+      }
+    })
+    .catch(err => {
+      document.getElementById('ticker').textContent = "Errore nel caricamento delle notizie.";
+      console.error(err);
+    });
+</script>
+</body>
+</html>
+
