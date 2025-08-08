@@ -40,21 +40,21 @@
     100% { transform: translateX(-100%); }
   }
   /* Adattamento su mobile */
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
     .ticker-text {
       font-size: 12px;
-      animation-duration: 40s; /* Più lento per lettura su mobile */
+      animation-duration: 60s; /* Più lento per lettura su mobile */
     }
   }
 </style>
 </head>
 <body>
 <div class="ticker-box">
-  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
+  <div class="ticker-text" id="ticker">Caricamento notizie</div>
 </div>
 
 <script>
-  const rssUrl = 'https://www.who.int/feeds/entity/csr/don/en/rss.xml';
+  const rssUrl = 'https://www.medicitalia.it/rss/rss-salute/';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   fetch(apiUrl)
