@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>MEDICINA</title>
+<title> News Ticker </title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -64,20 +64,25 @@
 </head>
 <body>
 <div class="ticker-container">
-  <div class="ticker-track" id="ticker">Caricamento notizie ...</div>
+  <div class="ticker-track" id="ticker">Caricamento notizie WHO...</div>
 </div>
 
 <script>
-  const proxyUrl = 'rss-proxy.php?url=';
-  const rssUrl = encodeURIComponent('https://www.medicitalia.it/rss/rss-salute/');
+  const rssUrl = 'https://www.medicitalia.it/rss/rss-salute/';
+  const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
   const defaultImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/WHO_logo.svg/1200px-WHO_logo.svg.png';
 
-  fetch(proxyUrl + rssUrl)
+  fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       if (data.items) {
         const headlines = data.items.map(item => {
-          let imgSrc = item.thumbnail || defaultImg;
+          let imgSrc = defaultImg;
+          if (item.thumbnail && item.thumbnail !== "") {
+            imgSrc = item.thumbnail;
+          } else if (item.enclosure && item.enclosure.link) {
+            imgSrc = item.enclosure.link;
+          }
           return `
             <div class="news-item">
               <img src="${imgSrc}" alt="News">
@@ -86,6 +91,7 @@
           `;
         }).join('');
 
+        // Raddoppio contenuto per effetto scorrimento continuo
         document.getElementById('ticker').innerHTML = headlines + headlines;
       } else {
         document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
