@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>News Ticker</title>
+<title>News Ticker con Immagini</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -62,11 +61,11 @@
 </head>
 <body>
 <div class="ticker-box">
-  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
+  <div class="ticker-text" id="ticker">Caricamento notizie ...</div>
 </div>
 
 <script>
-  const rssUrl = 'https://www.medicitalia.it/rss/rss-salute/';
+  const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
   const defaultImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/WHO_logo.svg/1200px-WHO_logo.svg.png';
 
