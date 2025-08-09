@@ -9,13 +9,11 @@
   <meta name="theme-color" content="#ff0000">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-
-  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+  
+ <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
 
   <title>Radio Studio Doc</title>
-  <title>Ticker Notizie Medicina</title>
- <title>WHO Breaking News Ticker</title>
+  
   <!-- CSS -->
   
   <link rel="icon" type="image/png" href="images/RSDFAVICON.png">
@@ -131,21 +129,44 @@
 }
 
 /* Stile minimo per far scorrere il ticker */
-.ticker-text {
-  white-space: nowrap;
+.rss-ticker {
+  background: #000; /* sfondo */
+  padding: 8px;
   overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* --- Scorrimento testo --- */
+.ticker-text {
   display: inline-block;
-  padding-left: 100%;
-  animation: scrollTicker 30s linear infinite;
+  animation: scrollTicker 30s linear infinite; /* velocità ridotta a 15s */
+  color: white; 
 }
 
 @keyframes scrollTicker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
 }
 
+/* --- Label “BBC News” o altro --- */
+.ticker-label {
+  background: #ff0000; /* rosso BBC classico, puoi cambiarlo */
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin-right: 15px;
+  display: inline-block;
+  border-radius: 4px;
+}
 
- 
+/* --- Logo con trasparenza --- */
+.ticker-logo {
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+  opacity: 1; /* trasparenza regolabile 0.0 - 1.0 */
+}
 </style>
 
  
@@ -198,8 +219,8 @@
 </div>
 
 <!-- TICKER NOTIZIE -->
-<div class="rss-ticker" style="background:#f5f5f5; padding:8px; overflow:hidden; white-space:nowrap;">
-  <span class="ticker-label" style="background:#c00; color:white; padding:4px 8px; font-weight:bold; margin-right:10px;">
+<div class="rss-ticker" style="background:#000000; padding:8px; overflow:hidden; white-space:nowrap;">
+  <span class="ticker-label" style="background:rgb(200, 2, 2); color:white; padding:6px 8px; font-weight:bold; margin-right:10px;">
     BBC NEWS
   </span>
   <div id="agi-news" class="ticker-text" style="display:inline-block;">
