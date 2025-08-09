@@ -13,7 +13,7 @@
  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
 
   <title>Radio Studio Doc</title>
-  <title> News Ticker - Smart</title>
+  
   <!-- CSS -->
   
   <link rel="icon" type="image/png" href="images/RSDFAVICON.png">
@@ -22,8 +22,6 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-	
 <style>
   .card {
     background-color: rgb(0, 0, 0);
@@ -130,51 +128,45 @@
   height: 24px;
 }
 
- body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: white;
-    color: #333;
-  }
-  .ticker-box {
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
-  .ticker-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 30s linear infinite;
-    font-size: 14px;
-  }
-  .ticker-box:hover .ticker-text {
-    animation-play-state: paused; /* Pausa al passaggio del mouse */
-  }
-  .ticker-text a {
-    color: #00AEEF; /* Blu ufficiale Radio Studio Doc */
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .ticker-text a:hover {
-    text-decoration: underline;
-  }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-  /* Adattamento su mobile */
-  @media (max-width: 600px) {
-    .ticker-text {
-      font-size: 12px;
-      animation-duration: 40s; /* Più lento per lettura su mobile */
-    }
-  }
-
+/* Stile minimo per far scorrere il ticker */
+.rss-ticker {
+  background: #000; /* sfondo */
+  padding: 8px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
 
 /* --- Scorrimento testo --- */
+.ticker-text {
+  display: inline-block;
+  animation: scrollTicker 30s linear infinite; /* velocità ridotta a 15s */
+  color:#ffffff; 
+}
 
+@keyframes scrollTicker {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+/* --- Label “BBC News” o altro --- */
+.ticker-label {
+  background: #ff0000; /* rosso BBC classico, puoi cambiarlo */
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin-right: 15px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+/* --- Logo con trasparenza --- */
+.ticker-logo {
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+  opacity: 1; /* trasparenza regolabile 0.0 - 1.0 */
+}
 </style>
 
  
@@ -225,10 +217,15 @@
     </li>
   </ul>
 </div>
-<div class="ticker-box">
-  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
-</div>
-</div>
+
+<!-- TICKER NOTIZIE -->
+<div class="rss-ticker" style="background:#000000; padding:8px; overflow:hidden; white-space:nowrap;">
+  <span class="ticker-label" style="background:rgb(200, 2, 2); color:white; padding:6px 8px; font-weight:bold; margin-right:10px;">
+    BBC NEWS
+  </span>
+  <div id="agi-news" class="ticker-text" style="display:inline-block;">
+    Caricamento notizie...
+  </div>
 </div>
 
 
@@ -701,27 +698,32 @@ _iub.csConfiguration = {
   });
 }
 </script>
-
 <script>
   const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   fetch(apiUrl)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       if (data.items) {
-        const headlines = data.items
-          .map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`)
-          .join('  •  ');
-        document.getElementById('ticker').innerHTML = headlines;
+        const headlines = data.items.map(item => `<span style="margin-right:30px;"><a href="${item.link}" target="_blank">${item.title}</a></span>`).join('');
+        document.getElementById('agi-news').innerHTML = headlines;
+        startTicker();
       } else {
-        document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
+        document.getElementById('agi-news').textContent = "Nessuna notizia trovata.";
       }
     })
     .catch(err => {
-      document.getElementById('ticker').textContent = "Errore nel caricamento delle notizie.";
       console.error(err);
+      document.getElementById('agi-news').textContent = "Errore caricamento notizie.";
     });
+
+  function startTicker() {
+    const ticker = document.getElementById('agi-news');
+    ticker.style.display = 'inline-block';
+    ticker.style.paddingLeft = '100%';
+    ticker.style.animation = 'scrollTicker 40s linear infinite';
+  }
 </script>
 
 	</body>
