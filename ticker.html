@@ -67,12 +67,12 @@
 <body>
 
 <div class="ticker-box">
-  <img src="images/BBC.jpg" alt="Logo" class="ticker-logo">
+  <img src="images/anestesia.jpg" alt="Logo" class="ticker-logo">
   <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
 </div>
 
 <script>
-  const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
+  const rssUrl = 'https://www.sciencedaily.com/rss/health_medicine.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   fetch(apiUrl)
