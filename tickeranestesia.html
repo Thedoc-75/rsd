@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>News Ticker Anestesia</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    color: #fff;
+  }
+
+  .ticker-box {
+    max-width: 600px;
+    border: 2px solid #ff0000;
+    background: #111;
+    overflow: hidden;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ticker-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+  }
+
+  .ticker-item {
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .ticker-item.active {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .ticker-content {
+    flex: 1;
+  }
+
+  .ticker-content a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .ticker-content a:hover {
+    text-decoration: underline;
+  }
+
+  .ticker-desc {
+    font-size: 12px;
+    color: #ccc;
+    margin: 3px 0;
+  }
+
+  .ticker-meta {
+    font-size: 11px;
+    color: #888;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-box">
+  <div class="ticker-header">Ultime Notizie in Anestesia</div>
+  <div id="ticker-container">
+    <div class="ticker-item active">Caricamento notizie...</div>
+  </div>
+</div>
+
+<script>
+  const feeds = [
+    "https://associationofanaesthetists-publications.onlinelibrary.wiley.com/action/showFeed?type=etoc&feed=rss&jc=13652044",
+    "https://rapm.bmj.com/rss/current.xml",
+    "https://edmariano.com/feed/",
+    "https://www.hindawi.com/journals/cria/contents/rss/"
+  ];
+
+  let items = [];
+  let currentIndex = 0;
+
+  function fetchFeed(url) {
+    const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url);
+    return fetch(apiUrl).then(res => res.json());
+  }
+
+  async function loadFeeds() {
+    items = [];
+    for (let feed of feeds) {
+      try {
+        const data = await fetchFeed(feed);
+        if (data.items) {
+          const feedItems = data.items.map(item => {
+            const pubDate = new Date(item.pubDate).toLocaleString('it-IT', {
+              day: '2-digit', month: 'short', year: 'numeric',
+              hour: '2-digit', minute: '2-digit'
+            });
+            const description = item.description
+              .replace(/<img.*?>/g, '')
+              .replace(/<\/?[^>]+(>|$)/g, '')
+              .split(' ')
+              .slice(0, 15)
+              .join(' ') + '...';
+            return `
+              <div class="ticker-item">
+                <div class="ticker-content">
+                  <a href="${item.link}" target="_blank">${item.title}</a>
+                  <div class="ticker-desc">${description}</div>
+                  <div class="ticker-meta">${pubDate} | ${new URL(item.link).hostname}</div>
+                </div>
+              </div>
+            `;
+          });
+          items = items.concat(feedItems);
+        }
+      } catch (err) {
+        console.error("Errore nel feed:", feed, err);
+      }
+    }
+    if (items.length > 0) {
+      document.getElementById('ticker-container').innerHTML = items.join('');
+      showItem(0);
+      setInterval(nextItem, 7000);
+    } else {
+      document.getElementById('ticker-container').innerHTML =
+        "<div class='ticker-item active'>Nessuna notizia trovata.</div>";
+    }
+  }
+
+  function showItem(index) {
+    const tickerItems = document.querySelectorAll('.ticker-item');
+    tickerItems.forEach(item => item.classList.remove('active'));
+    tickerItems[index].classList.add('active');
+  }
+
+  function nextItem() {
+    currentIndex = (currentIndex + 1) % items.length;
+    showItem(currentIndex);
+  }
+
+  loadFeeds();
+</script>
+
+</body>
+</html>
