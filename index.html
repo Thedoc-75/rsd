@@ -180,8 +180,7 @@
   </ul>
 </div>
 
-
-<iframe src="ticker.html" width="100%" height="40" style="border:none; overflow:hidden;"></iframe>
+<iframe src="ticker.html" width="100%" height="100" style="border:none; overflow:hidden;"></iframe>
 
 
   <div class="container">
@@ -211,18 +210,6 @@
 
     <!-- PLAYER RADIO STUDIO DOC CON METADATI -->
 <div style="text-align:center; margin-bottom: 15px;">
-<button id="refresh-btn" 
-          title="Aggiorna pagina" 
-          style="
-            background: transparent; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 1.8rem; 
-            color: #ff4444;
-            transition: transform 0.3s ease;
-          ">
-    🔄
-  </button>
 </div>
  <div id="custom-player" class="text-center p-4" style="background: #111; color: #fff; border-radius: 20px; max-width: 450px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3); font-family: 'Oswald', sans-serif;">
  <!-- Bottone Refresh -->
@@ -406,9 +393,13 @@ document.addEventListener('visibilitychange', () => {
 
 <!-- NEWS -->
 
-
-<iframe src="tickercarosello.html" width="100%" height="160" style="border:none; overflow:hidden;"></iframe>
-
+<div class="row trainers pl-0 pr-0">
+  <div id="news" class="col-12 bg-50">
+    <div class="quote-box2 wow bounceInDown" data-wow-delay=".25s">
+      <h2>NO STOP NEWS 24H</h2>
+      <iframe src="tickercarosello.html" width="100%" height="160" style="border:none; overflow:hidden;"></iframe>
+  </div>
+</div>
 
 
 <div class="row"> 
