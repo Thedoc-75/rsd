@@ -2,99 +2,186 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Multi-Feed News Ticker</title>
+<title>News Ticker - Stile BBC Widget</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-  }
-  .ticker-box {
-    display: flex;
-    align-items: center;
-    background: #222;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
     color: #fff;
-    padding: 8px;
+  }
+
+  .ticker-box {
+    max-width: none;
+    border: 2px solid #ff0000;
+    background: #111;
     overflow: hidden;
-    width: 100%;
-  }
-  .ticker-header {
-    background: #d32f2f;
-    padding: 8px;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  #ticker-container {
+    border-radius: 6px;
+    padding: 10px;
     display: flex;
-    align-items: center;
-    animation: ticker-scroll 35s linear infinite;
-    white-space: nowrap;
+    flex-direction: column;
   }
+
+  .ticker-header {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-logo {
+  height: 20px; /* regola la dimensione */
+  margin-right: 8px;
+}
+
+
   .ticker-item {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 50px;
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
   }
+
+  .ticker-item.active {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   .ticker-item img {
-    max-height: 40px;
-    margin-right: 10px;
+    flex: 0 0 100px;
+    height: 70px;
+    object-fit: cover;
     border-radius: 4px;
+    margin-right: 10px;
   }
-  @keyframes ticker-scroll {
-    from { transform: translateX(100%); }
-    to { transform: translateX(-100%); }
+
+  .ticker-content {
+    flex: 1;
+  }
+
+  .ticker-content a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .ticker-content a:hover {
+    text-decoration: underline;
+  }
+
+  .ticker-desc {
+    font-size: 12px;
+    color: #ccc;
+    margin: 3px 0;
+  }
+
+  .ticker-meta {
+    font-size: 11px;
+    color: #888;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .ticker-item {
+      flex-direction: column;
+    }
+    .ticker-item img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 5px;
+    }
   }
 </style>
 </head>
 <body>
 
 <div class="ticker-box">
-  <div class="ticker-header">Health-News</div>
-  <div id="ticker-container"></div>
+  <div class="ticker-header">
+    <img src="images/sciencedaily.jpg" alt="Logo" class="ticker-logo">
+    Health Medicine News
+  </div>
+  <div id="ticker-container">
+    <div class="ticker-item active">Caricamento notizie...</div>
+  </div>
 </div>
 
+
 <script>
-const feeds = [
-  "https://feeds.bbci.co.uk/news/health/rss.xml",
-  "https://jamanetwork.com/rss/site_12/mostRecentIssue.xml",
-  "https://www.sciencedaily.com/rss/health_medicine.xml"
-  "https://www.ehn.org/feeds/feed.rss"
-  
-];
+  const rssUrl = 'https://www.sciencedaily.com/rss/top/science.xml';
+  const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
-let currentFeed = 0;
-const proxy = "https://api.rss2json.com/v1/api.json?rss_url=";
+  let currentIndex = 0;
+  let items = [];
 
-async function loadFeed(url) {
-  try {
-    const res = await fetch(proxy + encodeURIComponent(url));
-    const data = await res.json();
-    if (data.items) {
-      const container = document.getElementById("ticker-container");
-      container.innerHTML = "";
-      data.items.slice(0, 5).forEach(item => {
-        const el = document.createElement("div");
-        el.className = "ticker-item";
-        if (item.enclosure && item.enclosure.link) {
-          const img = document.createElement("img");
-          img.src = item.enclosure.link;
-          el.appendChild(img);
-        }
-        el.innerHTML += `<a href="${item.link}" target="_blank" style="color:white;text-decoration:none;">${item.title}</a>`;
-        container.appendChild(el);
-      });
-    }
-  } catch (e) {
-    console.error("Errore caricamento feed:", e);
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items) {
+        items = data.items.map(item => {
+          let imgUrl = '';
+          if (item.enclosure && item.enclosure.link) {
+            imgUrl = item.enclosure.link;
+          } else {
+            const match = item.description.match(/<img.*?src="(.*?)"/i);
+            if (match) imgUrl = match[1];
+          }
+
+          const pubDate = new Date(item.pubDate).toLocaleString('it-IT', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+
+          const description = item.description
+            .replace(/<img.*?>/g, '') // rimuove immagini
+            .replace(/<\/?[^>]+(>|$)/g, '') // rimuove HTML
+            .split(' ')
+            .slice(0, 15)
+            .join(' ') + '...';
+
+          return `
+            <div class="ticker-item">
+              ${imgUrl ? `<img src="${imgUrl}" alt="">` : ''}
+              <div class="ticker-content">
+                <a href="${item.link}" target="_blank">${item.title}</a>
+                <div class="ticker-desc">${description}</div>
+                <div class="ticker-meta">${pubDate} | ${new URL(item.link).hostname}</div>
+              </div>
+            </div>
+          `;
+        });
+
+        document.getElementById('ticker-container').innerHTML = items.join('');
+        showItem(0);
+        setInterval(nextItem, 5000); // cambia ogni 5 secondi
+      } else {
+        document.getElementById('ticker-container').innerHTML =
+          "<div class='ticker-item active'>Nessuna notizia trovata.</div>";
+      }
+    })
+    .catch(err => {
+      document.getElementById('ticker-container').innerHTML =
+        "<div class='ticker-item active'>Errore nel caricamento delle notizie.</div>";
+      console.error(err);
+    });
+
+  function showItem(index) {
+    const tickerItems = document.querySelectorAll('.ticker-item');
+    tickerItems.forEach(item => item.classList.remove('active'));
+    tickerItems[index].classList.add('active');
   }
-}
 
-function cycleFeeds() {
-  loadFeed(feeds[currentFeed]);
-  currentFeed = (currentFeed + 1) % feeds.length;
-}
-
-cycleFeeds();
-setInterval(cycleFeeds, 30000); // Cambia feed ogni 30s
+  function nextItem() {
+    currentIndex = (currentIndex + 1) % items.length;
+    showItem(currentIndex);
+  }
 </script>
 
 </body>
