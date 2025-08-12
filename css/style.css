@@ -81,7 +81,7 @@ a, a:hover {
   width: 100%;
   max-width: 200px;
   height: auto;
-  margin-bottom: 300px;
+  margin-bottom: 30px;
 }
 
 /* Se vuoi modificarle in base alla larghezza del dispositivo */
@@ -587,7 +587,6 @@ a, a:hover {
   background-attachment: fixed;
 }
 
-<style>
   .text-contact {
     color: #FF8013;
   }
@@ -642,7 +641,7 @@ a, a:hover {
     }
   }
 
- </style>
+ 
 
 
 footer {
@@ -708,11 +707,10 @@ footer .footer3 a {
 footer .footer3 a:hover {
   background: #ff8013;
 }
-<style>
   .text-contact {
     color: #FF8013;
   }
-</style>
+
 
 footer .footer3 .nav-item li {
   margin: 0 5px;
@@ -774,3 +772,25 @@ footer::before {
     margin-top: 0 !important;
   }
 } 
+/* Riduzione bordi e spazi vuoti */
+.container,
+.container-fluid {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.row {
+  margin-left: -5px !important;
+  margin-right: -5px !important;
+}
+
+[class*="col-"] {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+/* Riduci margini globali */
+body, html {
+  margin: 0;
+  padding: 0;
+}
