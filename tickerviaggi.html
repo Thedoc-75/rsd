@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Travel & Health Ticker</title>
+<style>
+  body {
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+  .ticker-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #222;
+    padding: 10px 0;
+  }
+  .ticker-track {
+    display: flex;
+    animation: scroll-left 200s linear infinite;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    margin-right: 60px; /* Spazio tra notizie */
+  }
+  .ticker-separator {
+    color: #bbb;
+    font-size: 20px;
+    margin: 0 20px;
+  }
+  .ticker-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  .ticker-item a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-container">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<script>
+const feeds = [
+  "https://feeds.bbci.co.uk/news/world/asia/rss.xml",
+  "https://www.breakingtravelnews.com/feeds/",
+  "https://thepointsguy.com/feed/",
+  "https://wwwnc.cdc.gov/travel/rss/travel-health.xml"
+];
+
+async function fetchFeed(url) {
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    return data.items.map(item => {
+      let img = item.thumbnail || (item.enclosure && item.enclosure.link);
+
+      // Se non c'è immagine, cerco nella descrizione
+      if (!img && item.description) {
+        const match = item.description.match(/<img[^>]+src="([^">]+)"/i);
+        if (match && match[1]) {
+          img = match[1];
+        }
+      }
+
+      // Se non c'è immagine, cerco anche in content (se disponibile)
+      if (!img && item.content) {
+        const match = item.content.match(/<img[^>]+src="([^">]+)"/i);
+        if (match && match[1]) {
+          img = match[1];
+        }
+      }
+
+      // Placeholder finale
+      if (!img) img = 'https://via.placeholder.com/60';
+
+      return {
+        title: item.title,
+        link: item.link,
+        thumbnail: img
+      };
+    });
+  } catch (e) {
+    console.error("Error fetching feed:", url, e);
+    return [];
+  }
+}
+
+async function loadTicker() {
+  const allItems = [];
+  for (const feed of feeds) {
+    const items = await fetchFeed(feed);
+    allItems.push(...items);
+  }
+
+  allItems.sort(() => Math.random() - 0.5); // mescola
+
+  const ticker = document.getElementById('ticker');
+  ticker.innerHTML = '';
+
+  const buildItems = () => {
+    allItems.forEach((item, index) => {
+      const el = document.createElement('div');
+      el.className = 'ticker-item';
+      el.innerHTML = `
+        <img src="${item.thumbnail}" alt="">
+        <a href="${item.link}" target="_blank">${item.title}</a>
+      `;
+      ticker.appendChild(el);
+
+      if (index < allItems.length - 1) {
+        const sep = document.createElement('span');
+        sep.className = 'ticker-separator';
+        sep.textContent = '•';
+        ticker.appendChild(sep);
+      }
+    });
+  };
+
+  buildItems();
+  buildItems(); // duplicato per scorrimento continuo
+}
+
+loadTicker();
+setInterval(loadTicker, 600000); // aggiorna ogni 10 minuti
+</script>
+
+</body>
+</html>
