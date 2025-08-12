@@ -35,7 +35,7 @@
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;
-    animation: ticker 150s linear infinite;
+    animation: ticker 200s linear infinite;
     z-index: 1; /* sotto il logo */
     font-size: 20px;
   }
@@ -58,7 +58,7 @@
 
   @media (max-width: 600px) {
     .ticker-text {
-      font-size: 22px;
+      font-size: 25px;
       animation-duration: 85s;
     }
   }
@@ -67,12 +67,12 @@
 <body>
 
 <div class="ticker-box">
-  <img src="images/sciencedaily.jpg" alt="Logo" class="ticker-logo">
+  <img src="images/BBC.jpg" alt="Logo" class="ticker-logo">
   <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
 </div>
 
 <script>
-  const rssUrl = 'http://rss.cnn.com/rss/cnn_topstories.rss';
+  const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   fetch(apiUrl)
