@@ -21,7 +21,7 @@
   }
   .ticker-track {
     display: flex;
-    animation: scroll-left 200s linear infinite;
+    animation: scroll-left 100s linear infinite; /* Più lento */
   }
   .ticker-item {
     display: flex;
@@ -45,6 +45,11 @@
     text-decoration: none;
     font-weight: bold;
   }
+  .ticker-source {
+    color: #ffcc00;
+    margin-right: 5px;
+    font-weight: normal;
+  }
   @keyframes scroll-left {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -59,21 +64,21 @@
 
 <script>
 const feeds = [
-  "https://feeds.bbci.co.uk/news/world/asia/rss.xml",
-  "https://www.breakingtravelnews.com/feeds/",
-  "https://thepointsguy.com/feed/",
-  "https://wwwnc.cdc.gov/travel/rss/travel-health.xml"
+  { url: "https://feeds.bbci.co.uk/news/world/asia/rss.xml", name: "BBC" },
+  { url: "https://www.breakingtravelnews.com/feeds/", name: "Breaking Travel News" },
+  { url: "https://thepointsguy.com/feed/", name: "The Points Guy" },
+  { url: "https://wwwnc.cdc.gov/travel/rss/travel-health.xml", name: "CDC" }
 ];
 
-async function fetchFeed(url) {
-  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+async function fetchFeed(feed) {
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
   try {
     const res = await fetch(apiUrl);
     const data = await res.json();
     return data.items.map(item => {
       let img = item.thumbnail || (item.enclosure && item.enclosure.link);
 
-      // Se non c'è immagine, cerco nella descrizione
+      // Cerca immagine nella descrizione
       if (!img && item.description) {
         const match = item.description.match(/<img[^>]+src="([^">]+)"/i);
         if (match && match[1]) {
@@ -81,7 +86,7 @@ async function fetchFeed(url) {
         }
       }
 
-      // Se non c'è immagine, cerco anche in content (se disponibile)
+      // Cerca immagine nel contenuto
       if (!img && item.content) {
         const match = item.content.match(/<img[^>]+src="([^">]+)"/i);
         if (match && match[1]) {
@@ -89,17 +94,18 @@ async function fetchFeed(url) {
         }
       }
 
-      // Placeholder finale
+      // Placeholder se nessuna immagine
       if (!img) img = 'https://via.placeholder.com/60';
 
       return {
         title: item.title,
         link: item.link,
-        thumbnail: img
+        thumbnail: img,
+        source: feed.name
       };
     });
   } catch (e) {
-    console.error("Error fetching feed:", url, e);
+    console.error("Error fetching feed:", feed.url, e);
     return [];
   }
 }
@@ -122,7 +128,9 @@ async function loadTicker() {
       el.className = 'ticker-item';
       el.innerHTML = `
         <img src="${item.thumbnail}" alt="">
-        <a href="${item.link}" target="_blank">${item.title}</a>
+        <a href="${item.link}" target="_blank">
+          <span class="ticker-source">[${item.source}]</span>${item.title}
+        </a>
       `;
       ticker.appendChild(el);
 
