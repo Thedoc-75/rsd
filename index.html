@@ -209,7 +209,7 @@
  <div id="custom-player" class="text-center p-4" style="background: #111; color: #fff; border-radius: 20px; max-width: 450px; margin: 40px auto; box-shadow: 0 0 15px rgba(255,0,0,0.3); font-family: 'Oswald', sans-serif;">
  
 <h3 style="color: #ffffff;">🔴 Radio Studio Doc</h3>
-<p style="font-size: 1.1rem; font-weight: 300; color: #ccc;">Your Sound Your Station</p>
+<p style="font-size: 1.4rem; font-weight: 400; color: #ccc;">Your Sound Your Station</p>
 
   <!-- METADATI SCORREVOLI -->
   <div id="metadata-container" style="margin: 15px 0; height: 24px; overflow: hidden; white-space: nowrap;">
@@ -220,7 +220,7 @@
 
   <!-- CONTROLLI -->
   <div class="d-flex justify-content-center align-items-center mt-3 gap-2" style="gap: 15px;">
-    <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.2rem;">▶ Play</button>
+    <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.6rem;">▶ Play</button>
     
     <div class="volume-control d-flex align-items-center" style="color: #fff;">
       <label for="volume-slider" id="volume-icon" style="margin-right: 8px; font-size: 1rem; cursor: pointer;">🔊</label>
@@ -520,14 +520,19 @@ document.addEventListener('visibilitychange', () => {
 <footer class="container-fluid">
   <div class="container">
     <div class="row">
-      <div class="col-md-3 footer1 d-flex wow bounceInLeft" data-wow-delay=".25s">
-        <div class="d-flex flex-wrap align-content-center">
-          <a href="#"><img src="images/radiostudiodoc.png" alt="logo"></a>
-          <p>FOLLOW US</p>
-          <p>&copy; 2025 Radio Studio Doc. All rights reserved.<br> Design by <a href="https://freehtml5.co" target="_blank">FreeHTML5</a>.</p>
-          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons BY-NC-SA 4.0</a><br>
-        </div>
-      </div>
+     <div class="col-md-3 footer1 d-flex wow bounceInLeft" data-wow-delay=".25s">
+  <div class="footer-content d-flex flex-column align-items-center text-center">
+    <a href="#"><img src="images/radiostudiodoc.png" alt="logo" class="footer-logo"></a>
+    <p class="follow-us">FOLLOW US</p>
+    <p class="copyright">
+      &copy; 2025 Radio Studio Doc. All rights reserved.<br>
+      Design by <a href="https://freehtml5.co" target="_blank">FreeHTML5</a>.
+    </p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" class="cc-link">
+      Creative Commons BY-NC-SA 4.0
+    </a>
+  </div>
+</div>
 
      
   
