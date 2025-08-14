@@ -1,7 +1,7 @@
 <section id="podcast" style="background:#101011; color:#fff; padding:40px;">
   <div style="max-width:1200px; margin:auto;">
     <h2 style="color:#ff8013; text-align:center; font-family:'Lato', sans-serif; font-weight:700; margin-bottom:30px;">
-      🎧 Emergency Medicine Cases - Ultimi Episodi
+      🎧 - Emergency Medicine Cases - 
     </h2>
 
     <!-- Contenitore carosello -->
@@ -33,12 +33,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.podcast-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
 }
 
 .podcast-card-content {
@@ -93,17 +87,15 @@ let currentPosition = 0;
 const cardWidth = 320; // card + gap
 let totalCards = 0;
 
-// Funzione per scorrere avanti
 function slideNext(track) {
   if (currentPosition > -(cardWidth * (totalCards - 3))) {
     currentPosition -= cardWidth;
   } else {
-    currentPosition = 0; // torna all'inizio
+    currentPosition = 0;
   }
   track.style.transform = `translateX(${currentPosition}px)`;
 }
 
-// Funzione per scorrere indietro
 function slidePrev(track) {
   if (currentPosition < 0) {
     currentPosition += cardWidth;
@@ -122,10 +114,6 @@ fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl
     data.items.forEach(item => {
       const card = document.createElement('div');
       card.classList.add('podcast-card');
-
-      const img = document.createElement('img');
-      img.src = item.thumbnail || 'https://emergencymedicinecases.com/wp-content/uploads/2018/10/emc-podcast.jpg';
-      img.alt = item.title;
 
       const content = document.createElement('div');
       content.classList.add('podcast-card-content');
@@ -146,16 +134,13 @@ fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl
       content.appendChild(date);
       content.appendChild(audio);
 
-      card.appendChild(img);
       card.appendChild(content);
       track.appendChild(card);
     });
 
-    // Pulsanti manuali
     document.querySelector('.carousel-btn.next').addEventListener('click', () => slideNext(track));
     document.querySelector('.carousel-btn.prev').addEventListener('click', () => slidePrev(track));
 
-    // Auto-play ogni 5 secondi
     setInterval(() => slideNext(track), 5000);
   })
   .catch(err => {
