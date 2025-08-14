@@ -1,0 +1,85 @@
+<section id="podcast" style="background:#101011; color:#fff; padding:40px;">
+  <div style="max-width:1000px; margin:auto;">
+    <h2 style="color:#ff8013; text-align:center; font-family:'Lato', sans-serif; font-weight:700; margin-bottom:30px;">
+      🎧 Emergency Medicine Cases - Ultimi Episodi
+    </h2>
+    <div id="podcast-list"></div>
+  </div>
+</section>
+
+<script>
+const feedUrl = 'https://emergencymedicinecases.com/feed/';
+
+// Uso RSS2JSON per convertire il feed RSS in JSON
+fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('podcast-list');
+    data.items.forEach(item => {
+      // Contenitore episodio
+      const episode = document.createElement('div');
+      episode.style.display = 'flex';
+      episode.style.flexWrap = 'wrap';
+      episode.style.background = '#1b1b1d';
+      episode.style.padding = '20px';
+      episode.style.marginBottom = '20px';
+      episode.style.borderRadius = '10px';
+      episode.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+      episode.style.alignItems = 'flex-start';
+
+      // Immagine copertina
+      const img = document.createElement('img');
+      img.src = item.enclosure && item.enclosure.link && item.enclosure.type.includes('image') 
+                ? item.enclosure.link 
+                : (item.thumbnail || 'https://emergencymedicinecases.com/wp-content/uploads/2018/10/emc-podcast.jpg');
+      img.alt = item.title;
+      img.style.width = '150px';
+      img.style.height = '150px';
+      img.style.objectFit = 'cover';
+      img.style.borderRadius = '8px';
+      img.style.marginRight = '20px';
+      img.style.flexShrink = '0';
+      episode.appendChild(img);
+
+      // Contenuto testo
+      const content = document.createElement('div');
+      content.style.flex = '1';
+
+      // Titolo
+      const title = document.createElement('h3');
+      title.innerHTML = `<a href="${item.link}" target="_blank" style="color:#ff8013; text-decoration:none;">${item.title}</a>`;
+      content.appendChild(title);
+
+      // Data
+      const date = document.createElement('p');
+      date.style.color = '#ccc';
+      date.style.fontSize = '0.9em';
+      date.textContent = new Date(item.pubDate).toLocaleDateString('it-IT');
+      content.appendChild(date);
+
+      // Descrizione breve
+      const desc = document.createElement('p');
+      desc.style.color = '#ddd';
+      desc.innerHTML = item.description.length > 200 ? item.description.substring(0, 200) + '...' : item.description;
+      content.appendChild(desc);
+
+      // Player audio
+      if (item.enclosure && item.enclosure.link && item.enclosure.type.includes('audio')) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = item.enclosure.link;
+        audio.style.width = '100%';
+        content.appendChild(audio);
+      }
+
+      // Unisco immagine e contenuto
+      episode.appendChild(content);
+      container.appendChild(episode);
+    });
+  })
+  .catch(err => {
+    console.error('Errore nel caricamento del feed:', err);
+    document.getElementById('podcast-list').innerHTML = '<p>Impossibile caricare il podcast.</p>';
+  });
+</script>
+
