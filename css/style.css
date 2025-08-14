@@ -258,7 +258,7 @@ a, a:hover {
 /* Contenitore principale del contenuto About */
 .about-content {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   background: rgba(0, 0, 0, 0.6); /* più opacità per migliorare leggibilità */
   padding: 40px 30px;
   border-left: 6px solid #ff8013;
@@ -267,8 +267,14 @@ a, a:hover {
   margin: 0 auto;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-
+.parallax-separator {
+    pointer-events: none; 
+    }
+.btn.btn-dark {
+    position: relative; 
+    z-index: 15; /* sopra .about-content */
+    cursor: pointer; /* assicura il cursore mano */
+}
 
 /* Responsive migliorato */
 @media screen and (max-width: 768px) {
