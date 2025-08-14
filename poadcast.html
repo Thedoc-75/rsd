@@ -141,7 +141,7 @@ fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl
     document.querySelector('.carousel-btn.next').addEventListener('click', () => slideNext(track));
     document.querySelector('.carousel-btn.prev').addEventListener('click', () => slidePrev(track));
 
-    setInterval(() => slideNext(track), 5000);
+    setInterval(() => slideNext(track), 8000);
   })
   .catch(err => {
     console.error('Errore nel caricamento del feed:', err);
