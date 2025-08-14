@@ -7,43 +7,39 @@
 <style>
   body {
     margin: 0;
-    margin-top: 15;
     font-family: 'Roboto', sans-serif;
+    background-color: #111; /* sfondo scuro per contrasto */
   }
 
-.ticker-box {
+  .ticker-box {
     display: flex;
-    align-items: center;
-    background-color: #000; /* sfondo nero */
-    padding: 0.5rem;        /* piccolo spazio interno */
-    border: 2px solid red;  /* bordo esterno */
-    border-radius: 8px;     /* angoli arrotondati */
-}
+    align-items: center;        /* centra verticalmente immagine e testo */
+    background-color: #000;     /* sfondo nero */
+    padding: 10px 15px;         /* padding visibile */
+    border: 2px solid red;      /* bordo rosso */
+    border-radius: 8px;         /* angoli arrotondati */
+    max-width: 100%;            /* non oltre la finestra */
+    box-sizing: border-box;     /* include padding nel calcolo */
+  }
 
-.ticker-image {
-    flex-shrink: 0;
-    height: 50px; /* leggermente più grande per evidenza */
+  .ticker-image {
+    flex-shrink: 0;             /* immagine non si riduce */
+    height: 50px;
     margin-right: 15px;
-    border: 2px solid red; /* bordo attorno all'immagine */
+    border: 2px solid red;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255,0,0,0.6); /* glow rosso */
-}
+  }
 
-#ticker-container {
+  #ticker-container {
     flex: 1;
-    overflow: hidden;
-    color: #fff; /* testo bianco */
+    color: #fff;
     font-weight: bold;
-    font-size: 1.1rem;
-}
-
-
-  .ticker-header {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 50px;           /* garantisce spazio verticale */
   }
 
   .ticker-item {
@@ -53,18 +49,13 @@
 
   .ticker-item.active {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .ticker-content {
-    flex: 1;
+    flex-direction: column;
   }
 
   .ticker-content a {
     color: #fff;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 0.95rem;
     text-decoration: none;
   }
 
@@ -73,13 +64,13 @@
   }
 
   .ticker-desc {
-    font-size: 12px;
+    font-size: 0.85rem;
     color: #ccc;
     margin: 3px 0;
   }
 
   .ticker-meta {
-    font-size: 11px;
+    font-size: 0.75rem;
     color: #888;
   }
 
@@ -98,8 +89,7 @@
   </div>
 </div>
 
-  
-  <script>
+<script>
   const feeds = [
     { url: "https://associationofanaesthetists-publications.onlinelibrary.wiley.com/action/showFeed?type=etoc&feed=rss&jc=13652044", source: "Association of Anaesthetists" },
     { url: "https://rapm.bmj.com/rss/current.xml", source: "BMJ RAPM" },
@@ -110,9 +100,11 @@
   let items = [];
   let currentIndex = 0;
 
-  function fetchFeed(feed) {
+  async function fetchFeed(feed) {
     const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
-    return fetch(apiUrl).then(res => res.json().then(data => ({ data, source: feed.source })));
+    return fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => ({ data, source: feed.source }));
   }
 
   async function loadFeeds() {
@@ -171,3 +163,6 @@
 
   loadFeeds();
 </script>
+
+</body>
+</html>
