@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Stock Ticker</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #000;
+  }
+
+  .ticker-box {
+    position: relative;
+    border: 3px solid #ff0000;
+    height: 60px;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker-logo {
+    margin-left: 10px;
+    height: 35px;
+    z-index: 2;
+  }
+
+  .ticker-wrap {
+    overflow: hidden;
+    flex: 1;
+    margin-left: 15px;
+    position: relative;
+  }
+
+  .ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 17px;
+    color: #fff;
+  }
+
+  .ticker-move a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 40px;
+  }
+
+  .ticker-move a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes ticker {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-box">
+  <img src="images/finance.png" alt="Logo" class="ticker-logo">
+  <div class="ticker-wrap">
+    <div class="ticker-move" id="ticker">
+      Caricamento notizie...
+    </div>
+  </div>
+</div>
+
+<script>
+  // ⏱️ Imposta qui la velocità (secondi per attraversare lo schermo)
+  let tickerSpeed = 40; // Cambia 20, 40, 60...
+
+  const rssUrl = 'https://feeds.finance.yahoo.com/rss/2.0/headline?s=yhoo&region=US&lang=en-US';
+  const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items) {
+        const headlines = data.items
+          .map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`)
+          .join(' • ');
+
+        const ticker = document.getElementById('ticker');
+        ticker.innerHTML = headlines + " • " + headlines; // duplicato
+
+        // ⏯️ Applica animazione con velocità regolabile
+        ticker.style.animation = `ticker ${tickerSpeed}s linear infinite`;
+      } else {
+        document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
+      }
+    })
+    .catch(err => {
+      document.getElementById('ticker').textContent = "Errore nel caricamento feed.";
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>
