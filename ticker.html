@@ -1,94 +1,148 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>News Ticker - Smart</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>Travel & Health Ticker</title>
 <style>
   body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-   }
-
-  .ticker-box {
-    position: relative;
-    border: 4px solid #ff0000;
-    height: 70px;
+    padding: 0;
+  }
+  .ticker-container {
+    display: flex;
+    align-items: center;
     overflow: hidden;
-    background: rgb(0, 0, 0);
-  }
-
-  .ticker-logo {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 40px;
-    z-index: 2; /* sopra al testo */
-  }
-
-  .ticker-text {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
     white-space: nowrap;
-    animation: ticker 400s linear infinite;
-    z-index: 1; /* sotto il logo */
-    font-size: 15px;
+    background: #222;
+    padding: 10px 0;
   }
-
-  .ticker-text a {
-    color: #ffffff; /* blu Radio Studio Doc */
+  .ticker-track {
+    display: flex;
+    animation: scroll-left 140s linear infinite; /* Più lento */
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    margin-right: 60px; /* Spazio tra notizie */
+  }
+  .ticker-separator {
+    color: #bbb;
+    font-size: 30px;
+    margin: 0 20px;
+  }
+  .ticker-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  .ticker-item a {
+    color: white;
     text-decoration: none;
-    font-weight: 500;
-    margin: 0 40px; /*Spazio tra le notizie*/
+    font-weight: bold;
   }
-
-  .ticker-text a:hover {
-    text-decoration: underline;
+  .ticker-source {
+    color: #ffcc00;
+    margin-right: 5px;
+    font-weight: normal;
   }
-
-  @keyframes ticker {
-    0%   { transform: translate(100%, -50%); }
-    100% { transform: translate(-100%, -50%); }
-  }
-
-  @media (max-width: 600px) {
-    .ticker-text {
-      font-size: 25px;
-      animation-duration: 120s;
-    }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 </style>
 </head>
 <body>
 
-<div class="ticker-box">
-  <img src="images/BBC.jpg" alt="Logo" class="ticker-logo">
-  <div class="ticker-text" id="ticker">Caricamento notizie WHO...</div>
+<div class="ticker-container">
+  <div class="ticker-track" id="ticker"></div>
 </div>
 
 <script>
-  const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
-  const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+const feeds = [
+  { url: "https://feeds.bbci.co.uk/news/world/rss.xml", name: "BBC" },
 
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.items) {
-        const headlines = data.items
-          .map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`)
-          .join('  •  ');
-        document.getElementById('ticker').innerHTML = headlines;
-      } else {
-        document.getElementById('ticker').textContent = "Nessuna notizia trovata.";
+async function fetchFeed(feed) {
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    return data.items.map(item => {
+      let img = item.thumbnail || (item.enclosure && item.enclosure.link);
+
+      // Cerca immagine nella descrizione
+      if (!img && item.description) {
+        const match = item.description.match(/<img[^>]+src="([^">]+)"/i);
+        if (match && match[1]) {
+          img = match[1];
+        }
       }
-    })
-    .catch(err => {
-      document.getElementById('ticker').textContent = "Errore nel caricamento delle notizie.";
-      console.error(err);
+
+      // Cerca immagine nel contenuto
+      if (!img && item.content) {
+        const match = item.content.match(/<img[^>]+src="([^">]+)"/i);
+        if (match && match[1]) {
+          img = match[1];
+        }
+      }
+
+      // Placeholder se nessuna immagine
+      if (!img) img = 'https://via.placeholder.com/60';
+
+      return {
+        title: item.title,
+        link: item.link,
+        thumbnail: img,
+        source: feed.name
+      };
     });
+  } catch (e) {
+    console.error("Error fetching feed:", feed.url, e);
+    return [];
+  }
+}
+
+async function loadTicker() {
+  const allItems = [];
+  for (const feed of feeds) {
+    const items = await fetchFeed(feed);
+    allItems.push(...items);
+  }
+
+  allItems.sort(() => Math.random() - 0.5); // mescola
+
+  const ticker = document.getElementById('ticker');
+  ticker.innerHTML = '';
+
+  const buildItems = () => {
+    allItems.forEach((item, index) => {
+      const el = document.createElement('div');
+      el.className = 'ticker-item';
+      el.innerHTML = `
+        <img src="${item.thumbnail}" alt="">
+        <a href="${item.link}" target="_blank">
+          <span class="ticker-source">[${item.source}]</span>${item.title}
+        </a>
+      `;
+      ticker.appendChild(el);
+
+      if (index < allItems.length - 1) {
+        const sep = document.createElement('span');
+        sep.className = 'ticker-separator';
+        sep.textContent = '•';
+        ticker.appendChild(sep);
+      }
+    });
+  };
+
+  buildItems();
+  buildItems(); // duplicato per scorrimento continuo
+}
+
+loadTicker();
+setInterval(loadTicker, 600000); // aggiorna ogni 10 minuti
 </script>
 
 </body>
