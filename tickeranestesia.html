@@ -21,7 +21,6 @@
     color: #fff;
   }
 
-  /* intestazione con immagine e titolo */
   .ticker-header {
     display: flex;
     align-items: center;
@@ -44,7 +43,6 @@
     margin: 0;
   }
 
-  /* container notizie */
   #ticker-container {
     min-height: 50px;
     box-sizing: border-box;
@@ -83,7 +81,7 @@
     color: #ccc;
     margin: 3px 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;       /* max 3 righe */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-wrap: break-word;
@@ -104,13 +102,11 @@
 <body>
 
 <div class="ticker-box">
-  <!-- intestazione -->
   <div class="ticker-header">
     <img src="images/anestesia.jpg" alt="Anestesia" class="ticker-image">
     <h3 class="ticker-title">🩺 News Anestesia</h3>
   </div>
 
-  <!-- carosello -->
   <div id="ticker-container">
     <div class="ticker-item active">Caricamento notizie...</div>
   </div>
@@ -148,10 +144,11 @@
             const description = item.description
               .replace(/<img.*?>/g, '')
               .replace(/<\/?[^>]+(>|$)/g, '');
+            const cleanTitle = item.title.replace(/\[.*?\]\s*/g, '').trim(); // rimuove [Fonte]
             return `
               <div class="ticker-item">
                 <div class="ticker-content">
-                  <a href="${item.link}" target="_blank">[${source}] ${item.title}</a>
+                  <a href="${item.link}" target="_blank">${cleanTitle}</a>
                   <div class="ticker-desc">${description}</div>
                   <div class="ticker-meta">${pubDate} | ${new URL(item.link).hostname}</div>
                 </div>
@@ -164,6 +161,7 @@
         console.error("Errore nel feed:", feed.url, err);
       }
     }
+
     if (items.length > 0) {
       document.getElementById('ticker-container').innerHTML = items.join('');
       showItem(0);
