@@ -73,7 +73,8 @@
   // ⏱️ Imposta qui la velocità (secondi per attraversare lo schermo)
   let tickerSpeed = 40; // Cambia 20, 40, 60...
 
-  const rssUrl = 'https://feeds.finance.yahoo.com/rss/2.0/headline?s=yhoo&region=US&lang=en-US';
+  // Nuovo feed RSS (Investing.com Indici USA)
+  const rssUrl = '';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   fetch(apiUrl)
