@@ -920,6 +920,85 @@ window.addEventListener("load", () => {
   document.getElementById("rsd-a2hs").hidden = false;
 });
 </script>
+<!-- A2HS Banner for Radio Studio Doc -->
+<div id="rsd-a2hs" hidden>
+  <div class="rsd-a2hs-card">
+    <div class="rsd-a2hs-brand">
+      <span class="rsd-logo"><strong>Radio</strong> Studio Doc</span>
+    </div>
+    <h2 class="rsd-title">Install our app</h2>
+    <p id="rsd-instructions" class="rsd-text">
+      Get quick access to Radio Studio Doc right from your home screen.
+    </p>
+    <button class="rsd-close" onclick="document.getElementById('rsd-a2hs').hidden = true;">×</button>
+  </div>
+</div>
+
+<style>
+  #rsd-a2hs {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+  }
+  .rsd-a2hs-card {
+    background: #101011;
+    color: #fff;
+    border: 2px solid #ff8013;
+    border-radius: 15px;
+    padding: 15px 20px;
+    max-width: 320px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    font-family: Arial, sans-serif;
+    position: relative;
+  }
+  .rsd-a2hs-brand {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #ff8013;
+  }
+  .rsd-title {
+    font-size: 20px;
+    margin: 0 0 10px;
+    font-weight: bold;
+  }
+  .rsd-text {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .rsd-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #ff8013;
+    font-size: 20px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  window.addEventListener("load", () => {
+    const banner = document.getElementById("rsd-a2hs");
+    const instructions = document.getElementById("rsd-instructions");
+
+    // Detect Chrome on Android
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isChrome = /Chrome/i.test(navigator.userAgent) && !/Edge|OPR/i.test(navigator.userAgent);
+
+    if (isAndroid && isChrome) {
+      instructions.textContent = 
+        "On Chrome for Android: Tap the ⋮ menu in the top right, then choose 'Add to Home screen'.";
+      banner.hidden = false;
+    } else {
+      // Generic fallback
+      instructions.textContent = 
+        "Get quick access: Open your browser menu and choose 'Add to Home screen'.";
+      banner.hidden = false;
+    }
+  });
+</script>
 
 </body>
 
