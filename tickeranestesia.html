@@ -2,47 +2,58 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>News Ticker Anestesia</title>
+<title>Update Anesthesia</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #111; /* sfondo scuro per contrasto */
+    background-color: #111;
   }
 
   .ticker-box {
+    background-color: #000;
+    padding: 12px 10px;
+    border: 2px solid red;
+    border-radius: 8px;
+    max-width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+  }
+
+  /* intestazione con immagine e titolo */
+  .ticker-header {
     display: flex;
-    align-items: center;        /* centra verticalmente immagine e testo */
-    background-color: #000;     /* sfondo nero */
-    padding: 10px 15px;         /* padding visibile */
-    border: 2px solid red;      /* bordo rosso */
-    border-radius: 8px;         /* angoli arrotondati */
-    max-width: 100%;            /* non oltre la finestra */
-    box-sizing: border-box;     /* include padding nel calcolo */
+    align-items: center;
+    margin-bottom: 10px;
   }
 
   .ticker-image {
-    flex-shrink: 0;             /* immagine non si riduce */
+    flex-shrink: 0;
     height: 50px;
-    margin-right: 15px;
+    margin-right: 12px;
     border: 2px solid red;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255,0,0,0.6); /* glow rosso */
+    box-shadow: 0 0 10px rgba(255,0,0,0.6);
   }
 
-  #ticker-container {
-    flex: 1;
-    color: #fff;
-    font-weight: bold;
+  .ticker-title {
     font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 50px;           /* garantisce spazio verticale */
+    font-weight: bold;
+    color: #ff8013;
+    margin: 0;
+  }
+
+  /* container notizie */
+  #ticker-container {
+    min-height: 50px;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .ticker-item {
+    width: 100%;
+    box-sizing: border-box;
     display: none;
     animation: fadeIn 0.6s ease-in-out;
   }
@@ -55,8 +66,12 @@
   .ticker-content a {
     color: #fff;
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 0.7rem;
     text-decoration: none;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .ticker-content a:hover {
@@ -64,14 +79,20 @@
   }
 
   .ticker-desc {
-    font-size: 0.85rem;
+    font-size: 0.5rem;
     color: #ccc;
     margin: 3px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;       /* max 2 righe */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
   }
 
   .ticker-meta {
-    font-size: 0.75rem;
+    font-size: 0.3rem;
     color: #888;
+    word-wrap: break-word;
   }
 
   @keyframes fadeIn {
@@ -83,7 +104,13 @@
 <body>
 
 <div class="ticker-box">
-  <img src="images/anestesia.jpg" alt="Anestesia" class="ticker-image">
+  <!-- intestazione -->
+  <div class="ticker-header">
+    <img src="images/anestesia.jpg" alt="Anestesia" class="ticker-image">
+    <h3 class="ticker-title">🩺 News Anestesia</h3>
+  </div>
+
+  <!-- carosello -->
   <div id="ticker-container">
     <div class="ticker-item active">Caricamento notizie...</div>
   </div>
@@ -120,10 +147,7 @@
             });
             const description = item.description
               .replace(/<img.*?>/g, '')
-              .replace(/<\/?[^>]+(>|$)/g, '')
-              .split(' ')
-              .slice(0, 15)
-              .join(' ') + '...';
+              .replace(/<\/?[^>]+(>|$)/g, '');
             return `
               <div class="ticker-item">
                 <div class="ticker-content">
