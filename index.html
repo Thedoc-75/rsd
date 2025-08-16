@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+
 <style>
   /* Overlay scuro */
   #translate-popup {
@@ -200,74 +201,15 @@
   font-size: 25px; /* Puoi provare anche 24px o 32px */
 }
 
-:root{
-    --rsd-brand:#ff8013;    /* your accent color */
-    --rsd-bg:#101011;
-    --rsd-fg:#ffffff;
-    --rsd-card:#1a1b1d;
-  }
-  #rsd-a2hs{
-    position: fixed; inset: 0 0 auto 0; /* top banner */
-    display: grid; place-items: start center;
-    padding: 16px; z-index: 9999;
-    background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35));
-  }
-  #rsd-a2hs[hidden]{ display:none !important; }
 
-  .rsd-a2hs-card{
-    width: min(820px, 92vw);
-    background: var(--rsd-card);
-    color: var(--rsd-fg);
-    border-left: 6px solid var(--rsd-brand);
-    border-radius: 12px;
-    padding: 22px 56px 22px 22px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    position: relative;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  }
-
-  .rsd-a2hs-brand{
-    display:flex; align-items:center; gap:.6rem; margin-bottom:.25rem;
-  }
-  .rsd-logo{ font-size: 1.2rem; letter-spacing:.2px; color: var(--rsd-fg); }
-  .rsd-logo strong{ color: var(--rsd-brand); font-weight:800; }
-
-  .rsd-title{
-    margin:.25rem 0 1rem; font-size: clamp(1.1rem, 1.2rem + .6vw, 1.6rem);
-    font-weight:800; color:#fff; text-align:left;
-  }
-  .rsd-text{
-    margin:0; line-height:1.6; font-size: clamp(.95rem, .95rem + .2vw, 1.05rem);
-    color:#e9e9e9;
-  }
-
-  .rsd-icon{
-    display:inline-flex; vertical-align:middle; margin:0 .3rem;
-    width:26px; height:26px; color:#fff;
-  }
-  .rsd-icon svg{
-    width:100%; height:100%; fill: currentColor;
-  }
-
-  .rsd-close{
-    position:absolute; top:10px; right:10px;
-    width:36px; height:36px; border:0; border-radius:8px;
-    background:#2a2c30; color:#fff; font-size:1.5rem; line-height:1;
-    cursor:pointer;
-  }
-  .rsd-close:hover{ background:#33363b; }
-  @media (max-width: 520px){
-    .rsd-a2hs-card{ padding:18px 48px 18px 18px; }
-    .rsd-close{ top:8px; right:8px; }
-  }
 
 </style>
 
- 
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="referrer" content="strict-origin-when-cross-origin">
  </head>
 
   <body>
+    
     <!-- Google Translate -->
 <div id="google_translate_element" style="display:none;"></div>
 
@@ -284,6 +226,19 @@
 
 
 <div class="contenuto"></div>
+<div id="rsd-a2hs">
+  <div class="rsd-a2hs-card">
+    <div class="rsd-a2hs-brand">
+      <span class="rsd-logo">Radio <strong>Studio Doc</strong></span>
+    </div>
+    <h2 class="rsd-title">INSTALL THE RADIO STUDIO DOC APP</h2>
+    <p class="rsd-text">
+      Tap the share icon and then “Add to Home Screen” to install the app.
+    </p>
+    <button class="rsd-close">&times;</button>
+  </div>
+</div>
+
 <!-- HEADER -->
 
   <nav class="navbar navbar-expand-md navbar-dark">
@@ -515,6 +470,7 @@ document.addEventListener('visibilitychange', () => {
     });
   }
 });
+
 </script>
 
 
@@ -538,7 +494,7 @@ document.addEventListener('visibilitychange', () => {
         </div>
       </div>
     </div>
-  </div>
+
 </section>
 
 <style>
@@ -563,6 +519,7 @@ document.addEventListener('visibilitychange', () => {
   <iframe src="tickeranestesia.html" width="100%" height="140" style="border:none; overflow:hidden;"></iframe>
   </div>
 </div>
+</div>
 
 
 <div class="row"> 
@@ -573,14 +530,14 @@ document.addEventListener('visibilitychange', () => {
         <h4 class="card-title">Breaking News</h4>
         <p class="card-text">"Real-time updates on what really matters"</p>
 	</div>
-    </div>
+  </div>
   </div>
 
 	<iframe src="tickercarosello.html" width="100%" height="180" style="border:none; overflow:hidden;"></iframe>
     
   <div class="parallax-separator"></div>
 
-   <iframe src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=it#{
+<iframe src="https://s.tradingview.com/embed-widget/ticker-tape/?locale=it#{
   "symbols": [
     {"proName": "NASDAQ:AAPL", "title": "Apple"},
     {"proName": "NASDAQ:TSLA", "title": "Tesla"},
@@ -592,7 +549,7 @@ document.addEventListener('visibilitychange', () => {
   "displayMode": "adaptive",
   "locale": "it"
 }"
-style="width: 100%; height: 60px; border: none; overflow: hidden;" 
+style="width: 100%; height: 80px; border: none; overflow: hidden;" 
 frameborder="0" 
 scrolling="no" 
 allowtransparency="true">
@@ -726,8 +683,6 @@ allowtransparency="true">
   </div>
 </div>
 
-   
-  
 </footer>
 
 <a href="https://www.iubenda.com/privacy-policy/37633270" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
@@ -776,7 +731,6 @@ c = function() {
 c();
   </script>
 	    
-
 <!-- Iubenda -->
 <script>
   (function (w,d) {
@@ -857,39 +811,13 @@ _iub.csConfiguration = {
 
 <!-- Script Google Translate -->
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <script>
-  (function(){
-    // Basic iOS Safari detection
-    const ua = window.navigator.userAgent;
-    const isIOS = /iP(hone|od|ad)/.test(ua);
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-
-    // Show only for iOS Safari when not installed, and remember dismissal for 30 days
-    const banner = document.getElementById('rsd-a2hs');
-    const closeBtn = banner?.querySelector('.rsd-close');
-    const DISMISS_KEY = 'rsd_a2hs_dismissed_at';
-    const THIRTY_DAYS = 1000*60*60*24*30;
-
-    function shouldShow(){
-      try{
-        const t = Number(localStorage.getItem(DISMISS_KEY)||0);
-        if(t && (Date.now()-t)<THIRTY_DAYS) return false;
-      }catch(e){}
-      return isIOS && isSafari && !isStandalone;
-    }
-
-    if(shouldShow()){
-      banner.hidden = false;
-    }
-
-    closeBtn?.addEventListener('click', () => {
-      banner.hidden = true;
-      try{ localStorage.setItem(DISMISS_KEY, String(Date.now())); }catch(e){}
-    });
-  })();
+  document.querySelector('.rsd-close').addEventListener('click', () => {
+    document.getElementById('rsd-a2hs').style.display = 'none';
+  });
 </script>
-<!-- END: RSD Add-to-Home iOS Banner -->
+
 
 </body>
 
