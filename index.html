@@ -23,7 +23,11 @@
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
   
-  <style>
+<style>
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
       :root {
       --rsd-brand: #ff8013;
       --rsd-bg: #101011;
@@ -71,7 +75,7 @@
   }
 
   .card {
-    background-color: rgb(0, 0, 0);
+    d-color: rgb(0, 0, 0);
     border-radius: 15px;
     box-shadow: 0 4px 4px rgb(0, 0, 0);
     padding: 2px;
@@ -172,14 +176,18 @@
 #gallery h2 {
   font-size: 25px; /* Puoi provare anche 24px o 32px */
 }
+html, body {
+  background-color: rgba(255, 0, 0, 0.555) !important;
+  margin: 0;
+  padding: 0;
+}
 </style>
 
 <meta name="referrer" content="strict-origin-when-cross-origin">
  </head>
 
-  <body>
-    
-   <!-- Popup Traduzione -->
+ <body>
+  <!-- Popup Traduzione -->
   <div id="translate-popup">
     🌍 Vuoi tradurre questa pagina?<br>
     <button id="translate-close">Chiudi</button>
@@ -564,7 +572,7 @@ allowtransparency="true">
         <h5 class="mb-3 text-contact">Do you have questions or want to get in touch?</h5>
         <p class="mb-4 text-contact">Click the button below to write us directly</p>
         <a href="mailto:giocic75@gmail.com" class="btn btn-primary btn-lg text-white"
-           style="background-color: #000000; border-color: #FF8013;">
+           style="d-color: #000000; border-color: #FF8013;">
           Invia un'email
         </a>
       </div>
