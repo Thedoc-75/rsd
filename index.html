@@ -22,76 +22,48 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --rsd-brand: #ff8013;
+      --rsd-bg: #101011;
+      --rsd-fg: #ffffff;
+      --rsd-card: #1a1b1d;
+    }
 
-<style>
-  /* Overlay scuro */
-  #translate-popup {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    font-family: 'Lato', sans-serif;
-  }
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      background: var(--rsd-bg);
+      color: var(--rsd-fg);
+    }
 
-  /* Box popup */
-  .popup-content {
-    background: #101011;
-    color: #fff;
-    padding: 25px 30px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 350px;
-    width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: fadeIn 0.3s ease;
-  }
+    /* Popup traduzione */
+    #translate-popup, #rsd-a2hs {
+      display: none;
+      position: fixed;
+      background: var(--rsd-card);
+      color: var(--rsd-fg);
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      z-index: 10000;
+      font-family: 'Lato', sans-serif;
+    }
+    #translate-popup { top: 20px; right: 20px; max-width: 250px; }
+    #rsd-a2hs { bottom: 20px; left: 50%; transform: translateX(-50%); max-width: 90%; text-align: center; }
 
-  .popup-content h3 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #ff8013;
-  }
-
-  .popup-content p {
-    margin-bottom: 15px;
-    font-size: 15px;
-  }
-
-  .popup-buttons {
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-  }
-
-  .popup-buttons button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-    font-family: 'Lato', sans-serif;
-  }
-
-  .btn-translate {
-    background: #ff8013;
-    color: #fff;
-  }
-
-  .btn-close {
-    background: #333;
-    color: #fff;
-  }
-
-  .popup-buttons button:hover {
-    transform: scale(1.05);
-  }
+    #translate-popup button, #rsd-a2hs button {
+      margin-top: 10px;
+      background: var(--rsd-brand);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #rsd-a2hs button { padding: 10px 15px; border-radius: 8px; }
 
   @keyframes fadeIn {
     from {opacity: 0; transform: scale(0.9);}
@@ -200,9 +172,6 @@
 #gallery h2 {
   font-size: 25px; /* Puoi provare anche 24px o 32px */
 }
-
-
-
 </style>
 
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -210,20 +179,17 @@
 
   <body>
     
-    <!-- Google Translate -->
-
-<!-- popup Traduzione -->
-<div id="translatepopup" class="popup">
-  <div class="popup-content">
-    <p>Vuoi tradurre il sito in <strong>italiano</strong>?</p>
-    <button id="translateYes">Sì, traduci</button>
-    <button id="translateNo">No, grazie</button>
-    <div id="google_translate_element" style="margin-top:10px; display:none;"></div>
+   <!-- Popup Traduzione -->
+  <div id="translate-popup">
+    🌍 Vuoi tradurre questa pagina?<br>
+    <button id="translate-close">Chiudi</button>
   </div>
-</div>
-</div>
 
-
+  <!-- Popup A2HS -->
+  <div id="rsd-a2hs">
+    📱 Aggiungi <strong>Radio Studio Doc</strong> alla schermata Home<br>
+    <button id="rsd-a2hs-close">Chiudi</button>
+  </div>
 <div class="contenuto"></div>
 
 
@@ -496,9 +462,6 @@ document.addEventListener('visibilitychange', () => {
   }
 </style>
 
-
-
-
 <!-- NEWS -->
 <iframe src="tickercaroselloimmagini.html" width="100%" height="100%" style="border:none; overflow:hidden;"></iframe>
 <div class="row trainers pl-0 pr-0">
@@ -750,255 +713,38 @@ _iub.csConfiguration = {
 <script src="https://cs.iubenda.com/autoblocking/4034983.js"></script>
 <script src="https://cdn.iubenda.com/cs/gpp/stub.js"></script>
 <script src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-<script>
-  if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => console.log('✅ Service Worker registrato:', reg.scope))
-      .catch(err => console.error('❌ Errore nella registrazione:', err));
-
-    const refreshBtn = document.getElementById('refresh-btn');
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', () => {
-        location.reload();
-      });
-      refreshBtn.addEventListener('mousedown', () => {
-        refreshBtn.style.transform = 'rotate(90deg)';
-      });
-      refreshBtn.addEventListener('mouseup', () => {
-        refreshBtn.style.transform = 'rotate(0deg)';
-      });
-    }
-  });
-}
-</script>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {pageLanguage: 'en', includedLanguages: 'it', autoDisplay: false},
-      'google_translate_element'
-    );
-  }
-
-  // Mostra popup all’apertura
-  window.addEventListener("load", function() {
-    document.getElementById("translatepopup").style.display = "flex";
-
-    document.getElementById("translateYes").addEventListener("click", function() {
-      document.getElementById("google_translate_element").style.display = "block";
-      document.querySelector('.goog-te-combo').value = 'it'; // seleziona Italiano
-      document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
-      document.getElementById("translatepopup").style.display = "none";
-    });
-
-    document.getElementById("translateNo").addEventListener("click", function() {
-      document.getElementById("translatepopup").style.display = "none";
-    });
-  });
-</script>
-
-<!-- Script Google Translate -->
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- BEGIN: Add to Home Screen Banner -->
-<div id="rsd-a2hs" hidden>
-  <div class="rsd-a2hs-card">
-    <div class="rsd-a2hs-brand">
-      <span class="rsd-logo">Radio <strong>Studio Doc</strong></span>
-    </div>
-    <h2 class="rsd-title">INSTALL THE RADIO STUDIO DOC APP</h2>
-    <p class="rsd-text">
-      Tap 
-      <span class="rsd-icon" aria-hidden="true">
-        <!-- iOS share icon -->
-        <svg viewBox="0 0 24 24"><path d="M12 3l4 4h-3v6h-2V7H8l4-4zM5 13h14v8H5v-8zm-2 0a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z"/></svg>
-      </span>
-      then <em>“Add to Home Screen”</em>
-      <span class="rsd-icon" aria-hidden="true">
-        <!-- square with plus -->
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" ry="3"></rect><path d="M12 7v10M7 12h10" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"/></svg>
-      </span>
-      to install the app on your iPhone.
-    </p>
-    <button class="rsd-close" aria-label="Close">&times;</button>
-  </div>
-</div>
-
-<style>
-  :root{
-    --rsd-brand:#ff8013; 
-    --rsd-bg:#101011;
-    --rsd-fg:#ffffff;
-    --rsd-card:#1a1b1d;
-  }
-  #rsd-a2hs{
-    position: fixed; inset: 0 0 auto 0;
-    display: grid; place-items: start center;
-    padding: 16px; z-index: 9999;
-    background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35));
-  }
-  #rsd-a2hs{ display:none!important; }
-  .rsd-a2hs-card{
-    width: min(820px, 92vw);
-    background: var(--rsd-card);
-    color: var(--rsd-fg);
-    border-left: 6px solid var(--rsd-brand);
-    border-radius: 12px;
-    padding: 22px 56px 22px 22px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    position: relative;
-    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  }
-  .rsd-a2hs-brand{
-    display:flex; align-items:center; gap:.6rem; margin-bottom:.25rem;
-  }
-  .rsd-logo{ font-size: 1.2rem; color: var(--rsd-fg); }
-  .rsd-logo strong{ color: var(--rsd-brand); font-weight:800; }
-  .rsd-title{
-    margin:.25rem 0 1rem; font-size: 1.4rem;
-    font-weight:800; color:#fff; text-align:left;
-  }
-  .rsd-text{
-    margin:0; line-height:1.6; font-size:1rem;
-    color:#e9e9e9;
-  }
-  .rsd-icon{
-    display:inline-flex; vertical-align:middle; margin:0 .3rem;
-    width:26px; height:26px; color:#fff;
-  }
-  .rsd-icon svg{ width:100%; height:100%; fill: currentColor; }
-  .rsd-close{
-    position:absolute; top:10px; right:10px;
-    width:36px; height:36px; border:0; border-radius:8px;
-    background:#2a2c30; color:#fff; font-size:1.5rem; line-height:1;
-    cursor:pointer;
-  }
-  .rsd-close:hover{ background:#33363b; }
-  @media (max-width: 520px){
-    .rsd-a2hs-card{ padding:18px 48px 18px 18px; }
-    .rsd-close{ top:8px; right:8px; }
-  }
-</style>
 
 <script>
-(function(){
-  const ua = window.navigator.userAgent;
-  const isIOS = /iP(hone|od|ad)/.test(ua);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-  const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
-  
-  const banner = document.getElementById('rsd-a2hs');
-  const closeBtn = banner.querySelector('.rsd-close');
-  const STORAGE_KEY = "rsd_a2hs_dismissed";
-  const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
+    document.addEventListener("DOMContentLoaded", function() {
+      // --- Popup Traduzione ---
+      const translatePopup = document.getElementById("translate-popup");
+      const translateClose = document.getElementById("translate-close");
+      setTimeout(() => {
+        if (!localStorage.getItem("translateDismissed")) {
+          translatePopup.style.display = "block";
+        }
+      }, 1500);
+      translateClose.addEventListener("click", () => {
+        translatePopup.style.display = "none";
+        localStorage.setItem("translateDismissed", "true");
+      });
 
-  function shouldShow(){
-    try {
-      const dismissedAt = parseInt(localStorage.getItem(STORAGE_KEY) || "0", 10);
-      if(dismissedAt && (Date.now() - dismissedAt) < THIRTY_DAYS){
-        return false; // ancora entro i 30 giorni
+      // --- Popup A2HS ---
+      const a2hs = document.getElementById("rsd-a2hs");
+      const a2hsClose = document.getElementById("rsd-a2hs-close");
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        setTimeout(() => {
+          if (!localStorage.getItem("a2hsDismissed")) {
+            a2hs.style.display = "block";
+          }
+        }, 3000);
       }
-    } catch(e){}
-    return isIOS && isSafari && !isStandalone;
-  }
-
-  if(shouldShow()){
-    banner.hidden = false;
-  }
-
-  closeBtn.addEventListener('click', () => {
-    banner.hidden = true;
-    try { localStorage.setItem(STORAGE_KEY, Date.now().toString()); } catch(e){}
-  });
-})();
-</script>
-<!-- END: Add to Home Screen Banner -->
-
-<script>
-window.addEventListener("load", () => {
-  document.getElementById("rsd-a2hs").hidden = false;
-});
-</script>
-<!-- A2HS Banner for Radio Studio Doc -->
-<div id="rsd-a2hs" hidden>
-  <div class="rsd-a2hs-card">
-    <div class="rsd-a2hs-brand">
-      <span class="rsd-logo"><strong>Radio</strong> Studio Doc</span>
-    </div>
-    <h2 class="rsd-title">Install our app</h2>
-    <p id="rsd-instructions" class="rsd-text">
-      Get quick access to Radio Studio Doc right from your home screen.
-    </p>
-    <button class="rsd-close" onclick="document.getElementById('rsd-a2hs').hidden = true;">×</button>
-  </div>
-</div>
-
-<style>
-  #rsd-a2hs {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 9999;
-  }
-  .rsd-a2hs-card {
-    background: #101011;
-    color: #fff;
-    border: 2px solid #ff8013;
-    border-radius: 15px;
-    padding: 15px 20px;
-    max-width: 320px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    font-family: Arial, sans-serif;
-    position: relative;
-  }
-  .rsd-a2hs-brand {
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: #ff8013;
-  }
-  .rsd-title {
-    font-size: 20px;
-    margin: 0 0 10px;
-    font-weight: bold;
-  }
-  .rsd-text {
-    font-size: 15px;
-    line-height: 1.4;
-  }
-  .rsd-close {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: none;
-    border: none;
-    color: #ff8013;
-    font-size: 20px;
-    cursor: pointer;
-  }
-</style>
-
-<script>
-  window.addEventListener("load", () => {
-    const banner = document.getElementById("rsd-a2hs");
-    const instructions = document.getElementById("rsd-instructions");
-
-    // Detect Chrome on Android
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    const isChrome = /Chrome/i.test(navigator.userAgent) && !/Edge|OPR/i.test(navigator.userAgent);
-
-    if (isAndroid && isChrome) {
-      instructions.textContent = 
-        "On Chrome for Android: Tap the ⋮ menu in the top right, then choose 'Add to Home screen'.";
-      banner.hidden = false;
-    } else {
-      // Generic fallback
-      instructions.textContent = 
-        "Get quick access: Open your browser menu and choose 'Add to Home screen'.";
-      banner.hidden = false;
-    }
-  });
-</script>
-
+      a2hsClose.addEventListener("click", () => {
+        a2hs.style.display = "none";
+        localStorage.setItem("a2hsDismissed", "true");
+      });
+    });
+  </script>
 </body>
 
 </html>
