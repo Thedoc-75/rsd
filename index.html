@@ -211,10 +211,9 @@
   <body>
     
     <!-- Google Translate -->
-<div id="google_translate_element" style="display:none;"></div>
 
-<!-- Popup Traduzione -->
-<div id="translatePopup" class="popup">
+<!-- popup Traduzione -->
+<div id="translatepopup" class="popup">
   <div class="popup-content">
     <p>Vuoi tradurre il sito in <strong>italiano</strong>?</p>
     <button id="translateYes">Sì, traduci</button>
@@ -783,17 +782,17 @@ _iub.csConfiguration = {
 
   // Mostra popup all’apertura
   window.addEventListener("load", function() {
-    document.getElementById("translatePopup").style.display = "flex";
+    document.getElementById("translatepopup").style.display = "flex";
 
     document.getElementById("translateYes").addEventListener("click", function() {
       document.getElementById("google_translate_element").style.display = "block";
       document.querySelector('.goog-te-combo').value = 'it'; // seleziona Italiano
       document.querySelector('.goog-te-combo').dispatchEvent(new Event('change'));
-      document.getElementById("translatePopup").style.display = "none";
+      document.getElementById("translatepopup").style.display = "none";
     });
 
     document.getElementById("translateNo").addEventListener("click", function() {
-      document.getElementById("translatePopup").style.display = "none";
+      document.getElementById("translatepopup").style.display = "none";
     });
   });
 </script>
