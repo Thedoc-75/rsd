@@ -22,7 +22,11 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
-  
+  html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
   <style>
     :root {
       --rsd-brand: #ff8013;
@@ -278,8 +282,7 @@
       🎧 Caricamento brano...
     </div>
   </div>
-
-  <!-- CONTROLLI -->
+<!-- CONTROLLI -->
   <div class="d-flex justify-content-center align-items-center mt-3 gap-2" style="gap: 15px;">
     <button id="toggle-button" class="btn btn-outline-danger" style="font-size: 1.6rem;">▶ Play</button>
     
@@ -289,7 +292,9 @@
     </div>
   </div>
 <audio id="audio-player" src="https://radio.radiostudiodoc.org/thedoc" preload="auto" playsinline></audio>
-
+<a href="https://pixabay.com/it/music/" target="_blank" class="btn btn-dark mt-3 about-link">
+            🔗 Music royalty-free from: https://pixabay.com/it/music/
+          </a>
   <!-- SCROLLING ANIMATION -->
 <style>
   @keyframes scroll-left {
@@ -442,8 +447,9 @@ document.addEventListener('visibilitychange', () => {
           <p>
             Radio Studio Doc is an independent Web Radio that combines quality Music with up-to-date News, with particular attention to scientific, health and current affairs.
           </p>
-          <a href="https://www.giovannicicciarella.com" target="_blank" class="btn btn-dark mt-3 about-link">
-            🔗 For more details visit www.giovannicicciarella.com
+          <a href="https://www.giovannicicciarella.com" target="_blank" class="btn btn-dark mt-2 about-link">
+            🔗 For more details: 
+           https://giovannicicciarella.com/
           </a>
         </div>
       </div>
