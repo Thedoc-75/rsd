@@ -521,18 +521,15 @@ a, a:hover {
 }
 
 /* Personalizzazione sezioni principali */
-.breaking-news-box,
-.video-box,
-.podcast-box,
-.live-shows-box,
-.on-tour-box {
- background-color: #951717; /* rosso pieno */
-
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgb(255, 255, 255);
-  margin-bottom: 30px;
+.breaking-news-box .card,
+.video-box .card,
+.podcast-box .card,
+.live-shows-box .card,
+.on-tour-box .card {
+  background-color: #000;  /* sfondo nero */
+  color: #fff;             /* testo bianco */
 }
+
 
 /* Titoli delle card */
 .card-title {

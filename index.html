@@ -28,47 +28,7 @@
       overflow-x: hidden;
       max-width: 100%;
     }
-      :root {
-      --rsd-brand: #ff8013;
-      --rsd-bg: #101011;
-      --rsd-fg: #ffffff;
-      --rsd-card: #1a1b1d;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Lato', sans-serif;
-      background: var(--rsd-bg);
-      color: var(--rsd-fg);
-    }
-
-    /* Popup traduzione */
-    #translate-popup, #rsd-a2hs {
-      display: none;
-      position: fixed;
-      background: var(--rsd-card);
-      color: var(--rsd-fg);
-      padding: 15px 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-      z-index: 10000;
-      font-family: 'Lato', sans-serif;
-    }
-    #translate-popup { top: 20px; right: 20px; max-width: 250px; }
-    #rsd-a2hs { bottom: 20px; left: 50%; transform: translateX(-50%); max-width: 90%; text-align: center; }
-
-    #translate-popup button, #rsd-a2hs button {
-      margin-top: 10px;
-      background: var(--rsd-brand);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      color: #fff;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #rsd-a2hs button { padding: 10px 15px; border-radius: 8px; }
-
+     
   @keyframes fadeIn {
     from {opacity: 0; transform: scale(0.9);}
     to {opacity: 1; transform: scale(1);}
@@ -177,7 +137,7 @@
   font-size: 25px; /* Puoi provare anche 24px o 32px */
 }
 html, body {
-  background-color: rgba(255, 0, 0, 0.555) !important;
+  background-color: #ff8013 !important;
   margin: 0;
   padding: 0;
 }
@@ -187,18 +147,7 @@ html, body {
  </head>
 
  <body>
-  <!-- Popup Traduzione -->
-  <div id="translate-popup">
-    🌍 Vuoi tradurre questa pagina?<br>
-    <button id="translate-close">Chiudi</button>
-  </div>
-
-  <!-- Popup A2HS -->
-  <div id="rsd-a2hs">
-    📱 Aggiungi <strong>Radio Studio Doc</strong> alla schermata Home<br>
-    <button id="rsd-a2hs-close">Chiudi</button>
-  </div>
-<div class="contenuto"></div>
+  
 
 
 <!-- HEADER -->
@@ -724,37 +673,7 @@ _iub.csConfiguration = {
 <script src="https://cdn.iubenda.com/cs/gpp/stub.js"></script>
 <script src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // --- Popup Traduzione ---
-      const translatePopup = document.getElementById("translate-popup");
-      const translateClose = document.getElementById("translate-close");
-      setTimeout(() => {
-        if (!localStorage.getItem("translateDismissed")) {
-          translatePopup.style.display = "block";
-        }
-      }, 1500);
-      translateClose.addEventListener("click", () => {
-        translatePopup.style.display = "none";
-        localStorage.setItem("translateDismissed", "true");
-      });
 
-      // --- Popup A2HS ---
-      const a2hs = document.getElementById("rsd-a2hs");
-      const a2hsClose = document.getElementById("rsd-a2hs-close");
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        setTimeout(() => {
-          if (!localStorage.getItem("a2hsDismissed")) {
-            a2hs.style.display = "block";
-          }
-        }, 3000);
-      }
-      a2hsClose.addEventListener("click", () => {
-        a2hs.style.display = "none";
-        localStorage.setItem("a2hsDismissed", "true");
-      });
-    });
-  </script>
 </body>
 
 </html>
