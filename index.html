@@ -24,7 +24,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
   
 <style>
-    html, body {
+/* FIX SOVRAPPOSIZIONI SEZIONI */
+    .fh5co-content-box .trainers .card .card-body {
+      margin: 20px 0;
+      padding: 30px 20px;
+    }
+
+    .news-section,
+    #news,
+    .breaking-news-box,
+    iframe {
+      margin-bottom: 30px;
+    }
+
+    .parallax-separator {
+      height: 150px;
+      margin: 40px 0;
+    }
+
+    iframe {
+      display: block;
+      clear: both;
+    }
+	
+     html, body {
       overflow-x: hidden;
       max-width: 100%;
     }
