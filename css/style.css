@@ -831,3 +831,12 @@ iframe {
   max-width: 600px;
   margin: 0 auto 20px auto; /* centrata con margine sotto */
 }
+@media (min-width: 992px) {
+  .fh5co-content-box {
+    max-width: 1400px;   /* più ampia */
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #000; /* nero continuo fino ai bordi */
+  }
+}
