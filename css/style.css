@@ -819,3 +819,11 @@ iframe {
   display: block;
   clear: both;
 }
+/* Assicura che il ticker immagini sia sempre visibile */
+.news-section iframe {
+  height: 200px;         /* aumenta l’altezza */
+  display: block;
+  position: relative;
+  z-index: 5;            /* sta sopra altri elementi */
+  margin-bottom: 30px;   /* spazio sotto */
+}
