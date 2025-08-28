@@ -797,3 +797,25 @@ body, html {
   margin: 0;
   padding: 0;
 }
+/* FIX SOVRAPPOSIZIONI SEZIONI */
+.fh5co-content-box .trainers .card .card-body {
+  margin: 20px 0;
+  padding: 30px 20px;
+}
+
+.news-section,
+#news,
+.breaking-news-box,
+iframe {
+  margin-bottom: 30px;
+}
+
+.parallax-separator {
+  height: 150px;
+  margin: 40px 0;
+}
+
+iframe {
+  display: block;
+  clear: both;
+}
