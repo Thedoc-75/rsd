@@ -90,9 +90,14 @@ a, a:hover {
     max-width: 100%; /* Le immagini si adattano alla larghezza su dispositivi più piccoli */
     height: auto;
   }
-}
-
-
+ @media (min-width: 992px) {
+  .fh5co-content-box {
+    max-width: 1200px;   /* regola tu la larghezza */
+    margin: 0 auto;      /* centra la sezione */
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #000; /* nero fino ai bordi */
+  }
 
 .fh5co-banner-text-box {
   position: relative;
@@ -830,13 +835,4 @@ iframe {
 .breaking-news-box .card {
   max-width: 600px;
   margin: 0 auto 20px auto; /* centrata con margine sotto */
-}
-@media (min-width: 992px) {
-  .fh5co-content-box {
-    max-width: 1400px;   /* più ampia */
-    margin: 0 auto;
-    padding-left: 40px;
-    padding-right: 40px;
-    background-color: #000; /* nero continuo fino ai bordi */
-  }
 }
