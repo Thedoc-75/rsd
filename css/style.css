@@ -828,3 +828,63 @@ iframe {
   max-width: 600px;
   margin: 0 auto 20px auto; /* centrata con margine sotto */
 }
+ 
+/* 🔹 Forza sfondo nero e testo bianco ovunque */
+body,
+.fh5co-content-box,
+.card,
+.quote-box2,
+.breaking-news-box {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* 🔹 Stile ticker anestesia */
+.quote-box2 {
+  background-color: #000;
+  color: white;
+  padding: 40px 30px;       /* spazio interno */
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgb(255, 0, 0);
+  margin: 20px auto;        /* margine uniforme */
+  max-width: 800px;         /* larghezza massima */
+}
+
+/* 🔹 Breaking News più compatto e centrato */
+.breaking-news-box .card {
+  max-width: 400px !important; /* ridotto */
+  margin: 20px auto !important;
+  background-color: #111 !important; /* leggero contrasto */
+  border: 1px solid #333;
+}
+
+/* 🔹 Nasconde un eventuale doppio titolo */
+.breaking-news-box .card-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Se vuoi eliminare il titolo duplicato */
+.breaking-news-box h4.card-title:first-child {
+  display: none;  /* commenta questa riga se preferisci tenerlo */
+}
+
+/* 🔹 Desktop layout più ampio */
+@media (min-width: 992px) {
+  .fh5co-content-box {
+    max-width: 1200px;   /* regola tu la larghezza */
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #000 !important;
+  }
+}
+
+/* 🔹 Mobile immagini fluide */
+@media (max-width: 767px) {
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
+  }
+}
