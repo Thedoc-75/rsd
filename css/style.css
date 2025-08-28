@@ -888,3 +888,22 @@ body,
     height: auto;
   }
 }
+/* Card trasparenti sopra lo sfondo */
+.fh5co-content-box,
+.fh5co-content-box .card,
+.fh5co-content-box .card-body,
+.contact-box {
+  background-color: rgba(0, 0, 0, 0.6) !important; /* nero semi-trasparente */
+  color: #fff !important;
+  border: none;
+  box-shadow: none;
+}
+
+/* Titoli e testi dentro le card */
+.fh5co-content-box .card-title,
+.fh5co-content-box .card-text,
+.fh5co-content-box p,
+.fh5co-content-box h4,
+.fh5co-content-box h5 {
+  color: #fff !important;
+}
