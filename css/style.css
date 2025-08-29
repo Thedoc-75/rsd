@@ -906,3 +906,12 @@ body,
 .fh5co-content-box h5 {
   color: #fff !important;
 }
+
+ .breaking-news-box,
+ .video-box
+ {
+  background-color: #000 !important; /* sfondo nero */
+  color: #fff !important;            /* testo bianco */
+  padding: 20px;                     /* spazio interno */
+  border-radius: 8px;                /* opzionale */
+}
