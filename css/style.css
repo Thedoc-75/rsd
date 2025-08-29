@@ -630,8 +630,8 @@ a, a:hover {
   }
 
   .social-links li img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
 
   @media (max-width: 767px) {
@@ -816,7 +816,8 @@ iframe {
   display: block;
   clear: both;
 }
-/* Assicura che il ticker immagini sia sempre visibile */
+
+ /* Assicura che il ticker immagini sia sempre visibile */
 .news-section iframe {
   height: 200px;         /* aumenta l’altezza */
   display: block;
@@ -879,27 +880,25 @@ body,
     padding-right: 40px;
     background-color: #000 !important;
   }
-}
 
 /* 🔹 Mobile immagini fluide */
 @media (max-width: 767px) {
   .card-img-top {
     max-width: 100%;
     height: auto;
-  }
-}
-/* Card trasparenti sopra lo sfondo */
+}   
+ 
+ /* Card nere opache sopra lo sfondo */
 .fh5co-content-box,
 .fh5co-content-box .card,
 .fh5co-content-box .card-body,
 .contact-box {
-  background-color: rgba(0, 0, 0, 0.6) !important; /* nero semi-trasparente */
+  background-color: #000 !important;  /* nero pieno uniforme */
   color: #fff !important;
   border: none;
   box-shadow: none;
-}
-
-/* Titoli e testi dentro le card */
+} 
+ /* Titoli e testi dentro le card */
 .fh5co-content-box .card-title,
 .fh5co-content-box .card-text,
 .fh5co-content-box p,
