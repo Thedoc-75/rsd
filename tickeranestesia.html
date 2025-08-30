@@ -11,20 +11,35 @@
     font-family: 'Roboto', sans-serif;
     background-color: #000; /* nero uniforme */
     color: #fff;
+    
   }
+/* Box ticker - solo bordo esterno */
+.ticker-box {
+  background-color: #000;
+  padding: 12px;                 /* spazio interno unico */
+  border: 2px solid red;         /* bordo rosso esterno */
+  border-radius: 8px;            /* angoli arrotondati */
+  max-width: 100%;
+  box-sizing: border-box;
+  color: #fff;
+  overflow: hidden;              /* taglia via eventuali spigoli interni */
+}
 
-  /* Box ticker */
-  .ticker-box {
-    background-color: #000;
-    padding: 20px;              /* padding unico */
-    border: 2px solid red;
-    border-radius: 8px;
-    max-width: 100%;
-    box-sizing: border-box;
-    color: #fff;
-    overflow: hidden;           /* niente scroll */
-  }
+/* 🔹 Rimuove bordi/ombre da tutti gli elementi interni */
+.ticker-box * {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
 
+/* 🔹 Immagini del ticker */
+.ticker-image {
+  height: 30px;                  /* un po’ più grande */
+  margin-right: 12px;
+  border-radius: 4px;            /* leggero arrotondamento */
+  object-fit: cover;             /* mantiene proporzioni */
+}
+           
   /* Header */
   .ticker-header {
     display: flex;
