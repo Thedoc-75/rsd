@@ -378,11 +378,6 @@ a, a:hover {
   border-color: rgb(0, 0, 0);
   color: #000000;
 }
-
-.fh5co-content-box {
-  background: #ffffff;
-  padding-bottom: 100px;
-}
 .fh5co-content-box .pr-0 img {
   margin-top: -128px;
 }
@@ -914,4 +909,26 @@ body,
   color: #fff !important;            /* testo bianco */
   padding: 20px;                     /* spazio interno */
   border-radius: 8px;                /* opzionale */
+}
+.contact-box,
+ .fh5co-content-box.contact-box {
+  background-color: #000 !important;  /* nero uniforme */
+  color: #fff !important; border: none !important;
+  box-shadow: none !important;
+  padding: 20px; border-radius: 8px; 
+} 
+.contact-box h4,
+.contact-box h3,
+.contact-box p,
+.contact-box a {
+  color: #fff !important;
+}
+
+.contact-box .btn {
+  background-color: #ff6600;  /* arancione visibile */
+  color: #fff !important; border: none; border-radius: 6px;padding: 10px 20px; font-weight: bold;
+}
+
+.contact-box .btn:hover {
+  background-color: #cc5200; /* arancione più scuro al passaggio */
 }
