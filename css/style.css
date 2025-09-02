@@ -5,12 +5,14 @@
  * URL: https://freehtml5.co
  */
 
- body {
-  font-family: 'Lato', sans-serif;
-  overflow: hidden;
-  overflow-y: scroll;
-  background-color: #951717;
-  background-size: cover;
+/* ================================
+   RESET BASE
+=================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  color: #fff !important;
+  font-family: 'Roboto', sans-serif;
 }
 
 
@@ -21,10 +23,12 @@ body .bg-img {
 }
 body nav {
   background-color:#951717;
-}
-body nav .navbar-nav a {
+}body nav .navbar-nav a {
   position: relative;
-  display: inline-block;
+  display: inline-block;font-size: 40px;
+  text-transform: uppercase;
+  color: #fff !important;
+  transition: all 0.3s;
 }
 
 body nav .navbar-nav a::after {
@@ -43,20 +47,7 @@ body nav .navbar-nav a::after {
 body nav .navbar-nav a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
-}
-
-body nav .navbar-nav a {
-  font-size: 40px;
-  text-transform: uppercase;
-  color: #fff !important;
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-}
-body nav .navbar-nav a:hover {
-  color: #ffffff !important;
-}
+} 
 body nav .navbar-nav .btn-danger {
   background: #ff8013;
   border-color: #ff8013;
@@ -75,21 +66,44 @@ a, a:hover {
 .mb-30 { margin-bottom: 300px; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 
-
-/* Cambia la dimensione delle immagini */
+.card {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 128, 19, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none !important;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 128, 19, 0.3);
+}
 .card-img-top {
-  width: 100%;
-  max-width: 200px;
+  max-width: 100%;
   height: auto;
-  margin-bottom: 30px;
+  display: block;
+  margin: 0 auto;
+}
+.card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+.card-text {
+  font-size: 1rem;
+  color: #fff !important;
+  line-height: 1.5;
 }
 
-/* Se vuoi modificarle in base alla larghezza del dispositivo */
+
+
 @media (max-width: 767px) {
   .card-img-top {
     max-width: 100%; /* Le immagini si adattano alla larghezza su dispositivi più piccoli */
     height: auto;
-  }
+   }
+}
 
 .fh5co-banner-text-box {
   position: relative;
@@ -100,18 +114,10 @@ a, a:hover {
   padding-bottom: 600px;
 }
 
-.fh5co-banner-text-box .quote-box {
-  background-color: #000000; /* Cambia il colore di sfondo */
-  background-image: url('../images/Backgroundrsd.jpg'); /* Sfondo con immagine */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* o cover se vuoi che copra tutta l'area */
-  padding: 60px 60px; /* Cambia il padding per regolare la dimensione interna */
-  max-width: 600px; /* Cambia la larghezza massima */
-  min-height: 400px; /* Altezza minima */
-  border-radius: 100px; /* Se vuoi angoli arrotondati */
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); /* Bagliore rosso più evidente */
-}
+ .fh5co-banner-text-box .quote-box {
+    min-height: 250px;
+    padding: 30px 20px;
+  }
 
 .fh5co-banner-text-box .quote-box h2 {
   font-family: 'Lato', sans-serif;
@@ -278,6 +284,8 @@ a, a:hover {
   .fh5co-about-us {
     padding: 60px 0;
   }
+  
+}
 
   .about-content {
     padding: 20px 15px;
@@ -292,12 +300,12 @@ a, a:hover {
     font-size: 1rem;
     line-height: 1.5;
   }
-}
 
 @media screen and (max-width: 480px) {
   .fh5co-about-us {
     padding: 50px 0;
   }
+}
 
   .about-content {
     padding: 15px 10px;
@@ -312,10 +320,7 @@ a, a:hover {
   .about-text {
     font-size: 0.95rem;
   }
-}
-
-
-.parallax-separator {
+  .parallax-separator {
   height: 100px;
  background-image: url('../images/sfondodef.JPG');
   background-attachment: fixed;
@@ -351,9 +356,7 @@ a, a:hover {
 }
 .fh5co-network figure, .fh5co-about-us figure {
   text-align: center;
-}
-
-
+} 
 .fh5co-about-us p {
   color: #ffffff;
   font-family: 'Lato', sans-serif;
@@ -377,20 +380,10 @@ a, a:hover {
   background: transparent;
   border-color: rgb(0, 0, 0);
   color: #000000;
-}
-.fh5co-content-box .pr-0 img {
+}.fh5co-content-box .pr-0 img {
   margin-top: -128px;
 }
-.quote-box2 {
-  background-color: #000000;
-  color: white;
-  padding: 40px 30px;     /* più spazio interno */
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgb(255, 0, 0);
-  margin: 20px auto;      /* margine unico e centrato */
-  max-width: 800px;       /* opzionale: allarga un po’ il box */
-}
+
 .quote-box2 h2 {
   font-size: 2.5rem;
   letter-spacing: 2px;
@@ -513,7 +506,7 @@ a, a:hover {
 }
 
 /* Personalizzazione sezioni principali */
-.breaking-news-box .card,
+
 .video-box .card,
 .podcast-box .card,
 .live-shows-box .card,
@@ -528,13 +521,13 @@ a, a:hover {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff00; /* colore tema Radio Studio Doc */
+  color: #ffffff; /* colore tema Radio Studio Doc */
 }
 
 /* Testo delle card */
 .card-text {
   font-size: 1rem;
-  color: #000000;
+  color: #fff;
   line-height: 1.5;
 }
 
@@ -636,10 +629,7 @@ a, a:hover {
     }
   }
 
- 
-
-
-footer {
+  footer {
   background: #101011;
   color: #ffffff;
 }
@@ -820,20 +810,22 @@ iframe {
   z-index: 5;            /* sta sopra altri elementi */
   margin-bottom: 30px;   /* spazio sotto */
 }
-.breaking-news-box .card {
-  max-width: 600px;
-  margin: 0 auto 20px auto; /* centrata con margine sotto */
-}
- 
-/* 🔹 Forza sfondo nero e testo bianco ovunque */
-body,
+
 .fh5co-content-box,
 .card,
-.quote-box2,
-.breaking-news-box {
-  background-color: #000 !important;
-  color: #fff !important;
+.quote-box,.quote-box2,
+.breaking-news-box,
+.video-box,
+.podcast-box,
+.live-shows-box,
+.on-tour-box,
+.contact-box { 
+  color: #fff !important;            /* testo bianco */
+  border: none !important;
+  box-shadow: none !important;
 }
+
+
 
 /* 🔹 Stile ticker anestesia */
 .quote-box2 {
@@ -863,49 +855,37 @@ body,
 
 /* Se vuoi eliminare il titolo duplicato */
 .breaking-news-box h4.card-title:first-child {
-  display: none;  /* commenta questa riga se preferisci tenerlo */
-}
-
-/* 🔹 Desktop layout più ampio */
+  display: none;
+} 
 @media (min-width: 992px) {
   .fh5co-content-box {
-    max-width: 1200px;   /* regola tu la larghezza */
+    max-width: 1400px;
     margin: 0 auto;
     padding-left: 40px;
     padding-right: 40px;
-    background-color: #000 !important;
-  }
+}
+}
 
-/* 🔹 Mobile immagini fluide */
-@media (max-width: 767px) {
-  .card-img-top {
-    max-width: 100%;
-    height: auto;
-}   
- 
  /* Card nere opache sopra lo sfondo */
 .fh5co-content-box,
 .fh5co-content-box .card,
-.fh5co-content-box .card-body,
-.contact-box {
-  background-color: #000 !important;  /* nero pieno uniforme */
+.fh5co-content-box .card-body,.contact-box {
   color: #fff !important;
   border: none;
   box-shadow: none;
-} 
- /* Titoli e testi dentro le card */
+}
 .fh5co-content-box .card-title,
 .fh5co-content-box .card-text,
-.fh5co-content-box p,
+.fh5co-content-box p,.fh5co-content-box h2,.fh5co-content-box h3,
 .fh5co-content-box h4,
 .fh5co-content-box h5 {
-  color: #fff !important;
+ color: #fff !important;
 }
 
  .breaking-news-box,
  .video-box
  {
-  background-color: #000 !important; /* sfondo nero */
+  background-color: #111 !important; /* sfondo nero */
   color: #fff !important;            /* testo bianco */
   padding: 20px;                     /* spazio interno */
   border-radius: 8px;                /* opzionale */
@@ -913,7 +893,8 @@ body,
 .contact-box,
  .fh5co-content-box.contact-box {
   background-color: #000 !important;  /* nero uniforme */
-  color: #fff !important; border: none !important;
+  color: #fff !important; 
+  border: none !important;
   box-shadow: none !important;
   padding: 20px; border-radius: 8px; 
 } 
