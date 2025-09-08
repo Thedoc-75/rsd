@@ -157,23 +157,51 @@ a, a:hover {
   background-image: url("../images/right-quote.png");
 }
 
-/* Titolo radio */
+/* Titolo radio con effetto neon pulsante */
 .radio-title {
   color: #ffffff;
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
+  font-size: 4rem;
+  font-weight: 800;
+ margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de, 0 0 40px #ff00de;
+  animation: neonGlow 2s infinite alternate;
 }
 
-/* Sottotitolo */
+/* Sottotitolo leggermente animato */
 .subtitle {
-  font-size: 1.2rem;
-  color: #ffffff;
-  font-weight: normal;
-  letter-spacing: 1px;
-  margin-top: 0.3em;
+  font-size: 1rem;
+  color: #fffa;
+  font-weight: 200;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  margin-top: 0.5em;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  animation: subtitleGlow 3s infinite alternate;
 }
+
+/* Animazione neon del titolo */
+@keyframes neonGlow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+  }
+  50% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 60px #ff0000;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+  }
+}
+
+/* Animazione sottotitolo */
+@keyframes subtitleGlow {
+  0% { text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+  50% { text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7); }
+  100% { text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+}
+
 
 /* Separator trasparente sottile, per dare respiro */
 .separator-transparent {

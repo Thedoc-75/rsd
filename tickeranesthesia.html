@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>News Ticker - Stile BBC Widget</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+  }
+
+  .ticker-box {
+    max-width: none;
+    border: 2px solid #ff0000;
+    background: #111;
+    overflow: hidden;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+  }
+
+  .ticker-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker-logo {
+    height: 25px;
+    margin-right: 8px;
+  }
+
+  .ticker-item {
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .ticker-item.active {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .ticker-item img {
+    flex: 0 0 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  .ticker-content {
+    flex: 1;
+  }
+
+  .ticker-content a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .ticker-content a:hover {
+    text-decoration: underline;
+  }
+
+  .ticker-desc {
+    font-size: 12px;
+    color: #ccc;
+    margin: 3px 0;
+  }
+
+  .ticker-meta {
+    font-size: 11px;
+    color: #888;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .ticker-item {
+      flex-direction: column;
+    }
+    .ticker-item img {
+      flex: 0 0 80px;
+      height: auto;
+      max-height: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-box">
+  <div class="ticker-header">
+    <img src="images/anestesia.jpg" alt="Logo" class="ticker-logo">
+    Anesthesia & Pain Medicine News
+  </div>
+  <div id="ticker-container">
+    <div class="ticker-item active">Caricamento notizie...</div>
+  </div>
+</div>
+
+<script>
+  const feeds = [
+    { url: "https://associationofanaesthetists-publications.onlinelibrary.wiley.com/action/showFeed?type=etoc&feed=rss&jc=13652044", source: "Association of Anaesthetists" },
+    { url: "https://rapm.bmj.com/rss/current.xml", source: "BMJ RAPM" },
+    { url: "https://edmariano.com/feed/", source: "EdMariano Blog" },
+    { url: "https://www.hindawi.com/journals/cria/contents/rss/", source: "Hindawi CRIA" }
+  ];
+
+  let items = [];
+  let currentIndex = 0;
+
+  function loadFeeds() {
+    let promises = feeds.map(feed => {
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
+      return fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+          if (data.items) {
+            return data.items.map(item => {
+              let imgUrl = '';
+              if (item.enclosure && item.enclosure.link) {
+                imgUrl = item.enclosure.link;
+              } else {
+                const match = item.description.match(/<img.*?src="(.*?)"/i);
+                if (match) imgUrl = match[1];
+              }
+
+              const pubDateObj = new Date(item.pubDate);
+              const pubDate = pubDateObj.toLocaleString('it-IT', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+              });
+
+              const description = item.description
+                .replace(/<img.*?>/g, '')
+                .replace(/<\/?[^>]+(>|$)/g, '')
+                .split(' ')
+                .slice(0, 15)
+                .join(' ') + '...';
+
+              return {
+                date: pubDateObj,
+                html: `
+                  <div class="ticker-item">
+                    ${imgUrl ? `<img src="${imgUrl}" alt="">` : ''}
+                    <div class="ticker-content">
+                      <a href="${item.link}" target="_blank">${item.title}</a>
+                      <div class="ticker-desc">${description}</div>
+                      <div class="ticker-meta">${pubDate} | ${feed.source}</div>
+                    </div>
+                  </div>
+                `
+              };
+            });
+          } else {
+            return [];
+          }
+        })
+        .catch(() => []);
+    });
+
+    Promise.all(promises).then(results => {
+      // Unisco tutti gli articoli e li ordino per data (dal più nuovo al più vecchio)
+      items = results.flat().sort((a, b) => b.date - a.date);
+
+      if (items.length > 0) {
+        document.getElementById('ticker-container').innerHTML = items.map(i => i.html).join('');
+        showItem(0);
+        setInterval(nextItem, 6000);
+      } else {
+        document.getElementById('ticker-container').innerHTML =
+          "<div class='ticker-item active'>Nessuna notizia trovata.</div>";
+      }
+    });
+  }
+
+  function showItem(index) {
+    const tickerItems = document.querySelectorAll('.ticker-item');
+    tickerItems.forEach(item => item.classList.remove('active'));
+    tickerItems[index].classList.add('active');
+  }
+
+  function nextItem() {
+    currentIndex = (currentIndex + 1) % items.length;
+    showItem(currentIndex);
+  }
+
+  loadFeeds();
+</script>
+
+</body>
+</html>

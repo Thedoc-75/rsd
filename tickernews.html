@@ -96,14 +96,14 @@
 <body>
 
 <div class="ticker-box">
-  <div class="ticker-header">BBC News</div>
+  <div class="ticker-header">CNN News</div>
   <div id="ticker-container">
     <div class="ticker-item active">Caricamento notizie...</div>
   </div>
 </div>
 
 <script>
-  const rssUrl = 'https://feeds.bbci.co.uk/news/world/rss.xml';
+  const rssUrl = 'http://rss.cnn.com/rss/edition_world.rss';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   let currentIndex = 0;
