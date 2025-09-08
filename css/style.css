@@ -156,7 +156,16 @@ a, a:hover {
   right: -45px;
   background-image: url("../images/right-quote.png");
 }
-
+/* Contenitore centrale */
+.banner-text-box {
+  display: flex;
+  justify-content: center; /* centro orizzontale */
+  align-items: center;    /* centro verticale */
+  min-height: 300px;      /* altezza minima del box */
+  text-align: center;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  padding: 2rem;
+}
 /* Titolo radio con massimo risalto */
 .radio-title .title-main {
   color: #ffffff; /* colore neon rosa acceso */
