@@ -157,49 +157,41 @@ a, a:hover {
   background-image: url("../images/right-quote.png");
 }
 
-/* Titolo radio con effetto neon pulsante */
-.radio-title {
-  color: #ffffff;
+/* Titolo radio con massimo risalto */
+.radio-title .title-main {
+  color: #ffffff; /* colore neon rosa acceso */
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  font-size: 4rem;
-  font-weight: 800;
- margin: 0;
+  font-size: 5rem; /* più grande del sottotitolo */
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de, 0 0 40px #ff00de;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
   animation: neonGlow 2s infinite alternate;
 }
 
-/* Sottotitolo leggermente animato */
-.subtitle {
-  font-size: 1rem;
-  color: #fffa;
-  font-weight: 200;
+/* Sottotitolo discreto */
+.radio-title .title-sub {
+  font-size: 1.5rem; /* più piccolo rispetto al titolo */
+  color: #ffffffaa; /* bianco semi-trasparente */
+  font-weight: 400;
   font-style: italic;
-  letter-spacing: 1.5px;
-  margin-top: 0.5em;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-  animation: subtitleGlow 3s infinite alternate;
+  letter-spacing: 1px;
+  margin-top: 0.3em;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  animation: none; /* niente animazione per il sottotitolo */
 }
 
 /* Animazione neon del titolo */
 @keyframes neonGlow {
   0% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
   }
   50% {
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 60px #ff0000;
+    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000;
   }
   100% {
-    text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
   }
-}
-
-/* Animazione sottotitolo */
-@keyframes subtitleGlow {
-  0% { text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
-  50% { text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7); }
-  100% { text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 }
 
 
