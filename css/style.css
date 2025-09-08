@@ -257,48 +257,69 @@ a, a:hover {
 }
 
 
-/* Sezione "About Us" migliorata */
+/* Sezione ABOUT US */
 .fh5co-about-us {
-  position: relative;
-  color: #fff;
-  padding: 20px 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  text-align: center;
-}
-
-.fh5co-about-us {
-  background-image: url('../images/sfondodef.JPG');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   color: #fff;
   padding: 60px 0;
   text-align: center;
+  background-image: url('../images/sfondodef.JPG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 .fh5co-about-us::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #95171700; /* overlay scuro */
+  background-color: rgba(0,0,0,0.4); /* overlay più scuro per contrasto */
   z-index: 1;
 }
 
+/* Titolo ABOUT US */
+.titleabout {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ff00de; /* colore neon simile al titolo radio */
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 2; /* sopra l’overlay */
+}
 
-/* Contenitore principale del contenuto About */
+/* Box contenuto ABOUT US */
 .about-content {
   position: relative;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.6); /* più opacità per migliorare leggibilità */
-  padding: 40px 30px;
-  border-left: 6px solid #ff8013;
-  border-radius: 10px;
+  z-index: 2; /* sopra overlay */
+  background: linear-gradient(135deg, rgba(26,42,108,0.9), rgba(178,31,31,0.9));
+  color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
   max-width: 1000px;
   margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
+
+.about-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+} 
+
+* Testo ABOUT US */
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Pulsante */
+.about-link {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
 .parallax-separator {
     pointer-events: none; 
     }
@@ -941,4 +962,5 @@ iframe {
 
 .contact-box .btn:hover {
   background-color: #cc5200; /* arancione più scuro al passaggio */
-}
+} 
+
