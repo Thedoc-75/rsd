@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>News Ticker - Stile BBC Widget</title>
+<title>BBC News Ticker</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
@@ -14,13 +14,13 @@
 
   .ticker-box {
     max-width: 500px;
-    border: 2px solid #ff0000;
+    border: 2px solid #bb1919; /* colore rosso BBC */
     background: #111;
     overflow: hidden;
     border-radius: 6px;
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; margin: 20px auto;
   }
 
   .ticker-header {
@@ -28,9 +28,15 @@
     font-weight: bold;
     margin-bottom: 5px;
     border-bottom: 1px solid #444;
-    padding-bottom: 5px;
+    padding-bottom: 5px; display: flex;
+    align-items: center;
   }
-  
+
+  .ticker-logo {
+    height: 25px;
+    margin-right: 8px;
+  }
+
   .ticker-item {
     display: none;
     animation: fadeIn 0.6s ease-in-out;
@@ -54,15 +60,15 @@
     flex: 1;
   }
 
-  .ticker-content div.title {
+  .ticker-content .title {
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 3px;
+    margin-bottom: 3px; color: #fff;
   }
 
   .ticker-desc {
     font-size: 12px;
-    color: #ccc;
+    color: #ccc; 
     margin: 3px 0;
   }
 
@@ -75,7 +81,8 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-/* Mobile */
+
+  /* Mobile */
   @media (max-width: 600px) {
     .ticker-item {
       flex-direction: column;
@@ -85,7 +92,7 @@
       height: auto;
       margin-bottom: 5px;
     }
-  .ticker-content {
+    .ticker-content {
       padding: 5px 0;
     }
   }
@@ -94,14 +101,17 @@
 <body>
 
 <div class="ticker-box">
-  <div class="ticker-header">CNN News</div>
+  <div class="ticker-header">
+    <img src="images/BBC.jpg" alt="BBC Logo" class="ticker-logo">
+    BBC News
+  </div>
   <div id="ticker-container">
     <div class="ticker-item active">Caricamento notizie...</div>
   </div>
 </div>
 
 <script>
-  const rssUrl = 'http://rss.cnn.com/rss/edition_world.rss';
+  const rssUrl = 'http://feeds.bbci.co.uk/news/world/rss.xml';
   const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
 
   let currentIndex = 0;
@@ -146,7 +156,7 @@
 
         document.getElementById('ticker-container').innerHTML = items.join('');
         showItem(0);
-        setInterval(nextItem, 5000);
+        setInterval(nextItem, 6000); // cambia ogni 6 secondi
       } else {
         document.getElementById('ticker-container').innerHTML =
           "<div class='ticker-item active'>Nessuna notizia trovata.</div>";
@@ -169,4 +179,6 @@
     showItem(currentIndex);
   }
 </script>
-</body> </html>
+
+</body>
+</html>
