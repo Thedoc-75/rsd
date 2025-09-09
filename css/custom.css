@@ -1,0 +1,62 @@
+/* ============================
+   Personalizzazioni Radio Studio Doc
+   ============================ */
+
+/* 1. Contenitore principale più ampio */
+body .container {
+  max-width: 1600px;   /* allarga oltre i 1140px di Bootstrap */
+  width: 95%;          /* occupa quasi tutta la larghezza */
+  margin: 0 auto;      /* centrato */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* 2. Versione fluida */
+body .container-fluid {
+  width: 95%;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* 3. Row senza margini negativi */
+body .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* 4. Colonne con più respiro */
+body [class*="col-"] {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* 5. Player/banner centrale */
+.fh5co-banner-text-box {
+  max-width: 1600px;
+  width: 95%;
+  margin: 0 auto;
+  padding: 20px 30px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* 6. Miglioramento desktop largo */
+@media (min-width: 1200px) {
+  body .container,
+  body .container-fluid {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 2000px) {
+  body .container,
+  body .container-fluid {
+    max-width: 1800px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
