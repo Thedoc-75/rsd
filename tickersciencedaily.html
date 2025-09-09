@@ -12,7 +12,8 @@
   }
 
   .ticker-box {
-    max-width: none;
+    max-width: 500px;
+    max-height: 120px;
     border: 2px solid #ff0000;
     background: #111;
     overflow: hidden;
@@ -57,6 +58,13 @@
     border-radius: 4px;
     margin-right: 10px;
   }
+  .ticker-content .ticker-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* max 2 righe */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
   .ticker-content {
     flex: 1;
@@ -107,7 +115,7 @@
 <div class="ticker-box">
   <div class="ticker-header">
     <img src="images/sciencedaily.jpg" alt="Logo" class="ticker-logo">
-    Health Medicine News
+    HEALTH MEDICINE NEWS
   </div>
   <div id="ticker-container">
     <div class="ticker-item active">Caricamento notizie...</div>
