@@ -30,10 +30,11 @@
     border-bottom: 1px solid #444;
     padding-bottom: 5px;
   }
-
+  
   .ticker-item {
     display: none;
-    animation: fadeIn 0.6s ease-in-out;
+    animation: fadeIn 0.6s ease-in-out; cursor: pointer;
+    padding: 5px 0;
   }
 
   .ticker-item.active {
@@ -54,15 +55,10 @@
     flex: 1;
   }
 
-  .ticker-content a {
-    color: #fff;
+  .ticker-content div.title {
     font-weight: bold;
     font-size: 14px;
-    text-decoration: none;
-  }
-
-  .ticker-content a:hover {
-    text-decoration: underline;
+    margin-bottom: 3px;
   }
 
   .ticker-desc {
@@ -80,7 +76,7 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-
+/* Mobile */
   @media (max-width: 600px) {
     .ticker-item {
       flex-direction: column;
@@ -90,7 +86,7 @@
       height: auto;
       margin-bottom: 5px;
     }
-    .ticker-content {
+  .ticker-content {
       padding: 5px 0;
     }
   }
@@ -131,17 +127,17 @@
           });
 
           const description = item.description
-            .replace(/<img.*?>/g, '') // rimuove immagini
-            .replace(/<\/?[^>]+(>|$)/g, '') // rimuove HTML
+            .replace(/<img.*?>/g, '')
+            .replace(/<\/?[^>]+(>|$)/g, '')
             .split(' ')
             .slice(0, 15)
             .join(' ') + '...';
 
           return `
-            <div class="ticker-item">
+            <div class="ticker-item" onclick="window.open('${item.link}', '_blank')">
               ${imgUrl ? `<img src="${imgUrl}" alt="">` : ''}
               <div class="ticker-content">
-                <a href="${item.link}" target="_blank">${item.title}</a>
+                <div class="title">${item.title}</div>
                 <div class="ticker-desc">${description}</div>
                 <div class="ticker-meta">${pubDate} | ${new URL(item.link).hostname}</div>
               </div>
@@ -151,7 +147,7 @@
 
         document.getElementById('ticker-container').innerHTML = items.join('');
         showItem(0);
-        setInterval(nextItem, 5000); // cambia ogni 5 secondi
+        setInterval(nextItem, 5000);
       } else {
         document.getElementById('ticker-container').innerHTML =
           "<div class='ticker-item active'>Nessuna notizia trovata.</div>";
@@ -174,8 +170,4 @@
     showItem(currentIndex);
   }
 </script>
-
-</body>
-</html>
-
-
+</body> </html>
