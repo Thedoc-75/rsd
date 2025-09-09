@@ -4,10 +4,10 @@
 
 /* 1. Contenitore principale più ampio */
 body .container {
-  max-width: 2500px;   /* allarga oltre i 1140px di Bootstrap */
-  width: 95%;          /* occupa quasi tutta la larghezza */
-  margin: 0 auto;      /* centrato */
-  padding-left: 20px;
+  max-width: 2000px;   
+  width: 95%;          
+  margin: 0 auto;      
+  padding-left: 20px;  /* mobile base */
   padding-right: 20px;
 }
 
@@ -15,8 +15,8 @@ body .container {
 body .container-fluid {
   width: 95%;
   margin: 0 auto;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* 3. Row senza margini negativi */
@@ -27,8 +27,8 @@ body .row {
 
 /* 4. Colonne con più respiro */
 body [class*="col-"] {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* 5. Player/banner centrale */
@@ -43,20 +43,32 @@ body [class*="col-"] {
   text-align: center;
 }
 
-/* 6. Miglioramento desktop largo */
-@media (min-width: 1200px) {
+/* ==========================
+   Padding responsive
+=========================== */
+
+/* Tablet e desktop piccolo */
+@media (min-width: 768px) {
   body .container,
   body .container-fluid {
     padding-left: 40px;
     padding-right: 40px;
   }
 }
-
+/* Desktop medio -->
+@media (min-width: 1200px) {
+  body .container,
+  body .container-fluid {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+  /* Ultra-wide >2000px */
 @media (min-width: 2000px) {
   body .container,
   body .container-fluid {
     max-width: 2500px;
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 120px;
+    padding-right: 120px;
   }
 }
