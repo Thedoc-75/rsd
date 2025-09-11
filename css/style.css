@@ -308,7 +308,9 @@ a, a:hover {
 } 
 
 * Testo ABOUT US */
-.about-text {
+.about-text { text-align: justify;
+  line-height: 1.6; /* migliora la leggibilità */
+  margin-bottom: 1rem;
   font-size: 1.1rem;
   line-height: 1.6;
 }
