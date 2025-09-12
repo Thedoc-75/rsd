@@ -61,13 +61,15 @@
   }
   .ticker-content .ticker-desc {
   display: -webkit-box;
-  -webkit-line-clamp: 2;  /* max 2 righe */
+  -webkit-line-clamp: 2;      /* max 2 righe (Chrome, Safari, Edge) */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-}
+  text-overflow: ellipsis;/* fallback per Firefox e altri */
+  line-height: 1.4em;         /* altezza riga */
+  max-height: calc(1.4em * 2); /* max 2 righe */
+  }
 
-  .ticker-content {
+.ticker-content {
     flex: 1;
   }
 
