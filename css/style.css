@@ -181,7 +181,7 @@ a, a:hover {
 /* Sottotitolo discreto */
 .radio-title .title-sub {
   font-size: 1.5rem; /* più piccolo rispetto al titolo */
-  color: #ffffffaa; /* bianco semi-trasparente */
+  color: #ffffff; /* bianco semi-trasparente */
   font-weight: 400;
   font-style: italic;
   letter-spacing: 1px;
