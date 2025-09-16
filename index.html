@@ -470,29 +470,47 @@ allowtransparency="true">
 
 	<div class="parallax-separator"></div>  
 	
-	<!-- GALLERY -->
+<!-- GALLERY -->
 <section id="gallery" class="container-fluid mt-5 pt-5 pb-5 bg-gallery">
   <div class="container-fluid p-0">
-    <h2 class="text-center mb-5 font-weight-bold text-white wow fadeInUp">NEW SELF-UPDATING POADCASTS</h2>
+    <h2 class="text-center mb-5 font-weight-bold text-white wow fadeInUp">
+      NEW SELF-UPDATING PODCASTS
+    </h2>
 
     <!-- Immagine iniziale -->
     <div class="card border-0 d-flex align-items-center justify-content-center" style="height:300px;">
-  <img src="images/poadcast.jpg" 
-       class="card-img-top" 
-       alt="Podcast" 
-       style="max-height:300px; width:auto; object-fit:contain;">
-</div>
-
+      <img src="images/poadcast.jpg" 
+           class="card-img-top" 
+           alt="Podcast" 
+           style="max-height:300px; width:auto; object-fit:contain;">
+    </div>
 
     <!-- Carosello Podcast -->
-<!-- Carosello Podcast -->
-<div style="width:100%; height:500px; overflow:hidden;">
-  <iframe src="poadcast.html" width="100%" height="100%" 
-          style="border:none; overflow:hidden;" scrolling="no"></iframe>
-</div>
-</div>
+    <div class="podcast-wrapper">
+      <iframe src="poadcast.html" class="podcast-frame" scrolling="no"></iframe>
+    </div>
+  </div>
+
   <div class="parallax-separator"></div>
-</section>
+</section> 
+<style>
+/* Wrapper che mantiene il rapporto */
+.podcast-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 70%; /* Altezza dinamica, puoi variare (70% ≈ 16:9, 100% = quadrato) */
+  overflow: hidden;
+}
+
+.podcast-frame {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
+
 
       
       
