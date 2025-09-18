@@ -90,6 +90,24 @@
         flex: 0 0 100%;
         max-width: 100%;
       }
+    } 
+    /* Frecce di navigazione */
+    .controls {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .controls button {
+      background: #ff8013;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      padding: 10px 15px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      background: #e36f10;
     }
   </style>
 </head>
@@ -102,7 +120,11 @@
       <div class="carousel-container">
         <div class="carousel-track" id="podcast-track"></div>
       </div>
-    </div>
+      <div class="controls"> 
+        <button id="prev">&#10094;</button>
+        <button id="next">&#10095;</button>
+      </div>
+     </div>
   </section>
 
   <script>
@@ -135,9 +157,13 @@
       track.style.transform = `translateX(${currentPosition}px)`;
     }
 
-    function sendHeight() {
-      const height = document.documentElement.scrollHeight;
-      window.parent.postMessage({ iframeHeight: height }, "*");
+    function slidePrev(track) {
+      if (currentPosition < 0) {
+        currentPosition += cardWidth;
+      } else {
+        currentPosition = -(cardWidth * (totalCards - visibleCards));
+      }
+      track.style.transform = `translateX(${currentPosition}px)`;
     }
 
     fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
@@ -173,25 +199,18 @@
         });
 
         updateCarouselSettings();
-        window.addEventListener('resize', () => {
-          updateCarouselSettings();
-          sendHeight();
-        });
-
+        window.addEventListener('resize', updateCarouselSettings);
+       // Auto-scroll ogni 8 secondi
         setInterval(() => slideNext(track), 8000);
 
-        // Altezza iniziale
-        sendHeight();
+        // Controlli manuali
+        document.getElementById('next').addEventListener('click', () => slideNext(track));
+        document.getElementById('prev').addEventListener('click', () => slidePrev(track));
       })
       .catch(err => {
         console.error('Errore nel caricamento del feed:', err);
         document.getElementById('podcast-track').innerHTML = '<p>Impossibile caricare il podcast.</p>';
-        sendHeight();
-      });
-
-    window.addEventListener("load", sendHeight);
-    window.addEventListener("resize", sendHeight);
-    setInterval(sendHeight, 2000);
-  </script>
+    });
+</script>
 </body>
 </html>
