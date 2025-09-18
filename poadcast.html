@@ -1,209 +1,197 @@
-<section id="podcast" style="background:#101011; color:#fff; padding:40px;">
-  <div style="max-width:1200px; margin:auto;">
-    <h2 style="color:#ff8013; text-align:center; font-family:'Lato', sans-serif; font-weight:700; margin-bottom:30px;">
-      🎧 - Emergency Medicine Cases - 
-    </h2>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcast</title>
+  <style>
+    body {
+      margin: 0;
+      background: #101011;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+    }
 
-    <!-- Contenitore carosello -->
-    <div class="carousel-container">
-      <button class="carousel-btn prev">&#10094;</button>
-      <div class="carousel-track" id="podcast-track"></div>
-      <button class="carousel-btn next">&#10095;</button>
-    </div>
-  </div>
-</section>
+    h2 {
+      color: #ff8013;
+      text-align: center;
+      font-weight: 700;
+      margin: 30px 0;
+    }
 
-<style>
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-}
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
 
-.carousel-track {
-  display: flex;
-  gap: 20px;
-  transition: transform 0.4s ease;
-}
+    .carousel-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.4s ease;
+    }
 
-.podcast-card {
-  background: #1b1b1d;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  flex: 0 0 300px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+    .podcast-card {
+      background: #1b1b1d;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      flex: 0 0 300px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-.podcast-card-content {
-  padding: 15px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+    .podcast-card-content {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-.podcast-card-content h3 {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
+    .podcast-card-content h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
 
-.podcast-card-content h3 a {
-  color: #ff8013;
-  text-decoration: none;
-}
+    .podcast-card-content h3 a {
+      color: #ff8013;
+      text-decoration: none;
+    }
 
-.podcast-card-content p {
-  color: #ccc;
-  font-size: 0.85em;
-  margin-bottom: 10px;
-}
+    .podcast-card-content p {
+      color: #ccc;
+      font-size: 0.85em;
+      margin-bottom: 10px;
+    }
 
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 50%;
-  z-index: 10;
-}
+    audio {
+      width: 100%;
+    }
 
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; } 
-.carousel-btn {
-  display: none !important;
-}
-
-audio {
-  width: 100%;
-} 
-/* 🔹 Padding + responsive */
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-  padding: 0 20px; /* padding laterale su desktop */
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  .carousel-container {
-    padding: 0 15px; /* meno padding su tablet */
-  }
-  .podcast-card {
-    flex: 0 0 250px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-container {
-    padding: 0 10px; /* padding minimo su smartphone */
-  }
-
-  .carousel-track {
-    gap: 10px; /* riduciamo lo spazio fra card */
-  }
-
-  .podcast-card {
-    flex: 0 0 100%;   /* prende tutta la larghezza disponibile */
-    max-width: 100%;  /* evita che esca fuori */
-  }
-}
-
-</style>
-
-<script>
-const feedUrl = 'https://emergencymedicinecases.com/feed/';
-
-let currentPosition = 0;
-let cardWidth = 320; // default desktop
-let totalCards = 0;
-let visibleCards = 3; // default desktop
-
-// Funzione che aggiorna i parametri in base alla larghezza dello schermo
-function updateCarouselSettings() {
-  if (window.innerWidth <= 480) {
-    cardWidth = document.querySelector('.podcast-card')?.offsetWidth || 300;
-    visibleCards = 1;
-  } else if (window.innerWidth <= 768) {
-    cardWidth = document.querySelector('.podcast-card')?.offsetWidth || 250;
-    visibleCards = 2;
-  } else {
-    cardWidth = 320;
-    visibleCards = 3;
-  }
-}
-
-// Scorrimento avanti
-function slideNext(track) {
-  if (currentPosition > -(cardWidth * (totalCards - visibleCards))) {
-    currentPosition -= cardWidth;
-  } else {
-    currentPosition = 0;
-  }
-  track.style.transform = `translateX(${currentPosition}px)`;
-}
-
-// Scorrimento indietro
-function slidePrev(track) {
-  if (currentPosition < 0) {
-    currentPosition += cardWidth;
-  } else {
-    currentPosition = -(cardWidth * (totalCards - visibleCards));
-  }
-  track.style.transform = `translateX(${currentPosition}px)`;
-}
-
-fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
-  .then(res => res.json())
-  .then(data => {
-    const track = document.getElementById('podcast-track');
-    totalCards = data.items.length;
-
-    data.items.forEach(item => {
-      const card = document.createElement('div');
-      card.classList.add('podcast-card');
-
-      const content = document.createElement('div');
-      content.classList.add('podcast-card-content');
-
-      const title = document.createElement('h3');
-      title.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a>`;
-
-      const date = document.createElement('p');
-      date.textContent = new Date(item.pubDate).toLocaleDateString('it-IT');
-
-      const audio = document.createElement('audio');
-      if (item.enclosure && item.enclosure.link && item.enclosure.type.includes('audio')) {
-        audio.controls = true;
-        audio.src = item.enclosure.link;
+    /* Responsive */
+    @media (max-width: 768px) {
+      .carousel-container {
+        padding: 0 15px;
       }
+      .podcast-card {
+        flex: 0 0 250px;
+      }
+    }
 
-      content.appendChild(title);
-      content.appendChild(date);
-      content.appendChild(audio);
+    @media (max-width: 480px) {
+      .carousel-container {
+        padding: 0 10px;
+      }
+      .carousel-track {
+        gap: 10px;
+      }
+      .podcast-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
 
-      card.appendChild(content);
-      track.appendChild(card);
-    });
+  <section id="podcast">
+    <div style="max-width:1200px; margin:auto;">
+      <h2>🎧 - Emergency Medicine Cases -</h2>
 
-    // Imposta i parametri iniziali in base allo schermo
-    updateCarouselSettings();
+      <div class="carousel-container">
+        <div class="carousel-track" id="podcast-track"></div>
+      </div>
+    </div>
+  </section>
 
-    // Ricalcola quando la finestra viene ridimensionata
-    window.addEventListener('resize', updateCarouselSettings);
+  <script>
+    const feedUrl = 'https://emergencymedicinecases.com/feed/';
 
-    // Eventi per le frecce (anche se ora sono nascoste)
-    document.querySelector('.carousel-btn.next')?.addEventListener('click', () => slideNext(track));
-    document.querySelector('.carousel-btn.prev')?.addEventListener('click', () => slidePrev(track));
-// Scorrimento automatico
-    setInterval(() => slideNext(track), 8000);
-  })
-  .catch(err => {
-    console.error('Errore nel caricamento del feed:', err);
-    document.getElementById('podcast-track').innerHTML = '<p>Impossibile caricare il podcast.</p>';
-  });
-</script>
+    let currentPosition = 0;
+    let cardWidth = 320;
+    let totalCards = 0;
+    let visibleCards = 3;
+
+    function updateCarouselSettings() {
+      if (window.innerWidth <= 480) {
+        cardWidth = document.querySelector('.podcast-card')?.offsetWidth || 300;
+        visibleCards = 1;
+      } else if (window.innerWidth <= 768) {
+        cardWidth = document.querySelector('.podcast-card')?.offsetWidth || 250;
+        visibleCards = 2;
+      } else {
+        cardWidth = 320;
+        visibleCards = 3;
+      }
+    }
+
+    function slideNext(track) {
+      if (currentPosition > -(cardWidth * (totalCards - visibleCards))) {
+        currentPosition -= cardWidth;
+      } else {
+        currentPosition = 0;
+      }
+      track.style.transform = `translateX(${currentPosition}px)`;
+    }
+
+    function sendHeight() {
+      const height = document.documentElement.scrollHeight;
+      window.parent.postMessage({ iframeHeight: height }, "*");
+    }
+
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`)
+      .then(res => res.json())
+      .then(data => {
+        const track = document.getElementById('podcast-track');
+        totalCards = data.items.length;
+
+        data.items.forEach(item => {
+          const card = document.createElement('div');
+          card.classList.add('podcast-card');
+
+          const content = document.createElement('div');
+          content.classList.add('podcast-card-content');
+
+          const title = document.createElement('h3');
+          title.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a>`;
+
+          const date = document.createElement('p');
+          date.textContent = new Date(item.pubDate).toLocaleDateString('it-IT');
+
+          const audio = document.createElement('audio');
+          if (item.enclosure && item.enclosure.link && item.enclosure.type.includes('audio')) {
+            audio.controls = true;
+            audio.src = item.enclosure.link;
+          }
+
+          content.appendChild(title);
+          content.appendChild(date);
+          content.appendChild(audio);
+          card.appendChild(content);
+          track.appendChild(card);
+        });
+
+        updateCarouselSettings();
+        window.addEventListener('resize', () => {
+          updateCarouselSettings();
+          sendHeight();
+        });
+
+        setInterval(() => slideNext(track), 8000);
+
+        // Altezza iniziale
+        sendHeight();
+      })
+      .catch(err => {
+        console.error('Errore nel caricamento del feed:', err);
+        document.getElementById('podcast-track').innerHTML = '<p>Impossibile caricare il podcast.</p>';
+        sendHeight();
+      });
+
+    window.addEventListener("load", sendHeight);
+    window.addEventListener("resize", sendHeight);
+    setInterval(sendHeight, 2000);
+  </script>
+</body>
+</html>
